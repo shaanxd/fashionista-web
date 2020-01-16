@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import background from '../../static/img/signin-background.jpg';
 import { Icomoon } from '../../components';
 
 import styles from './Signin.module.css';
@@ -41,7 +42,7 @@ const Signin = props => {
           return (
             <Form className={styles.login__form}>
               <span className={styles.form__header}>
-                Hello there, let's login!
+                Welcome back!, let's get you logged in!
               </span>
 
               <Field
@@ -93,6 +94,7 @@ const Signin = props => {
           );
         }}
       </Formik>
+      <img src={background} className={styles.image} alt="background" />
     </div>
   );
 };
