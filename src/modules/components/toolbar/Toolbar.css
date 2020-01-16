@@ -6,6 +6,7 @@
   top: 0;
   z-index: 10;
   box-shadow: 0 0 20px #f3f1f1;
+  background-color: white;
 }
 
 .toolbar__logo {

@@ -1,0 +1,12 @@
+.main__div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.loading__text {
+  margin-top: 20px;
+  font-size: 1.3rem;
+}

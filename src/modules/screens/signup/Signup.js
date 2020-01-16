@@ -2,7 +2,6 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import background from '../../static/img/signup-background.jpg';
 import { Icomoon } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 
