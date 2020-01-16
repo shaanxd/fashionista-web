@@ -1,0 +1,102 @@
+.toolbar {
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  border-bottom: solid 1px #e8e8e8;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 0 20px #f3f1f1;
+}
+
+.toolbar__logo {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  position: absolute;
+  height: 80px;
+  top: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  z-index: 5;
+}
+
+.toolbar__navigation {
+  display: flex;
+  height: 100%;
+}
+
+.toolbar__logo span {
+  text-decoration: none;
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar__navigation-items {
+  display: flex;
+  z-index: 20;
+}
+
+.toolbar__navigation-link {
+  text-decoration: none;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.toolbar__navigation-items li {
+  display: flex;
+}
+
+.toolbar__navigation-items ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toolbar__navigation-link:hover,
+.toolbar__navigation-link:active {
+  border-bottom: 3px solid rgb(231, 8, 135);
+}
+
+.active {
+  border-bottom: 3px solid rgb(231, 8, 135);
+}
+
+.toolbar__toggle-button {
+  z-index: 15;
+}
+
+.toolbar__logo-light {
+  font-family: inherit;
+  font-weight: 300;
+}
+
+.toolbar__logo-dark {
+  font-family: inherit;
+  font-weight: 1000;
+}
+
+@media (max-width: 768px) {
+  .toolbar__navigation-items {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .toolbar__toggle-button {
+    display: none;
+  }
+}
