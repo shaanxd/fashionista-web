@@ -65,8 +65,8 @@ const Toolbar = props => {
         </div>
         <div className="toolbar__logo">
           <span onClick={handleHomeClick}>
-            <span className="toolbar__logo-light">FASHION</span>
-            <span className="toolbar__logo-dark">ISTA</span>
+            <span className="toolbar__logo-dark">Fashion</span>
+            <span className="toolbar__logo-light">ista</span>
           </span>
         </div>
         <div className="spacer" />

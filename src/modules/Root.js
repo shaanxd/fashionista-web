@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home, Signin, Signout, Signup } from './screens';
 import { Toolbar, SideDrawer, Backdrop } from './components';
 
+import 'antd/dist/antd.css';
 import styles from './Root.module.css';
 
 const Root = props => {

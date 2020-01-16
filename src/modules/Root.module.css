@@ -3,3 +3,7 @@
   padding-top: 80px;
   box-sizing: border-box;
 }
+
+.main {
+  height: 100%;
+}
