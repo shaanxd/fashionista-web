@@ -16,12 +16,13 @@
 
 .image {
   flex: 1;
-  object-fit: cover;
+  background-image: url('../../static/img/signin-background.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 @media (max-width: 768px) {
-  .login__body {
-    justify-content: center;
+  .main__div {
     padding: 0.5rem;
   }
 }

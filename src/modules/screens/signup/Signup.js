@@ -41,7 +41,7 @@ const Signup = props => {
 
   return (
     <div className={styles.main__div}>
-      <img src={background} className={styles.image} alt="background" />
+      <div className={styles.image} />
       <Formik
         initialValues={{
           firstname: '',

@@ -94,7 +94,7 @@ const Signin = props => {
           );
         }}
       </Formik>
-      <img src={background} className={styles.image} alt="background" />
+      <div className={styles.image} />
     </div>
   );
 };

@@ -16,12 +16,13 @@
 
 .image {
   flex: 1;
-  object-fit: cover;
+  background-image: url('../../static/img/signup-background.jpg');
+  background-size: cover;
+  background-position: left;
 }
 
 @media (max-width: 768px) {
-  .singup__body {
-    justify-content: center;
+  .main__div {
     padding: 0.5rem;
   }
 }
