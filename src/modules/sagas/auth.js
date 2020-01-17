@@ -4,28 +4,50 @@ import Moment from 'moment';
 import {
   AUTH_SUCCESS,
   CHECK_AUTH_TIMEOUT,
-  checkAuthTimeout
+  checkAuthTimeout,
+  CHECK_AUTH_VALID,
+  checkAuthValidSuccess
 } from '../actions/auth';
-import { set } from '../store/storage';
+import { set, retrieve, remove } from '../store/storage';
 
 function* handleAuthSuccess({ type, payload }) {
-  const expiresIn = payload.expirationInSeconds;
-  const expirationDate = Moment()
-    .add(expiresIn, 's')
-    .format();
-  yield set({ ...payload, expirationDate });
-  yield put(checkAuthTimeout(expiresIn));
+  if (payload) {
+    const expiresIn = payload.expirationInSeconds;
+    const expirationDate = Moment()
+      .add(expiresIn, 's')
+      .format();
+    yield set({ ...payload, expirationDate });
+    yield put(checkAuthTimeout(expiresIn * 1000));
+  }
 }
 
 function* handleCheckAuthTimeout({ type, payload }) {
-  yield delay(payload * 1000);
+  yield delay(payload);
   yield console.log('Token has expired');
+}
+
+function* handleCheckAuthValid() {
+  const token = yield retrieve();
+  let userData = null;
+  if (token) {
+    const { expirationDate, ...rest } = token;
+    const expirationMoment = yield Moment(expirationDate);
+    const currentMoment = yield Moment();
+    if (expirationMoment.isBefore(currentMoment)) {
+      yield remove();
+    } else {
+      userData = { ...rest };
+      yield put(checkAuthTimeout(expirationMoment.diff(currentMoment, 'ms')));
+    }
+  }
+  yield put(checkAuthValidSuccess(userData));
 }
 
 function* watchAuthSaga() {
   yield all([
     takeEvery(AUTH_SUCCESS, handleAuthSuccess),
-    takeEvery(CHECK_AUTH_TIMEOUT, handleCheckAuthTimeout)
+    takeEvery(CHECK_AUTH_TIMEOUT, handleCheckAuthTimeout),
+    takeEvery(CHECK_AUTH_VALID, handleCheckAuthValid)
   ]);
 }
 
