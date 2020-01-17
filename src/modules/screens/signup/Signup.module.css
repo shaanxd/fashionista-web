@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.content__div {
+  width: 450px;
+}
+
 .signup__form {
   display: flex;
   flex-direction: column;

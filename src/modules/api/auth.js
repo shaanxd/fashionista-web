@@ -6,6 +6,6 @@ export const postSignin = (email, password) => {
 };
 
 export const postSignup = userData => {
-  const endpoint = 'auth/signup';
+  const endpoint = 'auth/register';
   return POST(endpoint, { ...userData });
 };
