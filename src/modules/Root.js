@@ -29,6 +29,10 @@ const Root = props => {
     return <Loading text="Loading" />;
   };
 
+  const renderLogout = () => {
+    return <Loading text="Logging out" />;
+  };
+
   const renderContent = () => {
     return (
       <div className={styles.root}>
@@ -57,12 +61,17 @@ const Root = props => {
     );
   };
 
-  return props.loading ? renderLoading() : renderContent();
+  return props.loading
+    ? renderLoading()
+    : props.logoutLoading
+    ? renderLogout()
+    : renderContent();
 };
 
 const mapStateToProps = ({ auth }) => {
   return {
-    loading: auth.checkAuthLoading
+    loading: auth.checkAuthLoading,
+    logoutLoading: auth.logoutLoading
   };
 };
 

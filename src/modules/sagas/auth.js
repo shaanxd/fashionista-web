@@ -6,7 +6,10 @@ import {
   CHECK_AUTH_TIMEOUT,
   checkAuthTimeout,
   CHECK_AUTH_VALID,
-  checkAuthValidSuccess
+  checkAuthValidSuccess,
+  LOGOUT_USER,
+  logoutSuccess,
+  logoutUser
 } from '../actions/auth';
 import { set, retrieve, remove } from '../store/storage';
 
@@ -23,7 +26,7 @@ function* handleAuthSuccess({ type, payload }) {
 
 function* handleCheckAuthTimeout({ type, payload }) {
   yield delay(payload);
-  yield console.log('Token has expired');
+  yield put(logoutUser());
 }
 
 function* handleCheckAuthValid() {
@@ -43,11 +46,18 @@ function* handleCheckAuthValid() {
   yield put(checkAuthValidSuccess(userData));
 }
 
+function* handleLogout() {
+  yield remove();
+  yield delay(1000);
+  yield put(logoutSuccess());
+}
+
 function* watchAuthSaga() {
   yield all([
     takeEvery(AUTH_SUCCESS, handleAuthSuccess),
     takeEvery(CHECK_AUTH_TIMEOUT, handleCheckAuthTimeout),
-    takeEvery(CHECK_AUTH_VALID, handleCheckAuthValid)
+    takeEvery(CHECK_AUTH_VALID, handleCheckAuthValid),
+    takeEvery(LOGOUT_USER, handleLogout)
   ]);
 }
 

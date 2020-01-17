@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { DrawerToggleButton } from '../';
 
 import './Toolbar.css';
+import { logoutUser } from '../../actions/auth';
 
 const Toolbar = props => {
   const { auth } = props;
@@ -22,7 +23,7 @@ const Toolbar = props => {
   };
 
   const handleLogoutClick = () => {
-    // handle logout
+    props.logout();
   };
 
   const renderUnauthRoutes = () => {
@@ -94,7 +95,11 @@ const mapStateToProps = ({ auth: { auth } }) => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    logout: () => {
+      dispatch(logoutUser());
+    }
+  };
 };
 
 export default withRouter(
