@@ -7,7 +7,7 @@ import { DrawerToggleButton } from '../';
 import './Toolbar.css';
 
 const Toolbar = props => {
-  const { authDetails } = props.auth;
+  const { auth } = props;
 
   const handleLoginClick = () => {
     props.history.push('/signin');
@@ -19,6 +19,10 @@ const Toolbar = props => {
 
   const handleHomeClick = () => {
     props.history.push('/');
+  };
+
+  const handleLogoutClick = () => {
+    // handle logout
   };
 
   const renderUnauthRoutes = () => {
@@ -52,11 +56,18 @@ const Toolbar = props => {
     );
   };
 
-  const renderAuthRoutes = () => <ul></ul>;
+  const renderAuthRoutes = () => (
+    <ul>
+      <li>
+        <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
+          Signout
+        </span>
+      </li>
+    </ul>
+  );
 
-  const navigationRoutes = authDetails
-    ? renderAuthRoutes()
-    : renderUnauthRoutes();
+  const navigationRoutes = auth ? renderAuthRoutes() : renderUnauthRoutes();
+
   return (
     <header className="toolbar">
       <nav className="toolbar__navigation">
@@ -76,9 +87,9 @@ const Toolbar = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ auth: { auth } }) => {
   return {
-    auth: state.auth
+    auth
   };
 };
 
