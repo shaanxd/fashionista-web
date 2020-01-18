@@ -18,7 +18,7 @@ export const GET = (endpoint, authorization = null) => {
       });
       const data = await response.json();
       if (response.status >= 400) {
-        reject(new Error(data));
+        reject(data);
       }
       resolve(data);
     } catch (err) {

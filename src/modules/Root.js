@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Home, Signin, Signout, Signup } from './screens';
+import { Home, Signin, Signout, Signup, Product } from './screens';
 import { Toolbar, SideDrawer, Backdrop, Loading } from './components';
 
 import 'antd/dist/antd.css';
@@ -53,6 +53,9 @@ const Root = props => {
               </Route>
               <Route exact path="/signout">
                 <Signout />
+              </Route>
+              <Route exact path="/product/:id">
+                <Product />
               </Route>
             </Switch>
           </main>

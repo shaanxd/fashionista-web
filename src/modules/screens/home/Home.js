@@ -93,7 +93,7 @@ const Home = props => {
           <List.Item
             style={{ padding: '10px' }}
             onClick={() => {
-              console.log(item.id);
+              props.history.push(`/product/${item.id}`);
             }}
           >
             <List.Item.Meta
