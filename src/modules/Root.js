@@ -2,8 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Home, Signin, Signout, Signup, Product } from './screens';
-import { Toolbar, SideDrawer, Backdrop, Loading } from './components';
+import {
+  Home,
+  Signin,
+  Signout,
+  Signup,
+  Product,
+  AddTag,
+  AddProduct
+} from './screens';
+import {
+  Toolbar,
+  SideDrawer,
+  Backdrop,
+  Loading,
+  AdminRoute
+} from './components';
 import { checkAuthValid } from './actions/auth';
 
 import 'slick-carousel/slick/slick.css';
@@ -58,6 +72,12 @@ const Root = props => {
               </Route>
               <Route exact path="/product/:id">
                 <Product />
+              </Route>
+              <Route exact path="/add-tag">
+                <AdminRoute component={AddTag} />
+              </Route>
+              <Route exact path="/add-product">
+                <AdminRoute component={AddProduct} />
               </Route>
             </Switch>
           </main>

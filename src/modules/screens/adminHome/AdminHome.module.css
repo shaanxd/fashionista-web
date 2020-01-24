@@ -1,0 +1,38 @@
+.main__div {
+  height: 100%;
+  overflow: auto;
+}
+
+.navigation__div {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.btn__div {
+  padding: 3px;
+}
+
+.search__input {
+  flex: 1;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 1px solid rgb(231, 8, 135);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-right: 20px;
+}
+
+.navigation__btn {
+  background-color: rgb(231, 8, 135);
+  border: none;
+  margin-right: 3px;
+  color: white;
+  font-family: inherit;
+  font-weight: 700;
+  height: 100%;
+  font-size: 1.3rem;
+  padding: 10px 20px;
+  min-width: 200px;
+}

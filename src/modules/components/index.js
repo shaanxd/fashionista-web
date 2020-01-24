@@ -4,3 +4,4 @@ export { default as SideDrawer } from './sideDrawer/SideDrawer';
 export { default as Toolbar } from './toolbar/Toolbar';
 export { default as Icomoon } from './icomoon/Icomoon';
 export { default as Loading } from './loading/Loading';
+export { default as AdminRoute } from './adminRoute/AdminRoute';
