@@ -91,7 +91,7 @@ const Home = props => {
         style={{ padding: '5px' }}
         renderItem={item => (
           <List.Item
-            style={{ padding: '10px' }}
+            style={{ padding: '10px', cursor: 'pointer' }}
             onClick={() => {
               props.history.push(`/product/${item.id}`);
             }}

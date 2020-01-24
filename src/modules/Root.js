@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Home, Signin, Signout, Signup, Product } from './screens';
 import { Toolbar, SideDrawer, Backdrop, Loading } from './components';
+import { checkAuthValid } from './actions/auth';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import 'antd/dist/antd.css';
 import styles from './Root.module.css';
-import { checkAuthValid } from './actions/auth';
-import { connect } from 'react-redux';
 
 const Root = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
