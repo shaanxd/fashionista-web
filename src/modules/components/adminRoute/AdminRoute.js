@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { ROLES } from '../../constants/roles';
+import { ROLES } from '../../constants/types';
 
 const AdminRoute = props => {
   const { auth, component: Component, ...rest } = props;

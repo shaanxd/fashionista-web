@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Home from '../home/Home';
 import AdminHome from '../adminHome/AdminHome';
-import { ROLES } from '../../constants/roles';
+import { ROLES } from '../../constants/types';
 
 const AuthHome = props => {
   return props.auth && props.auth.role === ROLES.ROLE_ADMIN ? (
