@@ -139,7 +139,7 @@ const AddProduct = props => {
             className={styles.delete__btn}
             onClick={() => removeImage(index)}
           >
-            <Icomoon icon="cross" color="#FFFFFF" size={30} />
+            <Icomoon icon="bin" color="#FFFFFF" size={20} />
           </button>
         </div>
       );
@@ -233,12 +233,8 @@ const AddProduct = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
-                <div {...getThumbRootProps({ className: styles.dropzone })}>
-                  <input {...getThumbInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-                </div>
-                {thumbnail && (
-                  <div className={styles.file__div}>
+                {thumbnail ? (
+                  <div className={styles.thumbnail__div}>
                     <img
                       src={thumbnailPreview}
                       className={styles.image}
@@ -246,11 +242,18 @@ const AddProduct = props => {
                     />
                     <button
                       type="button"
-                      className={styles.remove__btn}
+                      className={styles.delete__btn}
                       onClick={handleOnRemove}
                     >
-                      <Icomoon icon="bin" color="#8D021F" size={20} />
+                      <Icomoon icon="bin" color="#FFFFFF" size={30} />
                     </button>
+                  </div>
+                ) : (
+                  <div {...getThumbRootProps({ className: styles.dropzone })}>
+                    <input {...getThumbInputProps()} />
+                    <p className={styles.dropzone__text}>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
                   </div>
                 )}
                 {thumbnailError && (
@@ -258,7 +261,9 @@ const AddProduct = props => {
                 )}
                 <div {...getImagesRootProps({ className: styles.dropzone })}>
                   <input {...getImagesInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
+                  <p className={styles.dropzone__text}>
+                    Drag 'n' drop some files here, or click to select files
+                  </p>
                 </div>
 
                 {images.length > 0 && renderImageList()}
