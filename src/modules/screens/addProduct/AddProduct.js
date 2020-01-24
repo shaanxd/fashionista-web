@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Icomoon, Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-import { TAGS } from '../../constants/types';
 
 import styles from './AddProduct.module.css';
+import { searchProductTags } from '../../api/product';
+import { createProduct } from '../../api/admin';
 
 const AddProduct = props => {
   const [state, setState] = useMergedState({
@@ -32,6 +33,7 @@ const AddProduct = props => {
     thumbnailPreview,
 
     images,
+    imagesError,
 
     productLoading,
     productError,
@@ -56,11 +58,30 @@ const AddProduct = props => {
     setState({ thumbnail: null, thumbnailPreview: null });
   };
 
-  const handleOnSubmit = async ({ type, ...values }) => {
-    if (thumbnail) {
-      // submit
+  const handleOnSubmit = async ({ tags, ...values }) => {
+    if (!thumbnail) {
+      setState({ thumbnailError: 'Please pick a thumbnail image.' });
+    } else if (images.length < 2) {
+      setState({ imagesError: 'Please upload atleast 2 product images.' });
     } else {
-      setState({ thumbnailError: 'Please pick a tag image.' });
+      try {
+        setState({ productLoading: true, productError: null });
+        const productTags = tags.map(tag => tag.value);
+        const productImages = images.map(image => image.file);
+        const productData = {
+          ...values,
+          thumbnail,
+          images: productImages,
+          tags: productTags
+        };
+        await createProduct(productData, props.token);
+        setState({ productLoading: false, productSuccess: true });
+        setTimeout(() => {
+          props.history.push('/');
+        }, 2000);
+      } catch (err) {
+        setState({ productLoading: false, productError: err.message });
+      }
     }
   };
 
@@ -114,12 +135,26 @@ const AddProduct = props => {
     setState({ images: [...updated] });
   };
 
+  const loadOptions = async inputValue => {
+    try {
+      const result = await searchProductTags(inputValue);
+      return result.map(({ id, name }) => {
+        return {
+          value: id,
+          label: name
+        };
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const renderSuccess = () => {
     return (
       <div className={styles.success__div}>
         <Icomoon icon="checkmark" color="#50C878" size={50} />
         <span className={styles.success__msg}>
-          Product Addedd Successfully! Redirecting.
+          Product Added Successfully! Redirecting.
         </span>
       </div>
     );
@@ -169,10 +204,14 @@ const AddProduct = props => {
             name: Yup.string().required('Product name is required'),
             description: Yup.string().required(
               'Product description is required'
+            ),
+            tags: Yup.array().min(
+              2,
+              'Product should belong to atleast two tags.'
             )
           })}
         >
-          {({ values, setFieldValue, setFieldTouched }) => {
+          {({ setFieldValue, setFieldTouched }) => {
             return productLoading ? (
               renderLoading()
             ) : productSuccess ? (
@@ -180,19 +219,19 @@ const AddProduct = props => {
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Product</span>
-                <Select
+                <AsyncSelect
+                  isMulti
+                  cacheOptions
                   isClearable
-                  options={TAGS}
-                  value={values.type}
-                  onChange={option => {
-                    setFieldValue('type', option);
+                  loadOptions={loadOptions}
+                  onChange={values => {
+                    setFieldValue('tags', values);
                   }}
                   onBlur={() => {
-                    setFieldTouched('type');
+                    setFieldTouched('tags');
                   }}
-                  placeholder="Select type"
                 />
-                <ErrorMessage name="type">
+                <ErrorMessage name="tags">
                   {message => (
                     <label className={styles.form__error}>{message}</label>
                   )}
@@ -265,7 +304,9 @@ const AddProduct = props => {
                     Drag 'n' drop some files here, or click to select files
                   </p>
                 </div>
-
+                {imagesError && (
+                  <label className={styles.form__error}>{imagesError}</label>
+                )}
                 {images.length > 0 && renderImageList()}
                 <button className={styles.submit__btn} type="submit">
                   Create Tag

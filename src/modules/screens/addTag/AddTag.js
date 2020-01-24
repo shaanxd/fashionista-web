@@ -122,7 +122,7 @@ const AddTag = props => {
               renderSuccess()
             ) : (
               <Form className={styles.tag__form}>
-                <span className={styles.form__header}>Create Tag</span>
+                <span className={styles.form__header}>Add Tag</span>
                 <Select
                   isClearable
                   options={TAGS}

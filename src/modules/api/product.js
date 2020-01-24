@@ -9,3 +9,8 @@ export const getProductDetails = id => {
   const endpoint = `products/product/${id}`;
   return GET(endpoint);
 };
+
+export const searchProductTags = string => {
+  const endpoint = `tags/search-tag/${string}`;
+  return GET(endpoint);
+};

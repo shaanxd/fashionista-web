@@ -7,7 +7,6 @@ import { Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
 import { getImageUrl } from '../../utils/productUtils';
-import { Avatar, Rate, Carousel } from 'antd';
 
 import styles from './Product.module.css';
 import './Product.css';

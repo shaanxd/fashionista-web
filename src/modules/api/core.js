@@ -77,7 +77,13 @@ const createFormDataBody = obj => {
   let data = new FormData();
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
-      data.append(key, obj[key]);
+      if (Array.isArray(obj[key])) {
+        obj[key].forEach(element => {
+          data.append(key, element);
+        });
+      } else {
+        data.append(key, obj[key]);
+      }
     }
   }
   return data;
