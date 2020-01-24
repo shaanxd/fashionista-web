@@ -3,12 +3,15 @@ import { useDropzone } from 'react-dropzone';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import * as Yup from 'yup';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { Icomoon, Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
+import { createTag } from '../../api/admin';
+import { TAGS } from '../../constants/types';
 
 import styles from './AddTag.module.css';
-import { TAGS } from '../../constants/types';
 
 const AddTag = props => {
   const [state, setState] = useMergedState({
@@ -17,10 +20,18 @@ const AddTag = props => {
     filePreview: null,
 
     tagLoading: false,
-    tagError: null
+    tagError: null,
+    tagSuccess: false
   });
 
-  const { file, fileError, filePreview, tagLoading, tagError } = state;
+  const {
+    file,
+    fileError,
+    filePreview,
+    tagLoading,
+    tagError,
+    tagSuccess
+  } = state;
 
   useEffect(
     () => () => {
@@ -33,9 +44,23 @@ const AddTag = props => {
     setState({ file: null, filePreview: null });
   };
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = async ({ type, ...values }) => {
     if (file) {
-      // Submit
+      try {
+        const tagData = {
+          ...values,
+          type: type.value,
+          image: file
+        };
+        setState({ tagLoading: true, tagError: null });
+        await createTag(tagData, props.token);
+        setState({ tagLoading: false, tagSuccess: true });
+        setTimeout(() => {
+          props.history.push('/');
+        }, 2000);
+      } catch (err) {
+        setState({ tagLoading: false, tagError: err.message });
+      }
     } else {
       setState({ fileError: 'Please pick a tag image.' });
     }
@@ -61,6 +86,17 @@ const AddTag = props => {
     return <Loading text="Creating Tag" />;
   };
 
+  const renderSuccess = () => {
+    return (
+      <div className={styles.success__div}>
+        <Icomoon icon="checkmark" color="#50C878" size={50} />
+        <span className={styles.success__msg}>
+          Tag created successfully! Redirecting.
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.main__div}>
       <div className={styles.form__div}>
@@ -82,9 +118,11 @@ const AddTag = props => {
           {({ values, setFieldValue, setFieldTouched }) => {
             return tagLoading ? (
               renderLoading()
+            ) : tagSuccess ? (
+              renderSuccess()
             ) : (
               <Form className={styles.tag__form}>
-                <span className={styles.form__header}>Add Tag</span>
+                <span className={styles.form__header}>Create Tag</span>
                 <Select
                   options={TAGS}
                   value={values.type}
@@ -147,6 +185,9 @@ const AddTag = props => {
                 <button className={styles.submit__btn} type="submit">
                   Create Tag
                 </button>
+                {tagError && (
+                  <label className={styles.main__error}>{tagError}</label>
+                )}
               </Form>
             );
           }}
@@ -156,4 +197,14 @@ const AddTag = props => {
   );
 };
 
-export default AddTag;
+const mapStateToProps = ({ auth: { auth } }) => {
+  return {
+    token: auth.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddTag));

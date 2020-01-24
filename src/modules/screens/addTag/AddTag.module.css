@@ -79,3 +79,24 @@
   border: none;
   cursor: pointer;
 }
+
+.main__error {
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+.success__div {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success__msg {
+  margin-top: 10px;
+}
