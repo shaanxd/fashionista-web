@@ -124,6 +124,7 @@ const AddTag = props => {
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Create Tag</span>
                 <Select
+                  isClearable
                   options={TAGS}
                   value={values.type}
                   onChange={option => {

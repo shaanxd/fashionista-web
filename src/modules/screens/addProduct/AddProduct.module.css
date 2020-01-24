@@ -1,0 +1,141 @@
+.main__div {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__input {
+  padding: 10px 15px;
+  margin-top: 10px;
+}
+
+.form__div {
+  padding: 60px 40px;
+  width: 500px;
+}
+
+.form__error {
+  color: red;
+  margin-top: 2px;
+}
+
+.form__header {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.tag__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropzone {
+  background-color: #fafafa;
+  display: flex;
+  border: 2px dashed gray;
+  border-radius: 2px;
+  color: #bdbdbd;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 600;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.file__div {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid red;
+  padding: 10px;
+  border: 1px solid gray;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.image {
+  width: 30%;
+  height: auto;
+}
+
+.submit__btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: rgb(231, 8, 135);
+  color: white;
+  font-weight: 700;
+}
+
+.remove__btn {
+  padding: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.main__error {
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+.success__div {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success__msg {
+  margin-top: 10px;
+}
+
+.list__image {
+  height: 100px;
+}
+
+.image__div {
+  padding: 2px;
+  position: relative;
+}
+
+.images__div {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  border: 1px solid gray;
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 2px;
+  overflow-x: scroll;
+}
+
+.image__div:hover .delete__btn {
+  display: block;
+}
+
+.delete__btn {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: none;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+}
