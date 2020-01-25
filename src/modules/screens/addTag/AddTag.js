@@ -123,6 +123,7 @@ const AddTag = props => {
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Tag</span>
+                <label className={styles.tag__label}>Tag Type</label>
                 <Select
                   isClearable
                   options={TAGS}
@@ -140,6 +141,7 @@ const AddTag = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Tag Name</label>
                 <Field
                   name="name"
                   placeholder="Enter tag name"
@@ -150,6 +152,7 @@ const AddTag = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Tag Description</label>
                 <Field
                   name="description"
                   placeholder="Enter tag description"
@@ -160,11 +163,8 @@ const AddTag = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
-                <div {...getRootProps({ className: styles.dropzone })}>
-                  <input {...getInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-                </div>
-                {file && (
+                <label className={styles.form__label}>Tag Image</label>
+                {file ? (
                   <div className={styles.file__div}>
                     <img
                       src={filePreview}
@@ -176,8 +176,15 @@ const AddTag = props => {
                       className={styles.remove__btn}
                       onClick={handleOnRemove}
                     >
-                      <Icomoon icon="bin" color="#8D021F" size={20} />
+                      <Icomoon icon="bin" color="#FFFFFF" size={30} />
                     </button>
+                  </div>
+                ) : (
+                  <div {...getRootProps({ className: styles.dropzone })}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
                   </div>
                 )}
                 {fileError && (

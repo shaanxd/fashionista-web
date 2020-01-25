@@ -205,10 +205,10 @@ const AddProduct = props => {
             description: Yup.string().required(
               'Product description is required'
             ),
-            tags: Yup.array().min(
-              2,
-              'Product should belong to atleast two tags.'
-            )
+            tags: Yup.array()
+              .nullable()
+              .required('Product should belong to atleast two tags.')
+              .min(2, 'Product should belong to atleast two tags.')
           })}
         >
           {({ setFieldValue, setFieldTouched }) => {
@@ -219,6 +219,7 @@ const AddProduct = props => {
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Product</span>
+                <label className={styles.tag__label}>Product Tags</label>
                 <AsyncSelect
                   isMulti
                   cacheOptions
@@ -236,6 +237,7 @@ const AddProduct = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Product Name</label>
                 <Field
                   name="name"
                   placeholder="Enter Product Name"
@@ -246,16 +248,21 @@ const AddProduct = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>
+                  Product Description
+                </label>
                 <Field
+                  component="textarea"
                   name="description"
                   placeholder="Enter Product Description"
-                  className={styles.form__input}
+                  className={styles.form__textarea}
                 />
                 <ErrorMessage name="description">
                   {message => (
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Product Price</label>
                 <Field
                   name="price"
                   className={styles.form__input}
@@ -266,12 +273,14 @@ const AddProduct = props => {
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Available Stock</label>
                 <Field name="stock" className={styles.form__input} />
                 <ErrorMessage name="stock">
                   {message => (
                     <label className={styles.form__error}>{message}</label>
                   )}
                 </ErrorMessage>
+                <label className={styles.form__label}>Product Thumbnail</label>
                 {thumbnail ? (
                   <div className={styles.thumbnail__div}>
                     <img
@@ -298,6 +307,7 @@ const AddProduct = props => {
                 {thumbnailError && (
                   <label className={styles.form__error}>{thumbnailError}</label>
                 )}
+                <label className={styles.form__label}>Product Images</label>
                 <div {...getImagesRootProps({ className: styles.dropzone })}>
                   <input {...getImagesInputProps()} />
                   <p className={styles.dropzone__text}>
@@ -309,7 +319,7 @@ const AddProduct = props => {
                 )}
                 {images.length > 0 && renderImageList()}
                 <button className={styles.submit__btn} type="submit">
-                  Create Tag
+                  Add Product
                 </button>
                 {productError && (
                   <label className={styles.main__error}>{productError}</label>
