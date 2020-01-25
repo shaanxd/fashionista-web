@@ -7,6 +7,7 @@ import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
 
 import styles from './Product.module.css';
+import { Rate } from 'antd';
 
 const Product = props => {
   const [state, setState] = useMergedState({
@@ -50,11 +51,32 @@ const Product = props => {
   };
 
   const renderProduct = () => {
+    console.log(product);
     return (
       <div className={styles.product__div}>
         <div className={styles.content__div}>
           <ProductImage product={product} />
-          <div className={styles.product__content}></div>
+          <div className={styles.product__content}>
+            <span className={styles.product__name}>{product.name}</span>
+            <span
+              className={styles.product__price}
+            >{`$ ${product.price}.00`}</span>
+            <div className={styles.rating__div}>
+              <Rate
+                style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
+                defaultValue={0}
+                value={product.avgRating}
+                disabled
+              />
+              <div className={styles.separator__div} />
+              <span className={styles.product__rating}>
+                {product.avgRating ? product.avgRating : '0.0'} stars
+              </span>
+            </div>
+            <span className={styles.product__description}>
+              {product.description}
+            </span>
+          </div>
         </div>
       </div>
     );

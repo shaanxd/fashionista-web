@@ -6,25 +6,25 @@ import { getImageUrl } from '../../utils/productUtils';
 import styles from './ProductImage.module.css';
 import './ProductImage.css';
 
-var largeSettings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  initialSlide: 0,
-  arrows: false
-};
-
-var miniSettings = {
-  infinite: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  initialSlide: 0
-};
-
 const ProductImage = props => {
   const largeRef = useRef(null);
+
+  const largeSettings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    arrows: false
+  };
+
+  const miniSettings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    initialSlide: 0
+  };
 
   const { images, thumbnail } = props.product;
 
@@ -72,7 +72,7 @@ const ProductImage = props => {
 
   return (
     <div className={styles.carousel__div}>
-      {renderImageCarousel()}
+      <div className={styles.large__div}>{renderImageCarousel()}</div>
       <div className={styles.select__div}>{renderMiniCarousel()}</div>
     </div>
   );
