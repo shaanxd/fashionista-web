@@ -16,11 +16,12 @@ var largeSettings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  initialSlide: 0
+  initialSlide: 0,
+  arrows: false
 };
 
 var miniSettings = {
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
@@ -78,14 +79,12 @@ const Product = props => {
     const { images } = product;
     const withThumbnail = [product.thumbnail, ...images];
     const components = withThumbnail.map((image, index) => (
-      <div className={styles.image__div}>
-        <img
-          key={index}
-          className={styles.image}
-          src={getImageUrl(image)}
-          alt={image}
-        />
-      </div>
+      <img
+        key={index}
+        className={styles.image}
+        src={getImageUrl(image)}
+        alt={image}
+      />
     ));
 
     return (
