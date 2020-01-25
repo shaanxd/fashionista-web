@@ -19,27 +19,3 @@
 .product__content {
   flex: 1;
 }
-
-.carousel__div {
-  width: 350px;
-  min-height: 0;
-  min-width: 0;
-  border: 1px solid #d2d2d2;
-  padding: 5px;
-}
-
-.image {
-  width: 100%;
-}
-
-.image__div {
-  flex: 1;
-  vertical-align: bottom;
-  padding: 3px;
-}
-
-.select__div {
-  padding: 3px;
-  margin-top: 5px;
-  border: 1px solid #d2d2d2;
-}

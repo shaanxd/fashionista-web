@@ -6,3 +6,4 @@ export { default as Icomoon } from './icomoon/Icomoon';
 export { default as Loading } from './loading/Loading';
 export { default as AdminRoute } from './adminRoute/AdminRoute';
 export { default as HomeSearch } from './homeSearch/HomeSearch';
+export { default as ProductImage } from './productImage/ProductImage';
