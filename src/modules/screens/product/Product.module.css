@@ -7,27 +7,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px;
-  border: 1px solid green;
 }
 
 .content__div {
-  width: 70%;
+  width: 900px;
   display: flex;
+  border: 1px solid #d2d2d2;
 }
 
 .product__content {
   flex: 1;
-  border: 1px solid red;
 }
 
 .carousel__div {
   flex: 1;
   min-height: 0;
   min-width: 0;
+  padding: 3px;
 }
 
 .image {
-  width: 50%;
+  width: 100%;
+}
+
+.image__div {
+  flex: 1;
   vertical-align: bottom;
+  padding: 3px;
 }

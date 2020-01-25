@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
@@ -11,12 +11,30 @@ import { getImageUrl } from '../../utils/productUtils';
 import styles from './Product.module.css';
 import './Product.css';
 
+var largeSettings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  initialSlide: 0
+};
+
+var miniSettings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  initialSlide: 0
+};
+
 const Product = props => {
   const [state, setState] = useMergedState({
     product: null,
     productLoading: true,
     productError: null
   });
+
+  const largeRef = useRef(null);
 
   const { product, productLoading, productError } = state;
 
@@ -36,9 +54,9 @@ const Product = props => {
         setState({ productLoading: true, productError: null });
       }
       const result = await getProductDetails(id);
-      setTimeout(() => {
-        setState({ product: result, productLoading: false });
-      }, 1000);
+      /* setTimeout(() => { */
+      setState({ product: result, productLoading: false });
+      /* }, 1000); */
     } catch (err) {
       setState({ productLoading: false, productError: err.message });
     }
@@ -52,32 +70,60 @@ const Product = props => {
     return <div>{productError}</div>;
   };
 
+  const handleImageClick = index => {
+    largeRef.current.slickGoTo(index);
+  };
+
   const renderImageCarousel = () => {
-    var settings = {
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      initialSlide: 0
-    };
     const { images } = product;
     const withThumbnail = [product.thumbnail, ...images];
     const components = withThumbnail.map((image, index) => (
-      <img
-        key={index}
-        className={styles.image}
-        src={getImageUrl(image)}
-        alt={image}
-      />
+      <div className={styles.image__div}>
+        <img
+          key={index}
+          className={styles.image}
+          src={getImageUrl(image)}
+          alt={image}
+        />
+      </div>
     ));
-    return <Slider {...settings}>{components}</Slider>;
+
+    return (
+      <Slider ref={largeRef} {...largeSettings}>
+        {components}
+      </Slider>
+    );
+  };
+
+  const renderMiniCarousel = () => {
+    const { images } = product;
+    const withThumbnail = [product.thumbnail, ...images];
+    const components = withThumbnail.map((image, index) => (
+      <div
+        className={styles.image__div}
+        onClick={() => {
+          handleImageClick(index);
+        }}
+      >
+        <img
+          key={index}
+          className={styles.image}
+          src={getImageUrl(image)}
+          alt={image}
+        />
+      </div>
+    ));
+    return <Slider {...miniSettings}>{components}</Slider>;
   };
 
   const renderProduct = () => {
     return (
       <div className={styles.product__div}>
         <div className={styles.content__div}>
-          <div className={styles.carousel__div}>{renderImageCarousel()}</div>
+          <div className={styles.carousel__div}>
+            {renderImageCarousel()}
+            <div className={styles.select__div}>{renderMiniCarousel()}</div>
+          </div>
           <div className={styles.product__content}></div>
         </div>
       </div>
