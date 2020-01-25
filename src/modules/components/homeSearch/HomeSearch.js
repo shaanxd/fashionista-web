@@ -60,7 +60,7 @@ const HomeSearch = props => {
   const renderSearchError = () => {
     return (
       <div className={styles.empty__div}>
-        <Icomoon icon="warning" color="#D2ABAE" size={50} />
+        <Icomoon icon="warning" color="#595959" size={30} />
         <span className={styles.not_found__text}>{searchError}</span>
       </div>
     );
@@ -70,9 +70,9 @@ const HomeSearch = props => {
     return (
       <div className={styles.empty__div}>
         <Icomoon
-          icon={hasText ? 'notification' : 'pencil'}
-          color="#D2ABAE"
-          size={50}
+          icon={hasText ? 'notification' : 'search'}
+          color="#595959"
+          size={30}
         />
         <span className={styles.not_found__text}>
           {hasText ? 'No products found' : 'Enter keyword to search'}
@@ -100,6 +100,7 @@ const HomeSearch = props => {
                   src={getImageUrl(item.thumbnail)}
                   size={80}
                   shape="square"
+                  style={{ borderRadius: '0px' }}
                 />
               }
               title={<span className={styles.item__header}>{item.name}</span>}
@@ -138,7 +139,7 @@ const HomeSearch = props => {
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
-          <Icomoon icon="search" color="#D2ABAE" size={20} />
+          <Icomoon icon="search" color="#595959" size={20} />
         </div>
         <div className={listStyle}>
           {searchError
