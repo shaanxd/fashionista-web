@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 import { HomeSearch } from '../../components';
 
-import styles from './Home.module.css';
+import styles from './UserHome.module.css';
 
-const Home = props => {
+const UserHome = props => {
   return (
     <div className={styles.main__div}>
       <HomeSearch navigate={props.history.push} />
@@ -22,4 +22,6 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(UserHome)
+);

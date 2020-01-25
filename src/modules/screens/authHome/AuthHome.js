@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Home from '../home/Home';
+import UserHome from '../userHome/UserHome';
 import AdminHome from '../adminHome/AdminHome';
 import { ROLES } from '../../constants/types';
 
@@ -8,7 +8,7 @@ const AuthHome = props => {
   return props.auth && props.auth.role === ROLES.ROLE_ADMIN ? (
     <AdminHome />
   ) : (
-    <Home />
+    <UserHome />
   );
 };
 
