@@ -16,6 +16,7 @@ import { getProductDetails } from '../../api/product';
 import Sizes from '../../constants/sizes';
 
 import styles from './Product.module.css';
+import { addToCart } from '../../api/cart';
 
 const Product = props => {
   const [state, setState] = useMergedState({
@@ -50,8 +51,16 @@ const Product = props => {
     }
   };
 
-  const handleOnAddToCart = values => {
-    console.log(values);
+  const handleOnAddToCart = async values => {
+    if (props.auth) {
+      try {
+        await addToCart(values, props.auth.token);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      props.history.push('/signin');
+    }
   };
 
   const renderLoading = () => {
@@ -144,8 +153,8 @@ const Product = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {};
+const mapStateToProps = ({ auth: { auth } }) => {
+  return { auth };
 };
 
 const mapDispatchToProps = dispatch => {
