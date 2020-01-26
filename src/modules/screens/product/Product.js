@@ -51,11 +51,12 @@ const Product = props => {
   };
 
   const renderProduct = () => {
-    console.log(product);
+    const images = [product.thumbnail, ...product.images];
+
     return (
       <div className={styles.product__div}>
         <div className={styles.content__div}>
-          <ProductImage product={product} />
+          <ProductImage images={images} />
           <div className={styles.product__content}>
             <span className={styles.product__name}>{product.name}</span>
             <span

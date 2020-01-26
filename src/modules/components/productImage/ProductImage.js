@@ -5,9 +5,15 @@ import { getImageUrl } from '../../utils/productUtils';
 
 import styles from './ProductImage.module.css';
 import './ProductImage.css';
+import { useMergedState } from '../../utils/useMergedState';
 
 const ProductImage = props => {
   const largeRef = useRef(null);
+  const [state, setState] = useMergedState({ current: 0 });
+
+  const beforeChange = (current, next) => {
+    setState({ current: next });
+  };
 
   const largeSettings = {
     infinite: true,
@@ -15,7 +21,8 @@ const ProductImage = props => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    arrows: false
+    arrows: false,
+    beforeChange
   };
 
   const miniSettings = {
@@ -26,15 +33,14 @@ const ProductImage = props => {
     initialSlide: 0
   };
 
-  const { images, thumbnail } = props.product;
+  const { images } = props;
 
   const handleImageClick = index => {
     largeRef.current.slickGoTo(index);
   };
 
   const renderImageCarousel = () => {
-    const withThumbnail = [thumbnail, ...images];
-    const components = withThumbnail.map((image, index) => (
+    const components = images.map((image, index) => (
       <img
         key={index}
         className={styles.image}
@@ -51,22 +57,26 @@ const ProductImage = props => {
   };
 
   const renderMiniCarousel = () => {
-    const withThumbnail = [thumbnail, ...images];
-    const components = withThumbnail.map((image, index) => (
-      <div
-        className={styles.image__div}
-        onClick={() => {
-          handleImageClick(index);
-        }}
-      >
-        <img
-          key={index}
-          className={styles.image}
-          src={getImageUrl(image)}
-          alt={image}
-        />
-      </div>
-    ));
+    const components = images.map((image, index) => {
+      const style =
+        index === state.current ? styles.selected__image : styles.image;
+
+      return (
+        <div
+          className={styles.image__div}
+          onClick={() => {
+            handleImageClick(index);
+          }}
+        >
+          <img
+            key={index}
+            className={style}
+            src={getImageUrl(image)}
+            alt={image}
+          />
+        </div>
+      );
+    });
     return <Slider {...miniSettings}>{components}</Slider>;
   };
 
