@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 
 import { getImageUrl } from '../../utils/productUtils';
@@ -9,7 +9,20 @@ import { useMergedState } from '../../utils/useMergedState';
 
 const ProductImage = props => {
   const largeRef = useRef(null);
-  const [state, setState] = useMergedState({ current: 0 });
+  const smallRef = useRef(null);
+
+  const [state, setState] = useMergedState({
+    current: 0,
+    smallNav: null
+  });
+
+  useEffect(
+    () => {
+      setState({ smallNav: smallRef.current });
+    },
+    //eslint-disable-next-line
+    []
+  );
 
   const beforeChange = (current, next) => {
     setState({ current: next });
@@ -26,7 +39,7 @@ const ProductImage = props => {
   };
 
   const miniSettings = {
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -50,7 +63,7 @@ const ProductImage = props => {
     ));
 
     return (
-      <Slider ref={largeRef} {...largeSettings}>
+      <Slider ref={largeRef} asNavFor={state.smallNav} {...largeSettings}>
         {components}
       </Slider>
     );
@@ -77,7 +90,11 @@ const ProductImage = props => {
         </div>
       );
     });
-    return <Slider {...miniSettings}>{components}</Slider>;
+    return (
+      <Slider ref={smallRef} {...miniSettings}>
+        {components}
+      </Slider>
+    );
   };
 
   return (

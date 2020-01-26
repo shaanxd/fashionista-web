@@ -107,9 +107,10 @@ const HomeSearch = props => {
               description={
                 <div>
                   <Rate
-                    defaultValue={item.avgRating}
+                    style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
+                    defaultValue={0}
+                    value={item.avgRating}
                     disabled
-                    style={{ fontSize: 15 }}
                     allowHalf
                   />
                 </div>

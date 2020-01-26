@@ -68,6 +68,7 @@ const Product = props => {
                 defaultValue={0}
                 value={product.avgRating}
                 disabled
+                allowHalf
               />
               <div className={styles.separator__div} />
               <span className={styles.product__rating}>
