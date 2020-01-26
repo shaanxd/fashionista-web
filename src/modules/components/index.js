@@ -9,3 +9,4 @@ export { default as HomeSearch } from './homeSearch/HomeSearch';
 export { default as ProductImage } from './productImage/ProductImage';
 export { default as SizePicker } from './sizePicker/SizePicker';
 export { default as QuantityPicker } from './quantityPicker/QuantityPicker';
+export { default as CartDropdown } from './cartDropdown/CartDropdown';

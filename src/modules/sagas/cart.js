@@ -4,9 +4,11 @@ import {
   ADD_TO_CART,
   GET_CART,
   addToCartFailure,
-  addToCartSuccess
+  addToCartSuccess,
+  getCartSuccess,
+  getCartFailure
 } from '../actions/cart';
-import { addToCart } from '../api/cart';
+import { addToCart, getCart } from '../api/cart';
 
 const getToken = state => state.auth.auth.token;
 
@@ -22,7 +24,14 @@ function* handleAddToCart({ type, payload }) {
 }
 
 function* handleGetCart({ type }) {
-  yield console.log('GET CART');
+  try {
+    const token = yield select(getToken);
+    const result = yield call(getCart, token);
+    yield delay(1000);
+    yield put(getCartSuccess(result));
+  } catch (err) {
+    yield put(getCartFailure(err.message));
+  }
 }
 
 function* watchCartSaga() {

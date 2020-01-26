@@ -6,9 +6,11 @@ import { DrawerToggleButton } from '../';
 
 import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
+import Icomoon from '../icomoon/Icomoon';
+import CartDropdown from '../cartDropdown/CartDropdown';
 
 const Toolbar = props => {
-  const { auth } = props;
+  const { auth, cart, cartLoading, cartError } = props;
 
   const handleLoginClick = () => {
     props.history.push('/signin');
@@ -63,6 +65,12 @@ const Toolbar = props => {
         <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
           Signout
         </span>
+        <div className="toolbar__navigation-link cart__parent">
+          <Icomoon icon="cart" color="#gray" size={20} />
+          <div className="cart__container">
+            <CartDropdown cart={cart} loading={cartLoading} error={cartError} />
+          </div>
+        </div>
       </li>
     </ul>
   );
@@ -88,9 +96,15 @@ const Toolbar = props => {
   );
 };
 
-const mapStateToProps = ({ auth: { auth } }) => {
+const mapStateToProps = ({
+  auth: { auth },
+  cart: { cart, cartLoading, cartError }
+}) => {
   return {
-    auth
+    auth,
+    cart,
+    cartLoading,
+    cartError
   };
 };
 

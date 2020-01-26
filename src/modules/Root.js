@@ -25,6 +25,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'antd/dist/antd.css';
 import styles from './Root.module.css';
+import { getCart } from './actions/cart';
 
 const Root = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -39,8 +40,9 @@ const Root = props => {
 
   useEffect(() => {
     if (!prevAuth && currentAuth) {
+      props.getCart();
     }
-  }, [currentAuth, prevAuth]);
+  }, [currentAuth, prevAuth, props]);
 
   const drawerToggle = () => {
     setDrawerOpen(prevDrawerOpen => !prevDrawerOpen);
@@ -114,6 +116,9 @@ const mapDispatchToProps = dispatch => {
   return {
     checkAuthValid: () => {
       dispatch(checkAuthValid());
+    },
+    getCart: () => {
+      dispatch(getCart());
     }
   };
 };

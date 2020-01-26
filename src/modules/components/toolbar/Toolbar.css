@@ -91,6 +91,21 @@
   color: rgb(231, 8, 135);
 }
 
+.cart__parent {
+  position: relative;
+}
+
+.cart__container {
+  position: absolute;
+  top: calc(100% + 3px);
+  right: 0;
+  display: none;
+}
+
+.cart__parent:hover .cart__container {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .toolbar__navigation-items {
     display: none;
