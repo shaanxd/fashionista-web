@@ -14,23 +14,25 @@ const QuantityPicker = props => {
   };
   return (
     <div className={styles.picker__div}>
-      <button
-        type="button"
-        onClick={handleOnDecrease}
-        disabled={value <= 1}
-        className={styles.picker__button}
-      >
-        -
-      </button>
-      <span className={styles.picker__label}>{value}</span>
-      <button
-        type="button"
-        onClick={handleOnIncrease}
-        disabled={value > 4}
-        className={styles.picker__button}
-      >
-        +
-      </button>
+      <div className={styles.inner__div}>
+        <button
+          type="button"
+          onClick={handleOnDecrease}
+          disabled={value <= 1}
+          className={styles.picker__button}
+        >
+          -
+        </button>
+        <span className={styles.picker__label}>{value}</span>
+        <button
+          type="button"
+          onClick={handleOnIncrease}
+          disabled={value > 4}
+          className={styles.picker__button}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 };

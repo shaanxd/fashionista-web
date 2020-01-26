@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Rate } from 'antd';
-import { Formik, Form } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import {
@@ -106,11 +106,21 @@ const Product = props => {
                   <Form>
                     <span className={styles.form__label}>Available sizes:</span>
                     <SizePicker options={Sizes} onChange={setFieldValue} />
+                    <ErrorMessage name="size">
+                      {message => (
+                        <label className={styles.form__error}>{message}</label>
+                      )}
+                    </ErrorMessage>
                     <span className={styles.form__label}>Quantity:</span>
                     <QuantityPicker
                       value={values.quantity}
                       onChange={setFieldValue}
                     />
+                    <ErrorMessage name="quantity">
+                      {message => (
+                        <label className={styles.form__error}>{message}</label>
+                      )}
+                    </ErrorMessage>
                     <button className={styles.submit__button} type="submit">
                       Add to Cart
                     </button>

@@ -1,8 +1,12 @@
 .picker__div {
-  display: flex;
   margin-top: 3px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.inner__div {
+  display: flex;
   border: 2px solid #d2d2d2;
-  float: left;
   border-radius: 5px;
 }
 
