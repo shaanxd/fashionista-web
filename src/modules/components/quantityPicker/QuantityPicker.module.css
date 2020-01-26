@@ -1,0 +1,17 @@
+.picker__div {
+  display: flex;
+  margin-top: 3px;
+  border: 2px solid #d2d2d2;
+  float: left;
+  border-radius: 5px;
+}
+
+.picker__label {
+  padding: 5px 10px;
+}
+
+.picker__button {
+  background: transparent;
+  min-width: 30px;
+  border: none;
+}

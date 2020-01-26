@@ -76,6 +76,7 @@ const ProductImage = props => {
 
       return (
         <div
+          key={index}
           className={styles.image__div}
           onClick={() => {
             handleImageClick(index);

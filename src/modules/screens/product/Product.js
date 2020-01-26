@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Rate } from 'antd';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-import { Loading, ProductImage } from '../../components';
+import {
+  Loading,
+  ProductImage,
+  SizePicker,
+  QuantityPicker
+} from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
+import Sizes from '../../constants/sizes';
 
 import styles from './Product.module.css';
-import { Rate } from 'antd';
 
 const Product = props => {
   const [state, setState] = useMergedState({
@@ -40,6 +48,10 @@ const Product = props => {
     } catch (err) {
       setState({ productLoading: false, productError: err.message });
     }
+  };
+
+  const handleOnAddToCart = values => {
+    console.log(values);
   };
 
   const renderLoading = () => {
@@ -78,6 +90,34 @@ const Product = props => {
             <span className={styles.product__description}>
               {product.description}
             </span>
+            <Formik
+              initialValues={{ size: '', quantity: 1, productId: product.id }}
+              validationSchema={Yup.object().shape({
+                size: Yup.string().required('Size is required'),
+                quantity: Yup.number()
+                  .typeError('Quantity should be a number')
+                  .min(1, 'Quantity should be atleast 1')
+                  .max(5, 'Quantity cannot exceed 5')
+              })}
+              onSubmit={handleOnAddToCart}
+            >
+              {({ setFieldValue, values }) => {
+                return (
+                  <Form>
+                    <span className={styles.form__label}>Available sizes:</span>
+                    <SizePicker options={Sizes} onChange={setFieldValue} />
+                    <span className={styles.form__label}>Quantity:</span>
+                    <QuantityPicker
+                      value={values.quantity}
+                      onChange={setFieldValue}
+                    />
+                    <button className={styles.submit__button} type="submit">
+                      Add to Cart
+                    </button>
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
         </div>
       </div>

@@ -11053,6 +11053,14 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-custom-radio-buttons@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-custom-radio-buttons/-/react-custom-radio-buttons-1.0.1.tgz#f9449d6f29bcff96f1eef7e4267bed13e88c375d"
+  integrity sha512-rLirA8jwUmfsZ31zDg89rnoRP6B/V+3kS0exrQbmH/fQuiOWZhPXW8GS2OHn5aahBNZs1SR5buFhMku51RP0CA==
+  dependencies:
+    react "^16.12.0"
+    react-dom "^16.12.0"
+
 react-dev-utils@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.0.0.tgz#bd2d16426c7e4cbfed1b46fb9e2ac98ec06fcdfa"
