@@ -19,6 +19,7 @@ import {
   AdminRoute
 } from './components';
 import { checkAuthValid } from './actions/auth';
+import { usePrevious } from './utils/useMergedState';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -27,11 +28,19 @@ import styles from './Root.module.css';
 
 const Root = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { auth: currentAuth } = props;
+
+  const prevAuth = usePrevious(currentAuth);
 
   useEffect(() => {
     props.checkAuthValid();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (!prevAuth && currentAuth) {
+    }
+  }, [currentAuth, prevAuth]);
 
   const drawerToggle = () => {
     setDrawerOpen(prevDrawerOpen => !prevDrawerOpen);
@@ -95,6 +104,7 @@ const Root = props => {
 
 const mapStateToProps = ({ auth }) => {
   return {
+    auth: auth.auth,
     loading: auth.checkAuthLoading,
     logoutLoading: auth.logoutLoading
   };

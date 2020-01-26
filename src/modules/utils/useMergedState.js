@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const shallowPartialCompare = (obj, partialObj) =>
   Object.keys(partialObj).every(
@@ -18,4 +18,12 @@ export const useMergedState = initial => {
         : { ...prevState, ...newState };
     });
   return [state, setMergedState];
+};
+
+export const usePrevious = value => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 };

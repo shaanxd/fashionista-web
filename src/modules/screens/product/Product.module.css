@@ -74,3 +74,10 @@
 .form__error {
   color: red;
 }
+
+.main__error {
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  color: red;
+}

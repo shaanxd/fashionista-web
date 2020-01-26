@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Rate } from 'antd';
 import { Formik, Form, ErrorMessage } from 'formik';
+import { PulseLoader } from 'react-spinners';
 import * as Yup from 'yup';
 
 import {
@@ -14,9 +15,9 @@ import {
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
 import Sizes from '../../constants/sizes';
+import { addToCart } from '../../actions/cart';
 
 import styles from './Product.module.css';
-import { addToCart } from '../../api/cart';
 
 const Product = props => {
   const [state, setState] = useMergedState({
@@ -51,13 +52,9 @@ const Product = props => {
     }
   };
 
-  const handleOnAddToCart = async values => {
+  const handleOnAddToCart = values => {
     if (props.auth) {
-      try {
-        await addToCart(values, props.auth.token);
-      } catch (err) {
-        console.log(err);
-      }
+      props.addToCart(values);
     } else {
       props.history.push('/signin');
     }
@@ -130,9 +127,22 @@ const Product = props => {
                         <label className={styles.form__error}>{message}</label>
                       )}
                     </ErrorMessage>
-                    <button className={styles.submit__button} type="submit">
-                      Add to Cart
+                    <button
+                      className={styles.submit__button}
+                      type="submit"
+                      disabled={props.addLoading}
+                    >
+                      {props.addLoading ? (
+                        <PulseLoader size={10} color={'#FFFFFF'} loading />
+                      ) : (
+                        'Add to Cart'
+                      )}
                     </button>
+                    {props.addError && (
+                      <span className={styles.main__error}>
+                        {props.addError}
+                      </span>
+                    )}
                   </Form>
                 );
               }}
@@ -153,12 +163,19 @@ const Product = props => {
   );
 };
 
-const mapStateToProps = ({ auth: { auth } }) => {
-  return { auth };
+const mapStateToProps = ({
+  auth: { auth },
+  cart: { addLoading, addError }
+}) => {
+  return { auth, addLoading, addError };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    addToCart: cartData => {
+      dispatch(addToCart(cartData));
+    }
+  };
 };
 
 export default withRouter(
