@@ -6,9 +6,10 @@ import {
   addToCartFailure,
   addToCartSuccess,
   getCartSuccess,
-  getCartFailure
+  getCartFailure,
+  DELETE_CART
 } from '../actions/cart';
-import { addToCart, getCart } from '../api/cart';
+import { addToCart, getCart, deleteCart } from '../api/cart';
 
 const getToken = state => state.auth.auth.token;
 
@@ -34,10 +35,22 @@ function* handleGetCart({ type }) {
   }
 }
 
+function* handleDeleteCart({ type, payload }) {
+  try {
+    const token = yield select(getToken);
+    const result = yield call(deleteCart, payload, token);
+    yield delay(1000);
+    yield put(getCartSuccess(result));
+  } catch (err) {
+    yield put(getCartFailure(err.message));
+  }
+}
+
 function* watchCartSaga() {
   yield all([
     takeEvery(ADD_TO_CART, handleAddToCart),
-    takeEvery(GET_CART, handleGetCart)
+    takeEvery(GET_CART, handleGetCart),
+    takeEvery(DELETE_CART, handleDeleteCart)
   ]);
 }
 

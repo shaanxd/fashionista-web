@@ -5,7 +5,8 @@ import {
   ADD_TO_CART_FAILURE,
   GET_CART,
   GET_CART_SUCCESS,
-  GET_CART_FAILURE
+  GET_CART_FAILURE,
+  DELETE_CART
 } from '../actions/cart';
 
 const initialState = {
@@ -69,6 +70,14 @@ const getCartFailure = (state = initialState, { type, payload }) => {
   };
 };
 
+const deleteCart = (state = initialState, { type, payload }) => {
+  return {
+    ...state,
+    cartLoading: true,
+    cartError: null
+  };
+};
+
 export const cart = createReducer(initialState, {
   [ADD_TO_CART]: addToCart,
   [ADD_TO_CART_SUCCESS]: addToCartSuccess,
@@ -76,5 +85,7 @@ export const cart = createReducer(initialState, {
 
   [GET_CART]: getCart,
   [GET_CART_SUCCESS]: getCartSuccess,
-  [GET_CART_FAILURE]: getCartFailure
+  [GET_CART_FAILURE]: getCartFailure,
+
+  [DELETE_CART]: deleteCart
 });

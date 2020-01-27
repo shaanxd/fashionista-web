@@ -8,7 +8,7 @@ import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
 import Icomoon from '../icomoon/Icomoon';
 import CartDropdown from '../cartDropdown/CartDropdown';
-import { getCart } from '../../actions/cart';
+import { getCart, deleteCart } from '../../actions/cart';
 
 const Toolbar = props => {
   const { auth, cart, cartLoading, cartError } = props;
@@ -29,6 +29,9 @@ const Toolbar = props => {
     props.logout();
   };
 
+  const handleDeleteItem = index => {
+    props.deleteCartItem(index);
+  };
   const renderUnauthRoutes = () => {
     return (
       <ul>
@@ -74,6 +77,7 @@ const Toolbar = props => {
             </div>
             <CartDropdown
               onCartRetry={props.onCartRetry}
+              onDeleteCart={handleDeleteItem}
               cart={cart}
               loading={cartLoading}
               error={cartError}
@@ -124,6 +128,9 @@ const mapDispatchToProps = dispatch => {
     },
     onCartRetry: () => {
       dispatch(getCart());
+    },
+    deleteCartItem: index => {
+      dispatch(deleteCart(index));
     }
   };
 };

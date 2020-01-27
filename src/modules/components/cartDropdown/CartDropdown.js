@@ -3,12 +3,14 @@ import React from 'react';
 import styles from './CartDropdown.module.css';
 import { Loading, Icomoon } from '..';
 import { getImageUrl } from '../../utils/productUtils';
-import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 
 const CartDropdown = props => {
   const { cart, loading, error } = props;
 
-  const renderCartItem = ({ product, quantity, size }, index) => {
+  const renderCartItem = (
+    { product, quantity, size, id, totalPrice },
+    index
+  ) => {
     return (
       <div className={styles.cart__item} key={index}>
         <img
@@ -23,8 +25,14 @@ const CartDropdown = props => {
             <span className={styles.product__quantity}>{`x${quantity}`}</span>
           </div>
         </div>
+        <div className={styles.cart__price}>{`$${totalPrice}`}</div>
         <div className={styles.cart__controls}>
-          <button className={styles.remove__button}>
+          <button
+            className={styles.remove__button}
+            onClick={() => {
+              props.onDeleteCart(id);
+            }}
+          >
             <Icomoon icon="cross" color="#8B0000" size={15} />
           </button>
         </div>
@@ -41,6 +49,10 @@ const CartDropdown = props => {
     return (
       <div className={styles.items__div}>
         {items}
+        <div className={styles.price__div}>
+          <span>SUB-TOTAL</span>
+          <span>{`$${cart.totalPrice}`}</span>
+        </div>
         <button className={styles.view__button}>
           <Icomoon icon="drawer" color="gray" size={15} />
           <span

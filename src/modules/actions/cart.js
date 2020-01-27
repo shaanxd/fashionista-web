@@ -40,6 +40,13 @@ export const getCartFailure = payload => {
   };
 };
 
+export const deleteCart = payload => {
+  return {
+    type: DELETE_CART,
+    payload
+  };
+};
+
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
@@ -47,3 +54,5 @@ export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
 export const GET_CART = 'GET_CART';
 export const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
 export const GET_CART_FAILURE = 'GET_CART_FAILURE';
+
+export const DELETE_CART = 'DELETE_CART';

@@ -41,6 +41,13 @@
   margin-left: 8px;
 }
 
+.cart__price {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 .cart__controls {
   width: 50px;
   display: flex;
@@ -107,4 +114,13 @@
 
 .empty__text {
   margin-top: 20px;
+}
+
+.price__div {
+  border-bottom: 1px solid #d2d2d2;
+  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
