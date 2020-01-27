@@ -87,3 +87,24 @@
   padding: 10px;
   cursor: pointer;
 }
+
+.other__div {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.retry__button {
+  margin-top: 20px;
+  padding: 5px 30px;
+  border: none;
+  color: white;
+  background-color: rgb(231, 8, 135);
+  cursor: pointer;
+}
+
+.empty__text {
+  margin-top: 20px;
+}

@@ -8,6 +8,7 @@ import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
 import Icomoon from '../icomoon/Icomoon';
 import CartDropdown from '../cartDropdown/CartDropdown';
+import { getCart } from '../../actions/cart';
 
 const Toolbar = props => {
   const { auth, cart, cartLoading, cartError } = props;
@@ -71,7 +72,12 @@ const Toolbar = props => {
             <div className={'arrow__container'}>
               <div className={'arrow__div'} />
             </div>
-            <CartDropdown cart={cart} loading={cartLoading} error={cartError} />
+            <CartDropdown
+              onCartRetry={props.onCartRetry}
+              cart={cart}
+              loading={cartLoading}
+              error={cartError}
+            />
           </div>
         </div>
       </li>
@@ -115,6 +121,9 @@ const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
       dispatch(logoutUser());
+    },
+    onCartRetry: () => {
+      dispatch(getCart());
     }
   };
 };

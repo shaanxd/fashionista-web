@@ -3,13 +3,14 @@ import React from 'react';
 import styles from './CartDropdown.module.css';
 import { Loading, Icomoon } from '..';
 import { getImageUrl } from '../../utils/productUtils';
+import renderEmpty from 'antd/lib/config-provider/renderEmpty';
 
 const CartDropdown = props => {
   const { cart, loading, error } = props;
 
   const renderCartItem = ({ product, quantity, size }, index) => {
     return (
-      <div className={styles.cart__item}>
+      <div className={styles.cart__item} key={index}>
         <img
           src={getImageUrl(product.thumbnail)}
           alt="thumbnail"
@@ -51,16 +52,46 @@ const CartDropdown = props => {
   };
 
   const renderLoading = () => {
-    return <Loading text="Loading cart" />;
+    return (
+      <div className={styles.other__div}>
+        <Loading text="Loading cart" />
+      </div>
+    );
   };
 
   const renderError = () => {
-    return <div>{error}</div>;
+    return (
+      <div className={styles.other__div}>
+        {error}
+        <button
+          type="button"
+          className={styles.retry__button}
+          onClick={props.onCartRetry}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  };
+
+  const renderEmpty = () => {
+    return (
+      <div className={styles.other__div}>
+        <Icomoon icon="drawer2" color="#d2d2d2" size={40} />
+        <span className={styles.empty__text}>Cart is empty</span>
+      </div>
+    );
   };
 
   return (
     <div className={styles.dropdown__div}>
-      {loading ? renderLoading() : error ? renderError() : renderCart()}
+      {loading
+        ? renderLoading()
+        : error
+        ? renderError()
+        : cart.numberOfItems < 1
+        ? renderEmpty()
+        : renderCart()}
     </div>
   );
 };
