@@ -5,8 +5,10 @@ import AsyncSelect from 'react-select/async';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { AiOutlineDelete } from 'react-icons/ai';
 
-import { Icomoon, Loading } from '../../components';
+import { Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 
 import styles from './AddProduct.module.css';
@@ -152,7 +154,7 @@ const AddProduct = props => {
   const renderSuccess = () => {
     return (
       <div className={styles.success__div}>
-        <Icomoon icon="checkmark" color="#50C878" size={50} />
+        <IoIosCheckmarkCircleOutline color="#50C878" size="50px" />
         <span className={styles.success__msg}>
           Product Added Successfully! Redirecting.
         </span>
@@ -174,7 +176,7 @@ const AddProduct = props => {
             className={styles.delete__btn}
             onClick={() => removeImage(index)}
           >
-            <Icomoon icon="bin" color="#FFFFFF" size={20} />
+            <AiOutlineDelete color="#FFFFFF" size="30px" />
           </button>
         </div>
       );
@@ -293,7 +295,7 @@ const AddProduct = props => {
                       className={styles.delete__btn}
                       onClick={handleOnRemove}
                     >
-                      <Icomoon icon="bin" color="#FFFFFF" size={30} />
+                      <AiOutlineDelete color="#FFFFFF" size="50px" />
                     </button>
                   </div>
                 ) : (

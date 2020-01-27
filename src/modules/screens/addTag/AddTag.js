@@ -5,8 +5,10 @@ import Select from 'react-select';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
+import { AiOutlineDelete } from 'react-icons/ai';
 
-import { Icomoon, Loading } from '../../components';
+import { Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { createTag } from '../../api/admin';
 import { TAGS } from '../../constants/types';
@@ -89,7 +91,7 @@ const AddTag = props => {
   const renderSuccess = () => {
     return (
       <div className={styles.success__div}>
-        <Icomoon icon="checkmark" color="#50C878" size={50} />
+        <IoIosCheckmarkCircleOutline color="#50C878" size="50px" />
         <span className={styles.success__msg}>
           Tag created successfully! Redirecting.
         </span>
@@ -176,7 +178,7 @@ const AddTag = props => {
                       className={styles.remove__btn}
                       onClick={handleOnRemove}
                     >
-                      <Icomoon icon="bin" color="#FFFFFF" size={30} />
+                      <AiOutlineDelete color="#FFFFFF" size="50px" />
                     </button>
                   </div>
                 ) : (

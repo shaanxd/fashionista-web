@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { connect } from 'react-redux';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import * as Yup from 'yup';
 
-import { Icomoon, Loading } from '../../components';
+import { Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { postSignin } from '../../api/auth';
 
@@ -40,10 +41,6 @@ const Signin = props => {
       setState({ loginLoading: false, loginError: err });
     }
   };
-
-  const passwordParams = visible
-    ? { type: 'text', icon: 'eye-blocked' }
-    : { type: 'password', icon: 'eye' };
 
   const renderLoading = () => {
     return <Loading text={'Logging in'} />;
@@ -85,7 +82,7 @@ const Signin = props => {
                 <div className={styles.form__input_parent}>
                   <Field
                     className={styles.form__input_nested}
-                    type={passwordParams.type}
+                    type={visible ? 'text' : 'password'}
                     name="password"
                     placeholder="Enter Password"
                   />
@@ -94,11 +91,11 @@ const Signin = props => {
                     className={styles.form__button_hide}
                     type="button"
                   >
-                    <Icomoon
-                      color="#888888"
-                      icon={passwordParams.icon}
-                      size={20}
-                    />
+                    {visible ? (
+                      <FiEyeOff color="#888888" size="20px" />
+                    ) : (
+                      <FiEye color="#888888" size="20px" />
+                    )}
                   </button>
                 </div>
                 <ErrorMessage name="password">

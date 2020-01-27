@@ -1,12 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { AiOutlineShopping } from 'react-icons/ai';
 
 import { DrawerToggleButton } from '../';
 
 import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
-import Icomoon from '../icomoon/Icomoon';
 import CartDropdown from '../cartDropdown/CartDropdown';
 import { getCart, deleteCart } from '../../actions/cart';
 
@@ -70,7 +70,7 @@ const Toolbar = props => {
           Signout
         </span>
         <div className="toolbar__navigation-link cart__parent">
-          <Icomoon icon="cart" color="#595959" size={20} />
+          <AiOutlineShopping color="gray" size="25px" />
           <div className="cart__container">
             <div className={'arrow__container'}>
               <div className={'arrow__div'} />

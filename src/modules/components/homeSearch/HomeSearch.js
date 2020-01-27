@@ -1,7 +1,9 @@
 import React from 'react';
 import { List, Avatar, Rate } from 'antd';
+import { GoSearch } from 'react-icons/go';
+import { MdError } from 'react-icons/md';
 
-import { Icomoon, Loading } from '../';
+import { Loading } from '../';
 import { useMergedState } from '../../utils/useMergedState';
 import { getImageUrl } from '../../utils/productUtils';
 import { getSearchKeywords } from '../../api/product';
@@ -60,7 +62,7 @@ const HomeSearch = props => {
   const renderSearchError = () => {
     return (
       <div className={styles.empty__div}>
-        <Icomoon icon="warning" color="#595959" size={30} />
+        <MdError color="#595959" size="40px" />
         <span className={styles.not_found__text}>{searchError}</span>
       </div>
     );
@@ -69,11 +71,11 @@ const HomeSearch = props => {
   const renderEmptyList = () => {
     return (
       <div className={styles.empty__div}>
-        <Icomoon
-          icon={hasText ? 'notification' : 'search'}
-          color="#595959"
-          size={30}
-        />
+        {hasText ? (
+          <MdError color="#595959" size="40px" />
+        ) : (
+          <GoSearch color="#595959" size="40px" />
+        )}
         <span className={styles.not_found__text}>
           {hasText ? 'No products found' : 'Enter keyword to search'}
         </span>
@@ -140,7 +142,7 @@ const HomeSearch = props => {
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
-          <Icomoon icon="search" color="#595959" size={20} />
+          <GoSearch color="#595959" size="20px" />
         </div>
         <div className={listStyle}>
           {searchError

@@ -49,7 +49,8 @@
 }
 
 .cart__controls {
-  width: 50px;
+  padding: 5px;
+  padding-left: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,8 +92,11 @@
 .remove__button {
   border: none;
   background-color: transparent;
-  padding: 10px;
+  padding: 5px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .other__div {
@@ -114,6 +118,8 @@
 
 .empty__text {
   margin-top: 20px;
+  font-family: inherit;
+  font-weight: 500;
 }
 
 .price__div {

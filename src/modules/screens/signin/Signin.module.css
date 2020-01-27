@@ -64,6 +64,9 @@
   border: none;
   width: 40px;
   background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form__input:focus {

@@ -1,7 +1,9 @@
 import React from 'react';
+import { MdCancel, MdAddShoppingCart } from 'react-icons/md';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import styles from './CartDropdown.module.css';
-import { Loading, Icomoon } from '..';
+import { Loading } from '..';
 import { getImageUrl } from '../../utils/productUtils';
 
 const CartDropdown = props => {
@@ -33,7 +35,7 @@ const CartDropdown = props => {
               props.onDeleteCart(id);
             }}
           >
-            <Icomoon icon="cross" color="#8B0000" size={15} />
+            <MdCancel color="gray" size={20} />
           </button>
         </div>
       </div>
@@ -54,7 +56,7 @@ const CartDropdown = props => {
           <span>{`$${cart.totalPrice}`}</span>
         </div>
         <button className={styles.view__button}>
-          <Icomoon icon="drawer" color="gray" size={15} />
+          <AiOutlineShoppingCart color="gray" size={15} />
           <span
             className={styles.button__text}
           >{`View All (${cart.numberOfItems})`}</span>
@@ -89,7 +91,7 @@ const CartDropdown = props => {
   const renderEmpty = () => {
     return (
       <div className={styles.other__div}>
-        <Icomoon icon="drawer2" color="#d2d2d2" size={40} />
+        <MdAddShoppingCart color="gray" size={40} />
         <span className={styles.empty__text}>Cart is empty</span>
       </div>
     );

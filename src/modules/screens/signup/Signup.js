@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import * as Yup from 'yup';
 
-import { Icomoon, Loading } from '../../components';
+import { Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 
 import styles from './Signup.module.css';
@@ -54,13 +55,6 @@ const Signup = props => {
   const renderLoading = () => {
     return <Loading text="Signing up" />;
   };
-
-  const passwordParams = passwordVisible
-    ? { type: 'text', icon: 'eye-blocked' }
-    : { type: 'password', icon: 'eye' };
-  const confirmParams = confirmVisible
-    ? { type: 'text', icon: 'eye-blocked' }
-    : { type: 'password', icon: 'eye' };
 
   return (
     <div className={styles.main__div}>
@@ -140,7 +134,7 @@ const Signup = props => {
                 <div className={styles.form__input_parent}>
                   <Field
                     className={styles.form__input_nested}
-                    type={passwordParams.type}
+                    type={passwordVisible ? 'text' : 'password'}
                     name="password"
                     placeholder="Enter Password"
                   />
@@ -149,11 +143,11 @@ const Signup = props => {
                     className={styles.form__button_hide}
                     type="button"
                   >
-                    <Icomoon
-                      color="#888888"
-                      icon={passwordParams.icon}
-                      size={20}
-                    />
+                    {passwordVisible ? (
+                      <FiEyeOff color="#888888" size="20px" />
+                    ) : (
+                      <FiEye color="#888888" size="20px" />
+                    )}
                   </button>
                 </div>
                 <ErrorMessage name="password">
@@ -164,7 +158,7 @@ const Signup = props => {
                 <div className={styles.form__input_parent}>
                   <Field
                     className={styles.form__input_nested}
-                    type={confirmParams.type}
+                    type={confirmVisible ? 'text' : 'password'}
                     name="confirmPassword"
                     placeholder="Confirm Password"
                   />
@@ -173,11 +167,11 @@ const Signup = props => {
                     className={styles.form__button_hide}
                     type="button"
                   >
-                    <Icomoon
-                      color="#888888"
-                      icon={confirmParams.icon}
-                      size={20}
-                    />
+                    {confirmVisible ? (
+                      <FiEyeOff color="#888888" size="20px" />
+                    ) : (
+                      <FiEye color="#888888" size="20px" />
+                    )}
                   </button>
                 </div>
                 <ErrorMessage name="confirmPassword">
