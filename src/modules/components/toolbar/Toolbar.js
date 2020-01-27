@@ -66,8 +66,11 @@ const Toolbar = props => {
           Signout
         </span>
         <div className="toolbar__navigation-link cart__parent">
-          <Icomoon icon="cart" color="#gray" size={20} />
+          <Icomoon icon="cart" color="#595959" size={20} />
           <div className="cart__container">
+            <div className={'arrow__container'}>
+              <div className={'arrow__div'} />
+            </div>
             <CartDropdown cart={cart} loading={cartLoading} error={cartError} />
           </div>
         </div>

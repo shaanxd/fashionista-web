@@ -9,7 +9,11 @@ import {
 } from '../actions/cart';
 
 const initialState = {
-  cart: null,
+  cart: {
+    numberOfItems: 0,
+    totalPrice: 0,
+    items: []
+  },
   cartLoading: false,
   cartError: null,
 

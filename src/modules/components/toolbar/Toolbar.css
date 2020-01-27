@@ -98,8 +98,22 @@
 .cart__container {
   position: absolute;
   top: calc(100% + 3px);
-  right: 0;
+  right: 10px;
   display: none;
+}
+
+.arrow__container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+}
+
+.arrow__div {
+  border: 10px solid transparent;
+  border-bottom: 10px solid #d2d2d2;
+  height: 0;
+  width: 0;
+  margin-right: 15px;
 }
 
 .cart__parent:hover .cart__container {
