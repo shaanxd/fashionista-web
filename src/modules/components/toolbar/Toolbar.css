@@ -80,6 +80,10 @@
   z-index: 15;
 }
 
+.toolbar__cart-button {
+  z-index: 15;
+}
+
 .toolbar__logo-light {
   font-family: inherit;
   font-weight: 1000;

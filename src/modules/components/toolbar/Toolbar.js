@@ -1,18 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { AiOutlineShopping } from 'react-icons/ai';
 
 import { DrawerToggleButton } from '../';
 
 import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
-import CartDropdown from '../cartDropdown/CartDropdown';
-import { getCart, deleteCart } from '../../actions/cart';
 import { ROLES } from '../../constants/types';
 
 const Toolbar = props => {
-  const { auth, cart, cartLoading, cartError } = props;
+  const { auth } = props;
 
   const handleLoginClick = () => {
     props.history.push('/signin');
@@ -30,9 +27,6 @@ const Toolbar = props => {
     props.logout();
   };
 
-  const handleDeleteItem = index => {
-    props.deleteCartItem(index);
-  };
   const renderUnauthRoutes = () => {
     return (
       <ul>
@@ -70,21 +64,6 @@ const Toolbar = props => {
         <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
           Signout
         </span>
-        <div className="toolbar__navigation-link cart__parent">
-          <AiOutlineShopping color="gray" size="25px" />
-          <div className="cart__container">
-            <div className={'arrow__container'}>
-              <div className={'arrow__div'} />
-            </div>
-            <CartDropdown
-              onCartRetry={props.onCartRetry}
-              onDeleteCart={handleDeleteItem}
-              cart={cart}
-              loading={cartLoading}
-              error={cartError}
-            />
-          </div>
-        </div>
       </li>
     </ul>
   );
@@ -119,20 +98,17 @@ const Toolbar = props => {
         </div>
         <div className="spacer" />
         <div className="toolbar__navigation-items">{navigationRoutes}</div>
+        <div className="toolbar__cart-button">
+          <DrawerToggleButton isCart onClick={props.cartClickHandler} />
+        </div>
       </nav>
     </header>
   );
 };
 
-const mapStateToProps = ({
-  auth: { auth },
-  cart: { cart, cartLoading, cartError }
-}) => {
+const mapStateToProps = ({ auth: { auth } }) => {
   return {
-    auth,
-    cart,
-    cartLoading,
-    cartError
+    auth
   };
 };
 
@@ -140,12 +116,6 @@ const mapDispatchToProps = dispatch => {
   return {
     logout: () => {
       dispatch(logoutUser());
-    },
-    onCartRetry: () => {
-      dispatch(getCart());
-    },
-    deleteCartItem: index => {
-      dispatch(deleteCart(index));
     }
   };
 };

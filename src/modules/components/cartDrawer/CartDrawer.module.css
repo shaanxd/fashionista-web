@@ -1,0 +1,18 @@
+.drawer__div {
+  height: 100%;
+  background: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 400px;
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in;
+  display: flex;
+}
+
+.drawer__div.open {
+  transform: translateX(0);
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+}

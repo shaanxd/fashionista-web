@@ -16,7 +16,8 @@ import {
   SideDrawer,
   Backdrop,
   Loading,
-  AdminRoute
+  AdminRoute,
+  CartDrawer
 } from './components';
 import { checkAuthValid } from './actions/auth';
 import { usePrevious } from './utils/useMergedState';
@@ -25,10 +26,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'antd/dist/antd.css';
 import styles from './Root.module.css';
-import { getCart } from './actions/cart';
+import { getCart, deleteCart } from './actions/cart';
 
 const Root = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const { auth: currentAuth } = props;
 
   const prevAuth = usePrevious(currentAuth);
@@ -50,6 +52,11 @@ const Root = props => {
 
   const backdropToggle = () => {
     setDrawerOpen(false);
+    setCartOpen(false);
+  };
+
+  const cartToggle = () => {
+    setCartOpen(prevCartOpen => !prevCartOpen);
   };
 
   const renderLoading = () => {
@@ -60,13 +67,28 @@ const Root = props => {
     return <Loading text="Logging out" />;
   };
 
+  const handleDeleteItem = index => {
+    props.deleteCartItem(index);
+  };
+
   const renderContent = () => {
     return (
       <div className={styles.root}>
         <Router>
-          <Toolbar drawerClickHandler={drawerToggle} />
+          <Toolbar
+            drawerClickHandler={drawerToggle}
+            cartClickHandler={cartToggle}
+          />
           <SideDrawer isOpen={drawerOpen} />
-          {drawerOpen && <Backdrop onClick={backdropToggle} />}
+          {(drawerOpen || cartOpen) && <Backdrop onClick={backdropToggle} />}
+          <CartDrawer
+            isOpen={cartOpen}
+            onCartRetry={props.getCart}
+            onDeleteCart={handleDeleteItem}
+            cart={props.cart}
+            loading={props.cartLoading}
+            error={props.cartError}
+          />
           <main className={styles.main}>
             <Switch>
               <Route exact path="/">
@@ -104,11 +126,14 @@ const Root = props => {
     : renderContent();
 };
 
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, cart: { cart, cartLoading, cartError } }) => {
   return {
     auth: auth.auth,
     loading: auth.checkAuthLoading,
-    logoutLoading: auth.logoutLoading
+    logoutLoading: auth.logoutLoading,
+    cart,
+    cartLoading,
+    cartError
   };
 };
 
@@ -119,6 +144,9 @@ const mapDispatchToProps = dispatch => {
     },
     getCart: () => {
       dispatch(getCart());
+    },
+    deleteCartItem: index => {
+      dispatch(deleteCart(index));
     }
   };
 };

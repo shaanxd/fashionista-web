@@ -43,14 +43,11 @@ const CartDropdown = props => {
   };
 
   const renderCart = () => {
-    const items = [];
-    const numberOfItems = cart.numberOfItems > 3 ? 3 : cart.numberOfItems;
-    for (let i = 0; i < numberOfItems; i++) {
-      items.push(renderCartItem(cart.items[i], i));
-    }
+    const items = cart.items.map((item, index) => renderCartItem(item, index));
+
     return (
       <div className={styles.items__div}>
-        {items}
+        <div className={styles.list__div}>{items}</div>
         <div className={styles.price__div}>
           <span>SUB-TOTAL</span>
           <span>{`$${cart.totalPrice}`}</span>
