@@ -9,6 +9,7 @@ import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
 import CartDropdown from '../cartDropdown/CartDropdown';
 import { getCart, deleteCart } from '../../actions/cart';
+import { ROLES } from '../../constants/types';
 
 const Toolbar = props => {
   const { auth, cart, cartLoading, cartError } = props;
@@ -63,7 +64,7 @@ const Toolbar = props => {
     );
   };
 
-  const renderAuthRoutes = () => (
+  const renderUserRoutes = () => (
     <ul>
       <li>
         <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
@@ -88,7 +89,21 @@ const Toolbar = props => {
     </ul>
   );
 
-  const navigationRoutes = auth ? renderAuthRoutes() : renderUnauthRoutes();
+  const renderAdminRoutes = () => (
+    <ul>
+      <li>
+        <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
+          Signout
+        </span>
+      </li>
+    </ul>
+  );
+
+  const navigationRoutes = !auth
+    ? renderUnauthRoutes()
+    : auth.role === ROLES.ROLE_ADMIN
+    ? renderAdminRoutes()
+    : renderUserRoutes();
 
   return (
     <header className="toolbar">
