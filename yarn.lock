@@ -9463,6 +9463,11 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-collapse@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.0.1.tgz#f763b7207aee73baa1ff778b2d0b4ffb49d900a0"
+  integrity sha512-cN2tkxBWizhPQ2JHfe0aUSJtmMthKA17NZkTElpiQ2snQAAi1hssXZ2fv88rAPNNvG5ss4t0PbOZT0TIl9Lk3Q==
+
 react-custom-radio-buttons@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-custom-radio-buttons/-/react-custom-radio-buttons-1.0.1.tgz#f9449d6f29bcff96f1eef7e4267bed13e88c375d"

@@ -12,7 +12,6 @@
   padding: 30px;
   margin: 0px -10px;
   margin-top: 20px;
-  border: 1px solid #d2d2d2;
 }
 
 .details__div {
@@ -21,21 +20,22 @@
   padding: 10px;
 }
 
+.seperator__div {
+  border-right: 1px solid #d2d2d2;
+}
+
 .cart__div {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin: 0px 10px;
   padding: 10px;
 }
 
 .details__container {
-  height: 200px;
+  /* details */
 }
 
 .payment__container {
-  height: 200px;
+  /* details */
 }
 
 .cart__list {
