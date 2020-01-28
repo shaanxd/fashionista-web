@@ -8,3 +8,8 @@ export const TAGS = [
   { value: 'TAG_TYPE', label: 'Type' },
   { value: 'TAG_GENDER', label: 'Gender' }
 ];
+
+export const PAYMENTS = {
+  CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
+  CARD_PAYMENT: 'CARD_PAYMENT'
+};

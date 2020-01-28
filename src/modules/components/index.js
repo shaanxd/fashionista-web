@@ -10,3 +10,6 @@ export { default as SizePicker } from './sizePicker/SizePicker';
 export { default as QuantityPicker } from './quantityPicker/QuantityPicker';
 export { default as CartDropdown } from './cartDropdown/CartDropdown';
 export { default as CartDrawer } from './cartDrawer/CartDrawer';
+export { default as ShippingInput } from './shippingInput/ShippingInput';
+export { default as PaymentInput } from './paymentInput/PaymentInput';
+export { default as AppInput } from './appInput/AppInput';

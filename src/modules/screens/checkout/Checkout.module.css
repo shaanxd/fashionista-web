@@ -30,14 +30,6 @@
   padding: 10px;
 }
 
-.details__container {
-  /* details */
-}
-
-.payment__container {
-  /* details */
-}
-
 .cart__list {
   height: 200px;
 }
@@ -47,15 +39,18 @@
 }
 
 .header__text {
-  padding: 10px 10px;
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 500;
+  flex: 1;
 }
 
 .header__container {
   border-bottom: 1px solid #d2d2d2;
   padding: 0px 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 .edit__button {

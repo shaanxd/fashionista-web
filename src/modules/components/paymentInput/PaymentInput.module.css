@@ -1,0 +1,52 @@
+.nested__div {
+  display: flex;
+}
+
+.form__div {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.submit__button {
+  padding: 10px;
+  background-color: rgb(231, 8, 135);
+  color: white;
+  border: 1px solid rgb(231, 8, 135);
+  margin: 10px 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.submit__button:hover {
+  background-color: white;
+  color: rgb(231, 8, 135);
+}
+
+.radio__div {
+  padding: 5px;
+  margin: 0px -5px;
+}
+
+.radio__div div {
+  flex: 1;
+  display: flex;
+}
+
+.radio {
+  flex: 1;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex: 1;
+  margin: 5px;
+}
+
+.selected {
+  color: white;
+  background-color: black;
+}

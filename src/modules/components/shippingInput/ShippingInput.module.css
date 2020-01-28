@@ -1,0 +1,24 @@
+.form__div {
+  display: flex;
+  flex-direction: column;
+}
+
+.name__div {
+  display: flex;
+  padding-top: 10px;
+}
+
+.submit__button {
+  padding: 10px;
+  background-color: rgb(231, 8, 135);
+  color: white;
+  border: 1px solid rgb(231, 8, 135);
+  margin: 10px 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.submit__button:hover {
+  background-color: white;
+  color: rgb(231, 8, 135);
+}

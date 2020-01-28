@@ -1,46 +1,58 @@
 import React from 'react';
 import { Collapse } from 'react-collapse';
+import { IoIosCheckmarkCircle } from 'react-icons/io';
+
 import { useMergedState } from '../../utils/useMergedState';
 
 import './Checkout.css';
 import styles from './Checkout.module.css';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { ShippingInput, PaymentInput } from '../../components';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
-    step: 0
+    step: 0,
+    shipping: null,
+    payment: null
   });
 
-  const forward = () => {
-    setState(prevState => ({ ...prevState, step: prevState.step + 1 }));
-  };
   const backward = () => {
     setState(prevState => ({ ...prevState, step: prevState.step - 1 }));
   };
+
+  const submitShipping = shipping => {
+    setState({ step: 1, shipping: { ...shipping } });
+  };
+
+  const submitPayment = payment => {
+    setState({ step: 2, payment: { ...payment } });
+  };
+
+  const renderHeader = (text, value) => {
+    return (
+      <div className={styles.header__container}>
+        <span className={styles.header__text}>{text}</span>
+        {state.step > value && <IoIosCheckmarkCircle color="green" size={20} />}
+      </div>
+    );
+  };
+
+  console.log(state);
 
   return (
     <div className={styles.main__div}>
       <div className={styles.parent__div}>
         <div className={styles.details__div}>
-          <div className={styles.header__container}>
-            <span className={styles.header__text}>SHIPPING INFORMATION</span>
-          </div>
+          {renderHeader('SHIPPING INFORMATION', 0)}
           <Collapse isOpened={state.step === 0}>
-            <div className={styles.details__container}>
-              <button onClick={forward}>Go to payment!</button>
-            </div>
+            <ShippingInput onSubmit={submitShipping} />
           </Collapse>
-          <div className={styles.header__container}>
-            <span className={styles.header__text}>PAYMENT INFORMATION</span>
-          </div>
+          {renderHeader('PAYMENT INFORMATION', 1)}
           <Collapse isOpened={state.step === 1}>
-            <div className={styles.payment__container}>
-              <button onClick={backward}>Go to shipping!</button>
-              <button onClick={forward}>Go to Confirm!</button>
-            </div>
+            <PaymentInput onPrevious={backward} onSubmit={submitPayment} />
           </Collapse>
-          <div className={styles.header__container}>
-            <span className={styles.header__text}>CONFIRM ORDER</span>
-          </div>
+          {renderHeader('CONFIRM ORDER', 2)}
           <Collapse isOpened={state.step === 2}>
             <div className={styles.payment__container}>
               <button onClick={backward}>Go to shipping!</button>
@@ -61,4 +73,17 @@ const Checkout = props => {
   );
 };
 
-export default Checkout;
+const mapStateToProps = ({ cart: { cart, cartLoading } }) => {
+  return {
+    cart,
+    cartLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Checkout)
+);
