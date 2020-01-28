@@ -65,7 +65,14 @@ const Product = props => {
   };
 
   const renderError = () => {
-    return <div>{productError}</div>;
+    return (
+      <div className={styles.error_div}>
+        {productError}
+        <button className={styles.retry__button} onClick={loadProductDetails}>
+          Retry
+        </button>
+      </div>
+    );
   };
 
   const renderProduct = () => {

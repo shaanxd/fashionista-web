@@ -1,6 +1,6 @@
 import React from 'react';
-import { MdCancel, MdAddShoppingCart } from 'react-icons/md';
-import { IoMdExit } from 'react-icons/io';
+import { MdAddShoppingCart } from 'react-icons/md';
+import { IoIosClose } from 'react-icons/io';
 
 import styles from './CartDropdown.module.css';
 import { Loading } from '..';
@@ -28,16 +28,14 @@ const CartDropdown = props => {
           </div>
         </div>
         <div className={styles.cart__price}>{`$${totalPrice}`}</div>
-        <div className={styles.cart__controls}>
-          <button
-            className={styles.remove__button}
-            onClick={() => {
-              props.onDeleteCart(id);
-            }}
-          >
-            <MdCancel color="gray" size={20} />
-          </button>
-        </div>
+        <button
+          className={styles.remove__button}
+          onClick={() => {
+            props.onDeleteCart(id);
+          }}
+        >
+          <IoIosClose color="black" size={30} />
+        </button>
       </div>
     );
   };
@@ -47,15 +45,25 @@ const CartDropdown = props => {
 
     return (
       <div className={styles.items__div}>
-        <div className={styles.list__div}>{items}</div>
+        <div className={styles.control__container}>
+          <button
+            className={styles.close__button}
+            onClick={props.cartClickHandler}
+          >
+            <IoIosClose color="gray" size={25} />
+            <span className={styles.close__text}>CLOSE</span>
+          </button>
+        </div>
+        <span className={styles.cart__header}>SHOPPING CART:</span>
+        {items}
         <div className={styles.price__div}>
-          <span>SUB-TOTAL</span>
+          <span>Total:</span>
           <span>{`$${cart.totalPrice}`}</span>
         </div>
         <button className={styles.view__button} onClick={props.onCheckout}>
-          <IoMdExit color="white" size={25} />
-          <span className={styles.button__text}>Checkout</span>
+          <span>CHECK OUT</span>
         </button>
+        <div className={styles.padding__div} />
       </div>
     );
   };

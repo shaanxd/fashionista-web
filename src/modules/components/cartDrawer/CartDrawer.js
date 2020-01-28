@@ -23,6 +23,7 @@ const CartDrawer = props => {
         loading={props.loading}
         error={props.error}
         onCheckout={onCheckout}
+        cartClickHandler={props.cartClickHandler}
       />
     </div>
   );

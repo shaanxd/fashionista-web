@@ -14,5 +14,5 @@
 
 .drawer__div.open {
   transform: translateX(0);
-  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5); */
 }

@@ -81,3 +81,21 @@
   text-align: center;
   color: red;
 }
+
+.error_div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.retry__button {
+  padding: 10px 30px;
+  margin-top: 30px;
+  background-color: rgb(231, 8, 135);
+  color: white;
+  border: none;
+}

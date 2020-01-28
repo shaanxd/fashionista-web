@@ -90,6 +90,7 @@ const Root = props => {
             loading={props.cartLoading}
             error={props.cartError}
             close={cartToggle}
+            cartClickHandler={cartToggle}
           />
           <main className={styles.main}>
             <Switch>
