@@ -9,7 +9,8 @@ import {
   Signup,
   Product,
   AddTag,
-  AddProduct
+  AddProduct,
+  Checkout
 } from './screens';
 import {
   Toolbar,
@@ -88,6 +89,7 @@ const Root = props => {
             cart={props.cart}
             loading={props.cartLoading}
             error={props.cartError}
+            close={cartToggle}
           />
           <main className={styles.main}>
             <Switch>
@@ -111,6 +113,9 @@ const Root = props => {
               </Route>
               <Route exact path="/add-product">
                 <AdminRoute component={AddProduct} />
+              </Route>
+              <Route exact path="/checkout">
+                <Checkout />
               </Route>
             </Switch>
           </main>

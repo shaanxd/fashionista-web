@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdCancel, MdAddShoppingCart } from 'react-icons/md';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { IoMdExit } from 'react-icons/io';
 
 import styles from './CartDropdown.module.css';
 import { Loading } from '..';
@@ -52,11 +52,9 @@ const CartDropdown = props => {
           <span>SUB-TOTAL</span>
           <span>{`$${cart.totalPrice}`}</span>
         </div>
-        <button className={styles.view__button}>
-          <AiOutlineShoppingCart color="gray" size={15} />
-          <span
-            className={styles.button__text}
-          >{`View All (${cart.numberOfItems})`}</span>
+        <button className={styles.view__button} onClick={props.onCheckout}>
+          <IoMdExit color="white" size={25} />
+          <span className={styles.button__text}>Checkout</span>
         </button>
       </div>
     );

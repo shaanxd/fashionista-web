@@ -2,11 +2,17 @@ import React from 'react';
 
 import styles from './CartDrawer.module.css';
 import CartDropdown from '../cartDropdown/CartDropdown';
+import { withRouter } from 'react-router-dom';
 
 const CartDrawer = props => {
   let style = props.isOpen
     ? [styles.drawer__div, styles.open].join(' ')
     : styles.drawer__div;
+
+  const onCheckout = () => {
+    props.history.push('/checkout');
+    props.close();
+  };
 
   return (
     <div className={style}>
@@ -16,9 +22,10 @@ const CartDrawer = props => {
         cart={props.cart}
         loading={props.loading}
         error={props.error}
+        onCheckout={onCheckout}
       />
     </div>
   );
 };
 
-export default CartDrawer;
+export default withRouter(CartDrawer);

@@ -98,9 +98,11 @@ const Toolbar = props => {
         </div>
         <div className="spacer" />
         <div className="toolbar__navigation-items">{navigationRoutes}</div>
-        <div className="toolbar__cart-button">
-          <DrawerToggleButton isCart onClick={props.cartClickHandler} />
-        </div>
+        {auth && auth.role === ROLES.ROLE_USER && (
+          <div className="toolbar__cart-button">
+            <DrawerToggleButton isCart onClick={props.cartClickHandler} />
+          </div>
+        )}
       </nav>
     </header>
   );
