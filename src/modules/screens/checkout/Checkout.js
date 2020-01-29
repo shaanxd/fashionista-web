@@ -1,20 +1,37 @@
 import React from 'react';
 import { Collapse } from 'react-collapse';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { PAYMENTS } from '../../constants/types';
 import { useMergedState } from '../../utils/useMergedState';
+import {
+  ShippingInput,
+  PaymentInput,
+  OrderConfirmation
+} from '../../components';
 
 import './Checkout.css';
 import styles from './Checkout.module.css';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { ShippingInput, PaymentInput } from '../../components';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
-    step: 1,
-    shipping: null,
-    payment: null
+    step: 0,
+    shipping: {
+      firstname: 'Shahid',
+      lastname: 'Hassan',
+      address: '434/B, Enderamulla',
+      city: 'Wattala',
+      country: 'Sri Lanka.'
+    },
+    payment: {
+      type: 'CARD_PAYMENT',
+      holderName: '123',
+      cardNumber: '123',
+      expiryDate: '123',
+      cvc: '123'
+    }
   });
 
   const backward = () => {
@@ -26,7 +43,13 @@ const Checkout = props => {
   };
 
   const submitPayment = payment => {
-    setState({ step: 2, payment: { ...payment } });
+    setState({
+      step: 2,
+      payment:
+        payment.type === PAYMENTS.CARD_PAYMENT
+          ? { ...payment }
+          : { type: payment.type }
+    });
   };
 
   const toShipping = () => {
@@ -46,14 +69,12 @@ const Checkout = props => {
             <button className={styles.edit__button} onClick={callback}>
               EDIT
             </button>
-            <IoIosCheckmarkCircle color="green" size={20} />
+            <IoIosCheckmarkCircle color="black" size={20} />
           </div>
         )}
       </div>
     );
   };
-
-  console.log(state);
 
   return (
     <div className={styles.main__div}>
@@ -68,7 +89,13 @@ const Checkout = props => {
             <PaymentInput onPrevious={backward} onSubmit={submitPayment} />
           </Collapse>
           {renderHeader('CONFIRM ORDER', 2)}
-          <Collapse isOpened={state.step === 2}></Collapse>
+          <Collapse isOpened={state.step === 2}>
+            <OrderConfirmation
+              shipping={state.shipping}
+              payment={state.payment}
+              onPrevious={backward}
+            />
+          </Collapse>
         </div>
         <div className={styles.seperator__div} />
         <div className={styles.cart__div}>

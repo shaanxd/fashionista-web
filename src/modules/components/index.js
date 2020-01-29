@@ -13,3 +13,4 @@ export { default as CartDrawer } from './cartDrawer/CartDrawer';
 export { default as ShippingInput } from './shippingInput/ShippingInput';
 export { default as PaymentInput } from './paymentInput/PaymentInput';
 export { default as AppInput } from './appInput/AppInput';
+export { default as OrderConfirmation } from './orderConfirmation/OrderConfirmation';

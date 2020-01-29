@@ -16,15 +16,16 @@
 
 .submit__button {
   padding: 10px;
-  background-color: rgb(231, 8, 135);
+  background-color: black;
   color: white;
-  border: 1px solid rgb(231, 8, 135);
+  border: 1px solid black;
   margin: 10px 5px;
   font-size: 0.8rem;
   font-weight: 600;
+  width: 100%;
 }
 
 .submit__button:hover {
   background-color: white;
-  color: rgb(231, 8, 135);
+  color: black;
 }

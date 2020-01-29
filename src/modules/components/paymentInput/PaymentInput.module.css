@@ -15,9 +15,9 @@
 
 .submit__button {
   padding: 10px;
-  background-color: rgb(231, 8, 135);
+  background-color: black;
   color: white;
-  border: 1px solid rgb(231, 8, 135);
+  border: 1px solid black;
   margin: 10px 5px;
   font-size: 0.8rem;
   font-weight: 600;
@@ -26,7 +26,7 @@
 
 .submit__button:hover {
   background-color: white;
-  color: rgb(231, 8, 135);
+  color: black;
 }
 
 .radio__div {
@@ -56,7 +56,7 @@
   background-color: black;
 }
 
-.input__div {
+.form__group {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -66,8 +66,7 @@
 .form__input {
   width: 100%;
   padding: 10px 15px;
-  border: 1px solid #d2d2d2;
-  border-radius: 2px;
+  border: none;
 }
 
 .payment__nested {
@@ -83,6 +82,19 @@
   margin-top: 3px;
 }
 
-.form__input:focus {
-  border-color: black;
+.input__div:focus-within {
+  border: 1px solid #000;
+}
+
+.input__div {
+  display: flex;
+  border: 1px solid #d2d2d2;
+  border-radius: 2px;
+}
+
+.svg__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;
 }

@@ -45,7 +45,7 @@ const ShippingInput = props => {
                 type="text"
               />
               <button className={styles.submit__button} type="submit">
-                NEXT
+                PROCEED
               </button>
             </Form>
           );

@@ -1,80 +1,51 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Radio, RadioGroup } from 'react-custom-radio-buttons';
 import { Collapse } from 'react-collapse';
-import { usePaymentInputs } from 'react-payment-inputs';
 
 import { AppInput } from '../';
 
 import styles from './PaymentInput.module.css';
 import { PAYMENTS } from '../../constants/types';
 
-const PaymentWrapperInput = props => {
-  const { name, inputWrapperProps } = props;
-  return (
-    <div className={styles.input__div}>
-      <Field name={props.name}>
-        {({ field }) => (
-          <input
-            {...inputWrapperProps({
-              onBlur: field.onBlur,
-              onChange: field.onChange
-            })}
-            className={styles.form__input}
-          />
-        )}
-      </Field>
-      <ErrorMessage name={name}>
-        {message => <label className={styles.form__error}>{message}</label>}
-      </ErrorMessage>
-    </div>
-  );
-};
-
 const PaymentInput = props => {
-  const {
-    meta,
-    getCardImageProps,
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps
-  } = usePaymentInputs();
-
   return (
     <div className={styles.details__container}>
       <Formik
         initialValues={{
           type: '',
-          name: '',
-          number: '',
-          expirationDate: '',
+          holderName: '',
+          cardNumber: '',
+          expiryDate: '',
           cvc: ''
         }}
         validationSchema={Yup.object().shape({
           type: Yup.string()
             .oneOf([PAYMENTS.CASH_ON_DELIVERY, PAYMENTS.CARD_PAYMENT])
             .required('Payment type should be selected'),
-          name: Yup.string().when('type', {
+          holderName: Yup.string().when('type', {
             is: PAYMENTS.CARD_PAYMENT,
             then: Yup.string().required('Cardholder name is required')
+          }),
+          cardNumber: Yup.number().when('type', {
+            is: PAYMENTS.CARD_PAYMENT,
+            then: Yup.number()
+              .typeError('Invalid number')
+              .required('Card number is required')
+          }),
+          expiryDate: Yup.string().when('type', {
+            is: PAYMENTS.CARD_PAYMENT,
+            then: Yup.string().required('Expiration date is required')
+          }),
+          cvc: Yup.string().when('type', {
+            is: PAYMENTS.CARD_PAYMENT,
+            then: Yup.string()
+              .required('CVC is required')
+              .min(3, 'Invalid CVC')
+              .max(3, 'Invalid CVC')
           })
         })}
-        validate={values => {
-          let errors = {};
-          if (values.type === PAYMENTS.CARD_PAYMENT) {
-            if (meta.erroredInputs.cardNumber) {
-              errors.number = meta.erroredInputs.cardNumber;
-            }
-            if (meta.erroredInputs.expiryDate) {
-              errors.expirationDate = meta.erroredInputs.expiryDate;
-            }
-            if (meta.erroredInputs.cvc) {
-              errors.cvc = meta.erroredInputs.cvc;
-            }
-          }
-          return errors;
-        }}
         onSubmit={props.onSubmit}
       >
         {({ isSubmitting, setFieldValue, values }) => {
@@ -108,24 +79,18 @@ const PaymentInput = props => {
                 })}
               </RadioGroup>
               <Collapse isOpened={values.type === PAYMENTS.CARD_PAYMENT}>
-                {/* <svg {...getCardImageProps({ images })} /> */}
-                <PaymentWrapperInput
-                  name="number"
-                  inputWrapperProps={getCardNumberProps}
+                <AppInput
+                  name="cardNumber"
+                  placeholder="Card number"
+                  type="text"
                 />
                 <div className={styles.payment__nested}>
-                  <PaymentWrapperInput
-                    name="expirationDate"
-                    inputWrapperProps={getExpiryDateProps}
-                  />
+                  <AppInput name="expiryDate" placeholder="MM/yy" type="text" />
                   <div className={styles.separator__div} />
-                  <PaymentWrapperInput
-                    name="cvc"
-                    inputWrapperProps={getCVCProps}
-                  />
+                  <AppInput name="cvc" placeholder="CVC" type="text" />
                 </div>
                 <AppInput
-                  name="name"
+                  name="holderName"
                   placeholder="Cardholder name"
                   type="text"
                 />
@@ -137,10 +102,10 @@ const PaymentInput = props => {
                   type="button"
                   onClick={props.onPrevious}
                 >
-                  PREVIOUS
+                  EDIT SHIPPING
                 </button>
                 <button className={styles.submit__button} type="submit">
-                  NEXT
+                  PROCEED CHECKOUT
                 </button>
               </div>
             </Form>
