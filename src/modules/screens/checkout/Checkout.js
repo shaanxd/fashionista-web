@@ -18,26 +18,10 @@ import styles from './Checkout.module.css';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
-    step: 0,
-    shipping: {
-      firstname: 'Shahid',
-      lastname: 'Hassan',
-      address: '434/B, Enderamulla',
-      city: 'Wattala',
-      country: 'Sri Lanka.'
-    },
-    payment: {
-      type: 'CARD_PAYMENT',
-      holderName: '123',
-      cardNumber: '123',
-      expiryDate: '123',
-      cvc: '123'
-    }
+    step: 1,
+    shipping: null,
+    payment: null
   });
-
-  const backward = () => {
-    setState(prevState => ({ ...prevState, step: prevState.step - 1 }));
-  };
 
   const submitShipping = shipping => {
     setState({ step: 1, shipping: { ...shipping } });
@@ -94,14 +78,14 @@ const Checkout = props => {
           </Collapse>
           {renderHeader('PAYMENT INFORMATION', 1, toPayment)}
           <Collapse isOpened={state.step === 1}>
-            <PaymentInput onPrevious={backward} onSubmit={submitPayment} />
+            <PaymentInput onPrevious={toShipping} onSubmit={submitPayment} />
           </Collapse>
           {renderHeader('CONFIRM ORDER', 2)}
           <Collapse isOpened={state.step === 2}>
             <OrderConfirmation
               shipping={state.shipping}
               payment={state.payment}
-              onPrevious={backward}
+              onPrevious={toPayment}
             />
           </Collapse>
         </div>
