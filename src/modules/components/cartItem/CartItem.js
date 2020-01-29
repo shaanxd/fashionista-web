@@ -7,11 +7,10 @@ import styles from './CartItem.module.css';
 
 const CartItem = props => {
   const {
-    index,
     item: { product, quantity, totalPrice, size, id }
   } = props;
   return (
-    <div className={styles.cart__item} key={index}>
+    <div className={styles.cart__item}>
       <img
         src={getImageUrl(product.thumbnail)}
         alt="thumbnail"

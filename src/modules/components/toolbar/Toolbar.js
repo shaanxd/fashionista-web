@@ -100,7 +100,11 @@ const Toolbar = props => {
         <div className="toolbar__navigation-items">{navigationRoutes}</div>
         {auth && auth.role === ROLES.ROLE_USER && (
           <div className="toolbar__cart-button">
-            <DrawerToggleButton isCart onClick={props.cartClickHandler} />
+            <DrawerToggleButton
+              isCart
+              onClick={props.cartClickHandler}
+              value={props.numberOfProducts}
+            />
           </div>
         )}
       </nav>

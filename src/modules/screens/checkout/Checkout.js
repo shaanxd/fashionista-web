@@ -79,7 +79,7 @@ const Checkout = props => {
 
   const renderCartList = () => {
     const items = props.cart.items.map((item, index) => (
-      <CartItem item={item} index={index} />
+      <CartItem item={item} key={index} />
     ));
     return items;
   };

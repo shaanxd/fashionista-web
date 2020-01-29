@@ -79,6 +79,7 @@ const Root = props => {
           <Toolbar
             drawerClickHandler={drawerToggle}
             cartClickHandler={cartToggle}
+            numberOfProducts={props.cart.numberOfItems}
           />
           <SideDrawer isOpen={drawerOpen} />
           {(drawerOpen || cartOpen) && <Backdrop onClick={backdropToggle} />}

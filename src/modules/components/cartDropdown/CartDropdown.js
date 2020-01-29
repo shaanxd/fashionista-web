@@ -12,7 +12,7 @@ const CartDropdown = props => {
     const items = cart.items.map((item, index) => (
       <CartItem
         item={item}
-        index={index}
+        key={index}
         onDeleteCart={() => {
           props.onDeleteCart(item.id);
         }}
