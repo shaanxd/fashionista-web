@@ -18,7 +18,7 @@ import styles from './Checkout.module.css';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
-    step: 1,
+    step: 0,
     shipping: null,
     payment: null
   });

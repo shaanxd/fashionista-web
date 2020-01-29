@@ -4,7 +4,6 @@ import styles from './OrderConfirmation.module.css';
 
 const OrderConfirmation = props => {
   const { shipping, payment } = props;
-  const type = payment ? payment.type.replace(/_/g, ' ') : '';
 
   return (
     <div className={styles.details__container}>

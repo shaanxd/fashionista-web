@@ -3,8 +3,9 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Radio, RadioGroup } from 'react-custom-radio-buttons';
 import { Collapse } from 'react-collapse';
+import { cardMask, dateMask, cvcMask } from '../../constants/masks';
 
-import { AppInput } from '../';
+import { AppInput, MaskInput } from '../';
 
 import styles from './PaymentInput.module.css';
 import { PAYMENTS } from '../../constants/types';
@@ -31,7 +32,7 @@ const PaymentInput = props => {
           cardNumber: Yup.number().when('type', {
             is: PAYMENTS.CARD_PAYMENT,
             then: Yup.number()
-              .typeError('Invalid number')
+              .typeError('Invalid card number')
               .required('Card number is required')
           }),
           expiryDate: Yup.string().when('type', {
@@ -79,15 +80,26 @@ const PaymentInput = props => {
                 })}
               </RadioGroup>
               <Collapse isOpened={values.type === PAYMENTS.CARD_PAYMENT}>
-                <AppInput
+                <MaskInput
                   name="cardNumber"
                   placeholder="Card number"
-                  type="text"
+                  mask={cardMask}
+                  placeholderChar="0"
                 />
                 <div className={styles.payment__nested}>
-                  <AppInput name="expiryDate" placeholder="MM/yy" type="text" />
+                  <MaskInput
+                    name="expiryDate"
+                    placeholder="Expiration date"
+                    mask={dateMask}
+                    placeholderChar="0"
+                  />
                   <div className={styles.separator__div} />
-                  <AppInput name="cvc" placeholder="CVC" type="text" />
+                  <MaskInput
+                    name="cvc"
+                    placeholder="CVC"
+                    mask={cvcMask}
+                    placeholderChar="0"
+                  />
                 </div>
                 <AppInput
                   name="holderName"

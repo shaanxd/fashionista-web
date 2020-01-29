@@ -15,3 +15,4 @@ export { default as PaymentInput } from './paymentInput/PaymentInput';
 export { default as AppInput } from './appInput/AppInput';
 export { default as OrderConfirmation } from './orderConfirmation/OrderConfirmation';
 export { default as CartItem } from './cartItem/CartItem';
+export { default as MaskInput } from './maskInput/MaskInput';
