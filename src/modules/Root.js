@@ -116,7 +116,7 @@ const Root = props => {
                 <AdminRoute component={AddProduct} />
               </Route>
               <Route exact path="/checkout">
-                <Checkout />
+                <Checkout cartClickHandler={cartToggle} />
               </Route>
             </Switch>
           </main>

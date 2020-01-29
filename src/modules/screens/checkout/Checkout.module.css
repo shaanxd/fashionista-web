@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .parent__div {
@@ -28,14 +29,13 @@
   flex: 1;
   margin: 0px 10px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart__list {
-  height: 200px;
-}
-
-.cart__info {
-  height: 100px;
+  overflow: auto;
+  padding: 5px;
 }
 
 .header__text {
@@ -68,4 +68,16 @@
 
 .header__controls {
   display: flex;
+}
+
+.cart__info {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.total__label {
+  flex: 1;
 }

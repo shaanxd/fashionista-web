@@ -3,45 +3,21 @@ import { MdAddShoppingCart } from 'react-icons/md';
 import { IoIosClose } from 'react-icons/io';
 
 import styles from './CartDropdown.module.css';
-import { Loading } from '..';
-import { getImageUrl } from '../../utils/productUtils';
+import { Loading, CartItem } from '..';
 
 const CartDropdown = props => {
   const { cart, loading, error } = props;
 
-  const renderCartItem = (
-    { product, quantity, size, id, totalPrice },
-    index
-  ) => {
-    return (
-      <div className={styles.cart__item} key={index}>
-        <img
-          src={getImageUrl(product.thumbnail)}
-          alt="thumbnail"
-          className={styles.cart__thumbnail}
-        />
-        <div className={styles.cart__details}>
-          <span className={styles.product__name}>{product.name}</span>
-          <div className={styles.details__horizontal}>
-            <span className={styles.product__size}>{size}</span>
-            <span className={styles.product__quantity}>{`x${quantity}`}</span>
-          </div>
-        </div>
-        <div className={styles.cart__price}>{`$${totalPrice}`}</div>
-        <button
-          className={styles.remove__button}
-          onClick={() => {
-            props.onDeleteCart(id);
-          }}
-        >
-          <IoIosClose color="black" size={30} />
-        </button>
-      </div>
-    );
-  };
-
   const renderCart = () => {
-    const items = cart.items.map((item, index) => renderCartItem(item, index));
+    const items = cart.items.map((item, index) => (
+      <CartItem
+        item={item}
+        index={index}
+        onDeleteCart={() => {
+          props.onDeleteCart(item.id);
+        }}
+      />
+    ));
 
     return (
       <div className={styles.items__div}>

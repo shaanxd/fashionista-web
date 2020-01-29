@@ -9,7 +9,8 @@ import { useMergedState } from '../../utils/useMergedState';
 import {
   ShippingInput,
   PaymentInput,
-  OrderConfirmation
+  OrderConfirmation,
+  CartItem
 } from '../../components';
 
 import './Checkout.css';
@@ -76,6 +77,13 @@ const Checkout = props => {
     );
   };
 
+  const renderCartList = () => {
+    const items = props.cart.items.map((item, index) => (
+      <CartItem item={item} index={index} />
+    ));
+    return items;
+  };
+
   return (
     <div className={styles.main__div}>
       <div className={styles.parent__div}>
@@ -101,10 +109,18 @@ const Checkout = props => {
         <div className={styles.cart__div}>
           <div className={styles.header__container}>
             <span className={styles.header__text}>YOUR ORDER</span>
-            <button className={styles.edit__button}>EDIT SHOPPING BAG</button>
+            <button
+              className={styles.edit__button}
+              onClick={props.cartClickHandler}
+            >
+              EDIT SHOPPING BAG
+            </button>
           </div>
-          <div className={styles.cart__list}></div>
-          <div className={styles.cart__info}></div>
+          <div className={styles.cart__list}>{renderCartList()}</div>
+          <div className={styles.cart__info}>
+            <span className={styles.total__label}>TOTAL:</span>
+            <span>{`$${props.cart.totalPrice}`}</span>
+          </div>
         </div>
       </div>
     </div>
