@@ -65,3 +65,7 @@
   background-color: rgba(210, 210, 210, 0.1);
   border-radius: 10px;
 }
+
+.header__controls {
+  display: flex;
+}

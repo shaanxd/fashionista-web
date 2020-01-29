@@ -12,7 +12,7 @@ import { ShippingInput, PaymentInput } from '../../components';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
-    step: 0,
+    step: 1,
     shipping: null,
     payment: null
   });
@@ -29,11 +29,26 @@ const Checkout = props => {
     setState({ step: 2, payment: { ...payment } });
   };
 
-  const renderHeader = (text, value) => {
+  const toShipping = () => {
+    setState({ step: 0 });
+  };
+
+  const toPayment = () => {
+    setState({ step: 1 });
+  };
+
+  const renderHeader = (text, value, callback) => {
     return (
       <div className={styles.header__container}>
         <span className={styles.header__text}>{text}</span>
-        {state.step > value && <IoIosCheckmarkCircle color="green" size={20} />}
+        {state.step > value && (
+          <div className={styles.header__controls}>
+            <button className={styles.edit__button} onClick={callback}>
+              EDIT
+            </button>
+            <IoIosCheckmarkCircle color="green" size={20} />
+          </div>
+        )}
       </div>
     );
   };
@@ -44,20 +59,16 @@ const Checkout = props => {
     <div className={styles.main__div}>
       <div className={styles.parent__div}>
         <div className={styles.details__div}>
-          {renderHeader('SHIPPING INFORMATION', 0)}
+          {renderHeader('SHIPPING INFORMATION', 0, toShipping)}
           <Collapse isOpened={state.step === 0}>
             <ShippingInput onSubmit={submitShipping} />
           </Collapse>
-          {renderHeader('PAYMENT INFORMATION', 1)}
+          {renderHeader('PAYMENT INFORMATION', 1, toPayment)}
           <Collapse isOpened={state.step === 1}>
             <PaymentInput onPrevious={backward} onSubmit={submitPayment} />
           </Collapse>
           {renderHeader('CONFIRM ORDER', 2)}
-          <Collapse isOpened={state.step === 2}>
-            <div className={styles.payment__container}>
-              <button onClick={backward}>Go to shipping!</button>
-            </div>
-          </Collapse>
+          <Collapse isOpened={state.step === 2}></Collapse>
         </div>
         <div className={styles.seperator__div} />
         <div className={styles.cart__div}>
