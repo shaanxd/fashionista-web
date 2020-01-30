@@ -5,7 +5,7 @@ import { Radio, RadioGroup } from 'react-custom-radio-buttons';
 import { Collapse } from 'react-collapse';
 import { cardMask, dateMask, cvcMask } from '../../constants/masks';
 
-import { AppInput, MaskInput } from '../';
+import { AppInput, MaskInput, AppButton } from '..';
 
 import styles from './PaymentInput.module.css';
 import { PAYMENTS } from '../../constants/types';
@@ -120,16 +120,21 @@ const PaymentInput = props => {
                 )}
               </ErrorMessage>
               <div className={styles.nested__div}>
-                <button
-                  className={styles.submit__button}
-                  type="button"
-                  onClick={props.onPrevious}
-                >
-                  EDIT SHIPPING
-                </button>
-                <button className={styles.submit__button} type="submit">
-                  PROCEED CHECKOUT
-                </button>
+                <div className={styles.button__container}>
+                  <AppButton
+                    text="Edit Shipping"
+                    onClick={props.onPrevious}
+                    type="button"
+                    loading={props.loading}
+                  />
+                </div>
+                <div className={styles.button__container}>
+                  <AppButton
+                    text="Proceed"
+                    type="submit"
+                    loading={props.loading}
+                  />
+                </div>
               </div>
             </Form>
           );

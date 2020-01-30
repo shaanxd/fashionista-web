@@ -47,6 +47,27 @@ export const deleteCart = payload => {
   };
 };
 
+export const checkout = payload => {
+  return {
+    type: CHECKOUT,
+    payload
+  };
+};
+
+export const checkoutSuccess = payload => {
+  return {
+    type: CHECKOUT_SUCCESS,
+    payload
+  };
+};
+
+export const checkoutFailure = payload => {
+  return {
+    type: CHECKOUT_FAILURE,
+    payload
+  };
+};
+
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const ADD_TO_CART_SUCCESS = 'ADD_TO_CART_SUCCESS';
 export const ADD_TO_CART_FAILURE = 'ADD_TO_CART_FAILURE';
@@ -56,3 +77,7 @@ export const GET_CART_SUCCESS = 'GET_CART_SUCCESS';
 export const GET_CART_FAILURE = 'GET_CART_FAILURE';
 
 export const DELETE_CART = 'DELETE_CART';
+
+export const CHECKOUT = 'CHECKOUT';
+export const CHECKOUT_SUCCESS = 'CHECKOUT_SUCCESS';
+export const CHECKOUT_FAILURE = 'CHECKOUT_FAILURE';

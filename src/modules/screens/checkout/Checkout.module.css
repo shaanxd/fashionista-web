@@ -81,3 +81,11 @@
 .total__label {
   flex: 1;
 }
+
+.main__error {
+  padding: 5px;
+  text-align: center;
+  color: red;
+  margin: 5px 15px;
+  display: block;
+}

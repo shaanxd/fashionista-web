@@ -13,20 +13,10 @@
   flex-direction: column;
 }
 
-.submit__button {
-  padding: 10px;
-  background-color: black;
-  color: white;
-  border: 1px solid black;
-  margin: 10px 5px;
-  font-size: 0.8rem;
-  font-weight: 600;
+.button__container {
+  margin: 0px 5px;
   width: 100%;
-}
-
-.submit__button:hover {
-  background-color: white;
-  color: black;
+  margin-top: 10px;
 }
 
 .radio__div {

@@ -1,0 +1,18 @@
+.button {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.button__container {
+  width: 100%;
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+}

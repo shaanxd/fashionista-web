@@ -14,3 +14,8 @@ export const deleteCart = (cartId, authToken) => {
   const endpoint = `cart/delete-cart/${cartId}`;
   return POST(endpoint, {}, authToken);
 };
+
+export const checkoutCart = (checkoutData, authToken) => {
+  const endpoint = 'purchases/purchase-cart';
+  return POST(endpoint, checkoutData, authToken);
+};

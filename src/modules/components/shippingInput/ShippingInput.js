@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { AppInput } from '../';
+import { AppInput, AppButton } from '../';
 
 import styles from './ShippingInput.module.css';
 
@@ -44,9 +44,13 @@ const ShippingInput = props => {
                 placeholder="Country/Region"
                 type="text"
               />
-              <button className={styles.submit__button} type="submit">
-                PROCEED
-              </button>
+              <div className={styles.button__container}>
+                <AppButton
+                  text="Proceed"
+                  type="submit"
+                  loading={props.loading}
+                />
+              </div>
             </Form>
           );
         }}

@@ -12,6 +12,7 @@ import {
   OrderConfirmation,
   CartItem
 } from '../../components';
+import { checkout } from '../../actions/cart';
 
 import './Checkout.css';
 import styles from './Checkout.module.css';
@@ -23,8 +24,11 @@ const Checkout = props => {
     payment: null
   });
 
-  const submitShipping = shipping => {
-    setState({ step: 1, shipping: { ...shipping } });
+  const submitShipping = ({ firstname, lastname, ...rest }) => {
+    setState({
+      step: 1,
+      shipping: { name: `${lastname}, ${firstname}`, ...rest }
+    });
   };
 
   const submitPayment = payment => {
@@ -45,13 +49,28 @@ const Checkout = props => {
     setState({ step: 1 });
   };
 
+  const onFormSubmit = () => {
+    const data = {
+      cart: props.cart.items.map(item => item.id),
+      shipping: {
+        ...state.shipping
+      },
+      payment: state.payment.type
+    };
+    props.checkout(data);
+  };
+
   const renderHeader = (text, value, callback) => {
     return (
       <div className={styles.header__container}>
         <span className={styles.header__text}>{text}</span>
         {state.step > value && (
           <div className={styles.header__controls}>
-            <button className={styles.edit__button} onClick={callback}>
+            <button
+              className={styles.edit__button}
+              onClick={callback}
+              disabled={props.cartLoading || props.checkoutLoading}
+            >
               EDIT
             </button>
             <IoIosCheckmarkCircle color="black" size={20} />
@@ -74,11 +93,18 @@ const Checkout = props => {
         <div className={styles.details__div}>
           {renderHeader('SHIPPING INFORMATION', 0, toShipping)}
           <Collapse isOpened={state.step === 0}>
-            <ShippingInput onSubmit={submitShipping} />
+            <ShippingInput
+              onSubmit={submitShipping}
+              loading={props.checkoutLoading || props.cartLoading}
+            />
           </Collapse>
           {renderHeader('PAYMENT INFORMATION', 1, toPayment)}
           <Collapse isOpened={state.step === 1}>
-            <PaymentInput onPrevious={toShipping} onSubmit={submitPayment} />
+            <PaymentInput
+              onPrevious={toShipping}
+              onSubmit={submitPayment}
+              loading={props.checkoutLoading || props.cartLoading}
+            />
           </Collapse>
           {renderHeader('CONFIRM ORDER', 2)}
           <Collapse isOpened={state.step === 2}>
@@ -86,8 +112,13 @@ const Checkout = props => {
               shipping={state.shipping}
               payment={state.payment}
               onPrevious={toPayment}
+              onSubmit={onFormSubmit}
+              loading={props.checkoutLoading || props.cartLoading}
             />
           </Collapse>
+          {props.checkoutError && (
+            <span className={styles.main__error}>{props.checkoutError}</span>
+          )}
         </div>
         <div className={styles.seperator__div} />
         <div className={styles.cart__div}>
@@ -111,15 +142,23 @@ const Checkout = props => {
   );
 };
 
-const mapStateToProps = ({ cart: { cart, cartLoading } }) => {
+const mapStateToProps = ({
+  cart: { cart, cartLoading, checkoutLoading, checkoutError }
+}) => {
   return {
     cart,
-    cartLoading
+    cartLoading,
+    checkoutLoading,
+    checkoutError
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    checkout: data => {
+      dispatch(checkout(data));
+    }
+  };
 };
 
 export default withRouter(
