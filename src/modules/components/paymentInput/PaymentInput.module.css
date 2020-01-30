@@ -56,19 +56,6 @@
   background-color: black;
 }
 
-.form__group {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 5px;
-}
-
-.form__input {
-  width: 100%;
-  padding: 10px 15px;
-  border: none;
-}
-
 .payment__nested {
   display: flex;
 }
@@ -79,22 +66,6 @@
 
 .form__error {
   color: red;
-  margin-top: 3px;
-}
-
-.input__div:focus-within {
-  border: 1px solid #000;
-}
-
-.input__div {
-  display: flex;
-  border: 1px solid #d2d2d2;
-  border-radius: 2px;
-}
-
-.svg__container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 15px;
+  text-align: center;
+  margin: 3px 5px;
 }

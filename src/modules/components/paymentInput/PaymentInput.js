@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Radio, RadioGroup } from 'react-custom-radio-buttons';
 import { Collapse } from 'react-collapse';
@@ -29,19 +29,25 @@ const PaymentInput = props => {
             is: PAYMENTS.CARD_PAYMENT,
             then: Yup.string().required('Cardholder name is required')
           }),
-          cardNumber: Yup.number().when('type', {
+          cardNumber: Yup.string().when('type', {
             is: PAYMENTS.CARD_PAYMENT,
-            then: Yup.number()
+            then: Yup.string()
               .typeError('Invalid card number')
               .required('Card number is required')
+              .min(19, 'Invalid card number')
+              .max(19, 'Invalid card number')
           }),
           expiryDate: Yup.string().when('type', {
             is: PAYMENTS.CARD_PAYMENT,
-            then: Yup.string().required('Expiration date is required')
+            then: Yup.string()
+              .required('Date is required')
+              .min(5, 'Invalid date')
+              .max(5, 'Invalid date')
           }),
           cvc: Yup.string().when('type', {
             is: PAYMENTS.CARD_PAYMENT,
             then: Yup.string()
+              .typeError('Invalid CVC')
               .required('CVC is required')
               .min(3, 'Invalid CVC')
               .max(3, 'Invalid CVC')
@@ -84,21 +90,21 @@ const PaymentInput = props => {
                   name="cardNumber"
                   placeholder="Card number"
                   mask={cardMask}
-                  placeholderChar="0"
+                  maskChar={null}
                 />
                 <div className={styles.payment__nested}>
                   <MaskInput
                     name="expiryDate"
                     placeholder="Expiration date"
                     mask={dateMask}
-                    placeholderChar="0"
+                    maskChar={null}
                   />
                   <div className={styles.separator__div} />
                   <MaskInput
                     name="cvc"
                     placeholder="CVC"
                     mask={cvcMask}
-                    placeholderChar="0"
+                    maskChar={null}
                   />
                 </div>
                 <AppInput
@@ -108,6 +114,11 @@ const PaymentInput = props => {
                 />
               </Collapse>
 
+              <ErrorMessage name="type">
+                {message => (
+                  <label className={styles.form__error}>{message}</label>
+                )}
+              </ErrorMessage>
               <div className={styles.nested__div}>
                 <button
                   className={styles.submit__button}

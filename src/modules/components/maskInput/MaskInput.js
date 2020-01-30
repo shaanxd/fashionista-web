@@ -1,5 +1,5 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
+import InputMask from 'react-input-mask';
 import { Field, ErrorMessage } from 'formik';
 
 import styles from './MaskInput.module.css';
@@ -9,13 +9,14 @@ const MaskInput = props => {
     <div className={styles.form__group}>
       <Field name={props.name}>
         {({ field }) => (
-          <MaskedInput
+          <InputMask
             mask={props.mask}
             {...field}
-            placeholderChar={props.placeholderChar}
             placeholder={props.placeholder}
             className={styles.form__input}
-          />
+            alwaysShowMask={false}
+            maskChar={props.maskChar}
+          ></InputMask>
         )}
       </Field>
       <ErrorMessage name={props.name}>
