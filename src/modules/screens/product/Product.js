@@ -28,6 +28,7 @@ const Product = props => {
     productLoading: true,
     productError: null
   });
+
   const { product, productLoading, productError } = state;
 
   useEffect(() => {
@@ -82,7 +83,11 @@ const Product = props => {
     return (
       <div className={styles.product__div}>
         <div className={styles.outer__div}>
-          <ReviewList reviews={product.reviews} />
+          <ReviewList
+            reviews={product.reviews}
+            product={product}
+            user={props.auth}
+          />
           <div className={styles.content__div}>
             <ProductImage images={images} />
             <div className={styles.product__content}>

@@ -20,3 +20,4 @@ export { default as AppButton } from './appButton/AppButton';
 export { default as PasswordInput } from './passwordInput/PasswordInput';
 export { default as Glitch } from './glitch/Glitch';
 export { default as ReviewList } from './reviewList/ReviewList';
+export { default as AddReview } from './addReview/AddReview';

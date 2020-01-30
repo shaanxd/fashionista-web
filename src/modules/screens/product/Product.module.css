@@ -1,5 +1,6 @@
 .main__div {
   height: 100%;
+  overflow: auto;
 }
 
 .product__div {
