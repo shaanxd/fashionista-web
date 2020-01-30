@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useEffect } from 'react';
+import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
 import * as Yup from 'yup';
-
-import { Loading } from '../../components';
-import { useMergedState } from '../../utils/useMergedState';
-import { postSignin } from '../../api/auth';
-
-import styles from './Signin.module.css';
-import { authSuccess } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 
+import { AppButton, AppInput, PasswordInput } from '../../components';
+import { useMergedState } from '../../utils/useMergedState';
+import { postSignin } from '../../api/auth';
+import { authSuccess } from '../../actions/auth';
+
+import styles from './Signin.module.css';
+
 const Signin = props => {
-  const [visible, setVisible] = useState(false);
   const [state, setState] = useMergedState({
     loginLoading: false,
     loginError: null
@@ -27,10 +25,6 @@ const Signin = props => {
 
   const { loginLoading, loginError } = state;
 
-  const handlePasswordVisible = () => {
-    setVisible(prevVisible => !prevVisible);
-  };
-
   const handleSigninClick = async (values, { setSubmitting }) => {
     const { email, password } = values;
     try {
@@ -40,10 +34,6 @@ const Signin = props => {
     } catch (err) {
       setState({ loginLoading: false, loginError: err });
     }
-  };
-
-  const renderLoading = () => {
-    return <Loading text={'Logging in'} />;
   };
 
   return (
@@ -60,56 +50,29 @@ const Signin = props => {
           onSubmit={handleSigninClick}
         >
           {({ isSubmitting }) => {
-            return loginLoading ? (
-              renderLoading()
-            ) : (
+            return (
               <Form className={styles.login__form}>
                 <span className={styles.form__header}>
                   Welcome back, let's get you logged in.
                 </span>
-
-                <Field
-                  className={styles.form__input}
-                  type="email"
+                <AppInput
+                  type="text"
                   name="email"
-                  placeholder="Enter Email"
+                  placeholder="Email address"
+                  loading={loginLoading}
                 />
-                <ErrorMessage name="email">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <div className={styles.form__input_parent}>
-                  <Field
-                    className={styles.form__input_nested}
-                    type={visible ? 'text' : 'password'}
-                    name="password"
-                    placeholder="Enter Password"
+                <PasswordInput
+                  name="password"
+                  placeholder="Password"
+                  loading={loginLoading}
+                />
+                <div className={styles.button__container}>
+                  <AppButton
+                    type="submit"
+                    text="Sign in"
+                    loading={loginLoading}
                   />
-                  <button
-                    onClick={handlePasswordVisible}
-                    className={styles.form__button_hide}
-                    type="button"
-                  >
-                    {visible ? (
-                      <FiEyeOff color="#888888" size="20px" />
-                    ) : (
-                      <FiEye color="#888888" size="20px" />
-                    )}
-                  </button>
                 </div>
-                <ErrorMessage name="password">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <button
-                  className={styles.form__submit}
-                  type="submit"
-                  disabled={false}
-                >
-                  Login
-                </button>
                 {loginError && loginError.message && (
                   <label className={styles.form__error_main}>
                     {loginError.message}

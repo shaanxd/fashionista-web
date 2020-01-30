@@ -17,3 +17,4 @@ export { default as OrderConfirmation } from './orderConfirmation/OrderConfirmat
 export { default as CartItem } from './cartItem/CartItem';
 export { default as MaskInput } from './maskInput/MaskInput';
 export { default as AppButton } from './appButton/AppButton';
+export { default as PasswordInput } from './passwordInput/PasswordInput';

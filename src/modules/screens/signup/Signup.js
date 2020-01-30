@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-
-import { Loading } from '../../components';
-import { useMergedState } from '../../utils/useMergedState';
-
-import styles from './Signup.module.css';
-import { postSignup } from '../../api/auth';
-import { authSuccess } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import { Loading, PasswordInput, AppInput, AppButton } from '../../components';
+import { useMergedState } from '../../utils/useMergedState';
+import { postSignup } from '../../api/auth';
+import { authSuccess } from '../../actions/auth';
+
+import styles from './Signup.module.css';
 
 const Signup = props => {
   const [state, setState] = useMergedState({
@@ -26,7 +25,7 @@ const Signup = props => {
     }
   }, [props.auth, props.history]);
 
-  const { passwordVisible, confirmVisible, signupLoading, signupError } = state;
+  const { signupLoading, signupError } = state;
 
   const handleSignupSubmit = async (values, { setSubmitting }) => {
     const { firstname, lastname, ...rest } = values;
@@ -38,22 +37,6 @@ const Signup = props => {
     } catch (err) {
       setState({ signupError: err, signupLoading: false });
     }
-  };
-
-  const handlePasswordVisible = () => {
-    setState(prevState => {
-      return { ...prevState, passwordVisible: !prevState.passwordVisible };
-    });
-  };
-
-  const handleConfirmPasswordVisible = () => {
-    setState(prevState => {
-      return { ...prevState, confirmVisible: !prevState.confirmVisible };
-    });
-  };
-
-  const renderLoading = () => {
-    return <Loading text="Signing up" />;
   };
 
   return (
@@ -84,109 +67,48 @@ const Signup = props => {
           onSubmit={handleSignupSubmit}
         >
           {({ isSubmitting }) => {
-            return signupLoading ? (
-              renderLoading()
-            ) : (
+            return (
               <Form className={styles.signup__form}>
                 <span className={styles.form__header}>
                   Hello there, let's sign up!
                 </span>
                 <div className={styles.form__name_parent}>
-                  <div className={styles.form__name_child}>
-                    <Field
-                      className={styles.form__name_input}
-                      type="text"
-                      name="firstname"
-                      placeholder="Enter Firstname"
-                    />
-                    <ErrorMessage name="firstname">
-                      {message => (
-                        <label className={styles.form__error}>{message}</label>
-                      )}
-                    </ErrorMessage>
-                  </div>
-                  <span className={styles.form__name_space} />
-                  <div className={styles.form__name_child}>
-                    <Field
-                      className={styles.form__name_input}
-                      type="text"
-                      name="lastname"
-                      placeholder="Enter Lastname"
-                    />
-                    <ErrorMessage name="lastname">
-                      {message => (
-                        <label className={styles.form__error}>{message}</label>
-                      )}
-                    </ErrorMessage>
-                  </div>
+                  <AppInput
+                    type="text"
+                    name="firstname"
+                    placeholder="First name"
+                    loading={signupLoading}
+                  />
+                  <AppInput
+                    type="text"
+                    name="lastname"
+                    placeholder="Last name"
+                    loading={signupLoading}
+                  />
                 </div>
-                <Field
-                  className={styles.form__input}
-                  type="email"
+                <AppInput
+                  type="text"
                   name="email"
-                  placeholder="Enter Email"
+                  placeholder="Email address"
+                  loading={signupLoading}
                 />
-                <ErrorMessage name="email">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <div className={styles.form__input_parent}>
-                  <Field
-                    className={styles.form__input_nested}
-                    type={passwordVisible ? 'text' : 'password'}
-                    name="password"
-                    placeholder="Enter Password"
+                <PasswordInput
+                  name="password"
+                  placeholder="Password"
+                  loading={signupLoading}
+                />
+                <PasswordInput
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  loading={signupLoading}
+                />
+                <div className={styles.button__container}>
+                  <AppButton
+                    type="submit"
+                    text="Sign in"
+                    loading={signupLoading}
                   />
-                  <button
-                    onClick={handlePasswordVisible}
-                    className={styles.form__button_hide}
-                    type="button"
-                  >
-                    {passwordVisible ? (
-                      <FiEyeOff color="#888888" size="20px" />
-                    ) : (
-                      <FiEye color="#888888" size="20px" />
-                    )}
-                  </button>
                 </div>
-                <ErrorMessage name="password">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <div className={styles.form__input_parent}>
-                  <Field
-                    className={styles.form__input_nested}
-                    type={confirmVisible ? 'text' : 'password'}
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                  />
-                  <button
-                    onClick={handleConfirmPasswordVisible}
-                    className={styles.form__button_hide}
-                    type="button"
-                  >
-                    {confirmVisible ? (
-                      <FiEyeOff color="#888888" size="20px" />
-                    ) : (
-                      <FiEye color="#888888" size="20px" />
-                    )}
-                  </button>
-                </div>
-                <ErrorMessage name="confirmPassword">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-
-                <button
-                  className={styles.form__submit}
-                  type="submit"
-                  disabled={false}
-                >
-                  Signup
-                </button>
                 {signupError && signupError.message && (
                   <label className={styles.form__error_main}>
                     {signupError.message}
