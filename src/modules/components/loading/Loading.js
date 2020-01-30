@@ -6,7 +6,7 @@ import styles from './Loading.module.css';
 const Loading = props => {
   return (
     <div className={styles.main__div}>
-      <PulseLoader size={30} color={'#3ad4d6'} loading />
+      <PulseLoader size={10} color={'black'} loading />
       <span className={styles.loading__text}>{props.text}</span>
     </div>
   );

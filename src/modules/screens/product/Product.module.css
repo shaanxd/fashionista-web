@@ -61,14 +61,8 @@
   font-size: 0.8rem;
 }
 
-.submit__button {
-  margin-top: 50px;
-  width: 100%;
-  padding: 10px 20px;
-  background-color: rgb(231, 8, 135);
-  border: none;
-  color: white;
-  font-size: 1.1rem;
+.button__container {
+  margin-top: 30px;
 }
 
 .form__error {
@@ -80,22 +74,4 @@
   margin-top: 5px;
   text-align: center;
   color: red;
-}
-
-.error_div {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 1.2rem;
-}
-
-.retry__button {
-  padding: 10px 30px;
-  margin-top: 30px;
-  background-color: rgb(231, 8, 135);
-  color: white;
-  border: none;
 }

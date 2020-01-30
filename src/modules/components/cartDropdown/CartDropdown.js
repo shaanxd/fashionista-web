@@ -1,9 +1,10 @@
 import React from 'react';
-import { MdAddShoppingCart } from 'react-icons/md';
+import { AiOutlineShopping } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
 
 import styles from './CartDropdown.module.css';
-import { Loading, CartItem } from '..';
+import { Loading, CartItem, Glitch } from '..';
+import AppButton from '../appButton/AppButton';
 
 const CartDropdown = props => {
   const { cart, loading, error } = props;
@@ -36,41 +37,30 @@ const CartDropdown = props => {
           <span>Total:</span>
           <span>{`$${cart.totalPrice}`}</span>
         </div>
-        <button className={styles.view__button} onClick={props.onCheckout}>
-          <span>CHECK OUT</span>
-        </button>
+        <AppButton onClick={props.onCheckout} text="Check out" type="button" />
         <div className={styles.padding__div} />
       </div>
     );
   };
 
   const renderLoading = () => {
-    return (
-      <div className={styles.other__div}>
-        <Loading text="Loading cart" />
-      </div>
-    );
+    return <Loading text="Loading cart" />;
   };
 
   const renderError = () => {
     return (
-      <div className={styles.other__div}>
-        {error}
-        <button
-          type="button"
-          className={styles.retry__button}
-          onClick={props.onCartRetry}
-        >
-          Retry
-        </button>
-      </div>
+      <Glitch
+        onRetry={props.onCartRetry}
+        text={error}
+        icon={AiOutlineShopping}
+      />
     );
   };
 
   const renderEmpty = () => {
     return (
       <div className={styles.other__div}>
-        <MdAddShoppingCart color="gray" size={40} />
+        <AiOutlineShopping color="black" size={30} />
         <span className={styles.empty__text}>Cart is empty</span>
       </div>
     );

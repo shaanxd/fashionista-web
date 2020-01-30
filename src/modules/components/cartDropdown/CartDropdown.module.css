@@ -30,19 +30,8 @@
   align-items: center;
 }
 
-.retry__button {
-  margin-top: 20px;
-  padding: 5px 10px;
-  border: none;
-  color: white;
-  background-color: rgb(231, 8, 135);
-  cursor: pointer;
-}
-
 .empty__text {
-  margin-top: 20px;
-  font-family: inherit;
-  font-weight: 500;
+  margin-top: 15px;
 }
 
 .price__div {

@@ -18,3 +18,4 @@ export { default as CartItem } from './cartItem/CartItem';
 export { default as MaskInput } from './maskInput/MaskInput';
 export { default as AppButton } from './appButton/AppButton';
 export { default as PasswordInput } from './passwordInput/PasswordInput';
+export { default as Glitch } from './glitch/Glitch';

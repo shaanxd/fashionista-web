@@ -52,9 +52,12 @@
   top: 70px;
 }
 
-.loading__div {
-  padding: 50px 10px;
-  box-sizing: border-box;
+.other__div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
 .empty__div {

@@ -3,14 +3,16 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Rate } from 'antd';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { PulseLoader } from 'react-spinners';
 import * as Yup from 'yup';
+import { AiOutlineWarning } from 'react-icons/ai';
 
 import {
   Loading,
   ProductImage,
   SizePicker,
-  QuantityPicker
+  QuantityPicker,
+  AppButton,
+  Glitch
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
@@ -66,12 +68,11 @@ const Product = props => {
 
   const renderError = () => {
     return (
-      <div className={styles.error_div}>
-        {productError}
-        <button className={styles.retry__button} onClick={loadProductDetails}>
-          Retry
-        </button>
-      </div>
+      <Glitch
+        text={productError}
+        onRetry={loadProductDetails}
+        icon={AiOutlineWarning}
+      />
     );
   };
 
@@ -134,17 +135,13 @@ const Product = props => {
                         <label className={styles.form__error}>{message}</label>
                       )}
                     </ErrorMessage>
-                    <button
-                      className={styles.submit__button}
-                      type="submit"
-                      disabled={props.addLoading}
-                    >
-                      {props.addLoading ? (
-                        <PulseLoader size={10} color={'#FFFFFF'} loading />
-                      ) : (
-                        'Add to Cart'
-                      )}
-                    </button>
+                    <div className={styles.button__container}>
+                      <AppButton
+                        text="Add to Cart"
+                        type="submit"
+                        loading={props.addLoading}
+                      />
+                    </div>
                     {props.addError && (
                       <span className={styles.main__error}>
                         {props.addError}

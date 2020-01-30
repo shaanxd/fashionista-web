@@ -1,9 +1,8 @@
 import React from 'react';
 import { List, Avatar, Rate } from 'antd';
-import { GoSearch } from 'react-icons/go';
-import { MdError } from 'react-icons/md';
+import { AiOutlineSearch, AiOutlineWarning } from 'react-icons/ai';
 
-import { Loading } from '../';
+import { Loading, Glitch } from '../';
 import { useMergedState } from '../../utils/useMergedState';
 import { getImageUrl } from '../../utils/productUtils';
 import { getSearchKeywords } from '../../api/product';
@@ -53,7 +52,7 @@ const HomeSearch = props => {
 
   const renderSearchLoading = () => {
     return (
-      <div className={styles.loading__div}>
+      <div className={styles.other__div}>
         <Loading text="Searching" />
       </div>
     );
@@ -61,24 +60,20 @@ const HomeSearch = props => {
 
   const renderSearchError = () => {
     return (
-      <div className={styles.empty__div}>
-        <MdError color="#595959" size="40px" />
-        <span className={styles.not_found__text}>{searchError}</span>
+      <div className={styles.other__div}>
+        <Glitch text={searchError} icon={AiOutlineWarning} />
       </div>
     );
   };
 
   const renderEmptyList = () => {
     return (
-      <div className={styles.empty__div}>
+      <div className={styles.other__div}>
         {hasText ? (
-          <MdError color="#595959" size="40px" />
+          <Glitch text="No products found" icon={AiOutlineWarning} />
         ) : (
-          <GoSearch color="#595959" size="40px" />
+          <Glitch text="Enter search term" icon={AiOutlineSearch} />
         )}
-        <span className={styles.not_found__text}>
-          {hasText ? 'No products found' : 'Enter keyword to search'}
-        </span>
       </div>
     );
   };
@@ -142,7 +137,7 @@ const HomeSearch = props => {
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
-          <GoSearch color="#595959" size="20px" />
+          <AiOutlineSearch color="#595959" size="20px" />
         </div>
         <div className={listStyle}>
           {searchError
