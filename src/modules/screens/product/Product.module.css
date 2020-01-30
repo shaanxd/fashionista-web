@@ -12,6 +12,11 @@
 .content__div {
   width: 900px;
   display: flex;
+  border: 1px solid blue;
+  margin-top: 10px;
+}
+
+.outer__div {
   padding-top: 20px;
 }
 

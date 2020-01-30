@@ -19,3 +19,4 @@ export { default as MaskInput } from './maskInput/MaskInput';
 export { default as AppButton } from './appButton/AppButton';
 export { default as PasswordInput } from './passwordInput/PasswordInput';
 export { default as Glitch } from './glitch/Glitch';
+export { default as ReviewList } from './reviewList/ReviewList';

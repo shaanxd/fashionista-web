@@ -12,7 +12,8 @@ import {
   SizePicker,
   QuantityPicker,
   AppButton,
-  Glitch
+  Glitch,
+  ReviewList
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails } from '../../api/product';
@@ -27,7 +28,6 @@ const Product = props => {
     productLoading: true,
     productError: null
   });
-
   const { product, productLoading, productError } = state;
 
   useEffect(() => {
@@ -81,76 +81,85 @@ const Product = props => {
 
     return (
       <div className={styles.product__div}>
-        <div className={styles.content__div}>
-          <ProductImage images={images} />
-          <div className={styles.product__content}>
-            <span className={styles.product__name}>{product.name}</span>
-            <span
-              className={styles.product__price}
-            >{`$ ${product.price}.00`}</span>
-            <div className={styles.rating__div}>
-              <Rate
-                style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
-                defaultValue={0}
-                value={product.avgRating}
-                disabled
-                allowHalf
-              />
-              <div className={styles.separator__div} />
-              <span className={styles.product__rating}>
-                {product.avgRating ? product.avgRating : '0.0'} stars
+        <div className={styles.outer__div}>
+          <ReviewList reviews={product.reviews} />
+          <div className={styles.content__div}>
+            <ProductImage images={images} />
+            <div className={styles.product__content}>
+              <span className={styles.product__name}>{product.name}</span>
+              <span
+                className={styles.product__price}
+              >{`$ ${product.price}.00`}</span>
+              <div className={styles.rating__div}>
+                <Rate
+                  style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
+                  defaultValue={0}
+                  value={product.avgRating}
+                  disabled
+                  allowHalf
+                />
+                <div className={styles.separator__div} />
+                <span className={styles.product__rating}>
+                  {product.avgRating ? product.avgRating : '0.0'} stars
+                </span>
+              </div>
+              <span className={styles.product__description}>
+                {product.description}
               </span>
-            </div>
-            <span className={styles.product__description}>
-              {product.description}
-            </span>
-            <Formik
-              initialValues={{ size: '', quantity: 1, productId: product.id }}
-              validationSchema={Yup.object().shape({
-                size: Yup.string().required('Size is required'),
-                quantity: Yup.number()
-                  .typeError('Quantity should be a number')
-                  .min(1, 'Quantity should be atleast 1')
-                  .max(5, 'Quantity cannot exceed 5')
-              })}
-              onSubmit={handleOnAddToCart}
-            >
-              {({ setFieldValue, values }) => {
-                return (
-                  <Form>
-                    <span className={styles.form__label}>Available sizes:</span>
-                    <SizePicker options={Sizes} onChange={setFieldValue} />
-                    <ErrorMessage name="size">
-                      {message => (
-                        <label className={styles.form__error}>{message}</label>
-                      )}
-                    </ErrorMessage>
-                    <span className={styles.form__label}>Quantity:</span>
-                    <QuantityPicker
-                      value={values.quantity}
-                      onChange={setFieldValue}
-                    />
-                    <ErrorMessage name="quantity">
-                      {message => (
-                        <label className={styles.form__error}>{message}</label>
-                      )}
-                    </ErrorMessage>
-                    <div className={styles.button__container}>
-                      <AppButton
-                        text="Add to Cart"
-                        type="submit"
-                        loading={props.addLoading}
-                      />
-                    </div>
-                    {props.addError && (
-                      <span className={styles.main__error}>
-                        {props.addError}
+              <Formik
+                initialValues={{ size: '', quantity: 1, productId: product.id }}
+                validationSchema={Yup.object().shape({
+                  size: Yup.string().required('Size is required'),
+                  quantity: Yup.number()
+                    .typeError('Quantity should be a number')
+                    .min(1, 'Quantity should be atleast 1')
+                    .max(5, 'Quantity cannot exceed 5')
+                })}
+                onSubmit={handleOnAddToCart}
+              >
+                {({ setFieldValue, values }) => {
+                  return (
+                    <Form>
+                      <span className={styles.form__label}>
+                        Available sizes:
                       </span>
-                    )}
-                  </Form>
-                );
-              }}
-            </Formik>
+                      <SizePicker options={Sizes} onChange={setFieldValue} />
+                      <ErrorMessage name="size">
+                        {message => (
+                          <label className={styles.form__error}>
+                            {message}
+                          </label>
+                        )}
+                      </ErrorMessage>
+                      <span className={styles.form__label}>Quantity:</span>
+                      <QuantityPicker
+                        value={values.quantity}
+                        onChange={setFieldValue}
+                      />
+                      <ErrorMessage name="quantity">
+                        {message => (
+                          <label className={styles.form__error}>
+                            {message}
+                          </label>
+                        )}
+                      </ErrorMessage>
+                      <div className={styles.button__container}>
+                        <AppButton
+                          text="Add to Cart"
+                          type="submit"
+                          loading={props.addLoading}
+                        />
+                      </div>
+                      {props.addError && (
+                        <span className={styles.main__error}>
+                          {props.addError}
+                        </span>
+                      )}
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </div>
           </div>
         </div>
       </div>
