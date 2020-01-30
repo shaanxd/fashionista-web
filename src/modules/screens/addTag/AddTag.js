@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import Select from 'react-select';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-import { Loading } from '../../components';
+import { AppInput, AppButton } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { createTag } from '../../api/admin';
 import { TAGS } from '../../constants/types';
@@ -84,10 +84,6 @@ const AddTag = props => {
     onDrop
   });
 
-  const renderLoading = () => {
-    return <Loading text="Creating Tag" />;
-  };
-
   const renderSuccess = () => {
     return (
       <div className={styles.success__div}>
@@ -118,83 +114,79 @@ const AddTag = props => {
           })}
         >
           {({ values, setFieldValue, setFieldTouched }) => {
-            return tagLoading ? (
-              renderLoading()
-            ) : tagSuccess ? (
+            return tagSuccess ? (
               renderSuccess()
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Tag</span>
-                <label className={styles.tag__label}>Tag Type</label>
-                <Select
-                  isClearable
-                  options={TAGS}
-                  value={values.type}
-                  onChange={option => {
-                    setFieldValue('type', option);
-                  }}
-                  onBlur={() => {
-                    setFieldTouched('type');
-                  }}
-                  placeholder="Select type"
-                />
-                <ErrorMessage name="type">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Tag Name</label>
-                <Field
+                <div className={styles.form__group}>
+                  <Select
+                    isClearable
+                    options={TAGS}
+                    value={values.type}
+                    isDisabled={tagLoading}
+                    onChange={option => {
+                      setFieldValue('type', option);
+                    }}
+                    onBlur={() => {
+                      setFieldTouched('type');
+                    }}
+                    placeholder="Select type"
+                  />
+                  <ErrorMessage name="type">
+                    {message => (
+                      <label className={styles.form__error}>{message}</label>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <AppInput
+                  type="text"
                   name="name"
                   placeholder="Enter tag name"
-                  className={styles.form__input}
+                  loading={tagLoading}
                 />
-                <ErrorMessage name="name">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Tag Description</label>
-                <Field
+                <AppInput
+                  type="text"
                   name="description"
                   placeholder="Enter tag description"
-                  className={styles.form__input}
+                  loading={tagLoading}
                 />
-                <ErrorMessage name="description">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
+                <div className={styles.form__group}>
+                  {file ? (
+                    <div className={styles.file__div}>
+                      <img
+                        src={filePreview}
+                        className={styles.image}
+                        alt="Selected"
+                      />
+                      <button
+                        type="button"
+                        className={styles.remove__btn}
+                        onClick={handleOnRemove}
+                        disabled={tagLoading}
+                      >
+                        <AiOutlineDelete color="#FFFFFF" size="50px" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div {...getRootProps({ className: styles.dropzone })}>
+                      <input {...getInputProps()} />
+                      <p>
+                        Drag 'n' drop some files here, or click to select files
+                      </p>
+                    </div>
                   )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Tag Image</label>
-                {file ? (
-                  <div className={styles.file__div}>
-                    <img
-                      src={filePreview}
-                      className={styles.image}
-                      alt="Selected"
-                    />
-                    <button
-                      type="button"
-                      className={styles.remove__btn}
-                      onClick={handleOnRemove}
-                    >
-                      <AiOutlineDelete color="#FFFFFF" size="50px" />
-                    </button>
-                  </div>
-                ) : (
-                  <div {...getRootProps({ className: styles.dropzone })}>
-                    <input {...getInputProps()} />
-                    <p>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
-                  </div>
-                )}
-                {fileError && (
-                  <label className={styles.form__error}>{fileError}</label>
-                )}
-                <button className={styles.submit__btn} type="submit">
-                  Create Tag
-                </button>
+                  {fileError && (
+                    <label className={styles.form__error}>{fileError}</label>
+                  )}
+                </div>
+                <div className={styles.button__container}>
+                  <AppButton
+                    type="submit"
+                    text="Add Tag"
+                    loading={tagLoading}
+                  />
+                </div>
                 {tagError && (
                   <label className={styles.main__error}>{tagError}</label>
                 )}

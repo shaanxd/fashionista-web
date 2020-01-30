@@ -4,7 +4,8 @@ import styles from './AppInput.module.css';
 import { Field, ErrorMessage } from 'formik';
 
 const AppInput = props => {
-  const { name, type, placeholder, loading } = props;
+  const { name, type, placeholder, loading, ...otherProps } = props;
+
   return (
     <div className={styles.form__group}>
       <Field
@@ -13,6 +14,7 @@ const AppInput = props => {
         placeholder={placeholder}
         className={styles.form__input}
         disabled={loading}
+        {...otherProps}
       />
       <ErrorMessage name={name}>
         {message => <label className={styles.form__error}>{message}</label>}

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Loading, PasswordInput, AppInput, AppButton } from '../../components';
+import { PasswordInput, AppInput, AppButton } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { postSignup } from '../../api/auth';
 import { authSuccess } from '../../actions/auth';
@@ -13,8 +13,6 @@ import styles from './Signup.module.css';
 
 const Signup = props => {
   const [state, setState] = useMergedState({
-    passwordVisible: false,
-    confirmVisible: false,
     signupLoading: false,
     signupError: null
   });

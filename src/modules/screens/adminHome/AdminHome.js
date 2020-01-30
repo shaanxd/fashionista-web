@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import { AppButton } from '../../components';
 import styles from './AdminHome.module.css';
 
 const AdminHome = props => {
@@ -20,22 +21,21 @@ const AdminHome = props => {
         <input
           type="text"
           className={styles.search__input}
-          placeholder="Search Product"
+          placeholder="SEARCH PRODUCT"
           onChange={handleOnSearchChange}
         />
         <div className={styles.btn__div}>
-          <button
-            className={styles.navigation__btn}
+          <AppButton
+            text="Add Product"
+            type="button"
             onClick={handleOnAddProductClick}
-          >
-            Add Product
-          </button>
-          <button
-            className={styles.navigation__btn}
+          />
+          <div className={styles.separator} />
+          <AppButton
+            text="Add Tag"
+            type="button"
             onClick={handleOnAddTagClick}
-          >
-            Add Tag
-          </button>
+          />
         </div>
       </div>
     </div>

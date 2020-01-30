@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import AsyncSelect from 'react-select/async';
 import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
@@ -8,12 +8,12 @@ import { connect } from 'react-redux';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-import { Loading } from '../../components';
+import { AppButton, AppInput } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-
-import styles from './AddProduct.module.css';
 import { searchProductTags } from '../../api/product';
 import { createProduct } from '../../api/admin';
+
+import styles from './AddProduct.module.css';
 
 const AddProduct = props => {
   const [state, setState] = useMergedState({
@@ -116,7 +116,8 @@ const AddProduct = props => {
   } = useDropzone({
     multiple: false,
     accept: 'image/jpeg',
-    onDrop: onThumbnailDrop
+    onDrop: onThumbnailDrop,
+    disabled: productLoading
   });
 
   const {
@@ -125,12 +126,9 @@ const AddProduct = props => {
   } = useDropzone({
     multiple: true,
     accept: 'image/jpeg',
-    onDrop: onImagesDrop
+    onDrop: onImagesDrop,
+    disabled: productLoading
   });
-
-  const renderLoading = () => {
-    return <Loading text="Adding Product" />;
-  };
 
   const removeImage = index => {
     const updated = images.filter((_, i) => i !== index);
@@ -199,6 +197,7 @@ const AddProduct = props => {
           validationSchema={Yup.object().shape({
             price: Yup.number()
               .typeError('Price must be a number')
+              .required('Price is required')
               .positive('Price must be more than zero'),
             stock: Yup.number()
               .typeError('Stock must be a number')
@@ -214,115 +213,106 @@ const AddProduct = props => {
           })}
         >
           {({ setFieldValue, setFieldTouched }) => {
-            return productLoading ? (
-              renderLoading()
-            ) : productSuccess ? (
+            return productSuccess ? (
               renderSuccess()
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Product</span>
-                <label className={styles.tag__label}>Product Tags</label>
-                <AsyncSelect
-                  isMulti
-                  cacheOptions
-                  isClearable
-                  loadOptions={loadOptions}
-                  onChange={values => {
-                    setFieldValue('tags', values);
-                  }}
-                  onBlur={() => {
-                    setFieldTouched('tags');
-                  }}
-                />
-                <ErrorMessage name="tags">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Product Name</label>
-                <Field
+                <div className={styles.form__group}>
+                  <AsyncSelect
+                    isMulti
+                    cacheOptions
+                    isClearable
+                    loadOptions={loadOptions}
+                    onChange={values => {
+                      setFieldValue('tags', values);
+                    }}
+                    onBlur={() => {
+                      setFieldTouched('tags');
+                    }}
+                    isDisabled={productLoading}
+                  />
+                  <ErrorMessage name="tags">
+                    {message => (
+                      <label className={styles.form__error}>{message}</label>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <AppInput
+                  type="text"
                   name="name"
-                  placeholder="Enter Product Name"
-                  className={styles.form__input}
+                  placeholder="Product name"
+                  loading={productLoading}
                 />
-                <ErrorMessage name="name">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <label className={styles.form__label}>
-                  Product Description
-                </label>
-                <Field
-                  component="textarea"
+                <AppInput
+                  type="text"
                   name="description"
-                  placeholder="Enter Product Description"
-                  className={styles.form__textarea}
+                  placeholder="Product description"
+                  loading={productLoading}
+                  component="textarea"
+                  style={{ maxHeight: '100px', minHeight: '100px' }}
                 />
-                <ErrorMessage name="description">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Product Price</label>
-                <Field
+                <AppInput
+                  type="text"
                   name="price"
-                  className={styles.form__input}
-                  step="0.01"
+                  placeholder="Product price"
+                  loading={productLoading}
                 />
-                <ErrorMessage name="price">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
+                <AppInput
+                  type="text"
+                  name="stock"
+                  placeholder="Product stock"
+                  loading={productLoading}
+                />
+                <div className={styles.form__group}>
+                  {thumbnail ? (
+                    <div className={styles.thumbnail__div}>
+                      <img
+                        src={thumbnailPreview}
+                        className={styles.image}
+                        alt="Selected"
+                      />
+                      <button
+                        type="button"
+                        className={styles.delete__btn}
+                        onClick={handleOnRemove}
+                      >
+                        <AiOutlineDelete color="#FFFFFF" size="50px" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div {...getThumbRootProps({ className: styles.dropzone })}>
+                      <input {...getThumbInputProps()} />
+                      <p className={styles.dropzone__text}>
+                        Drag 'n' drop some files here, or click to select files
+                      </p>
+                    </div>
                   )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Available Stock</label>
-                <Field name="stock" className={styles.form__input} />
-                <ErrorMessage name="stock">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
+                  {thumbnailError && (
+                    <label className={styles.form__error}>
+                      {thumbnailError}
+                    </label>
                   )}
-                </ErrorMessage>
-                <label className={styles.form__label}>Product Thumbnail</label>
-                {thumbnail ? (
-                  <div className={styles.thumbnail__div}>
-                    <img
-                      src={thumbnailPreview}
-                      className={styles.image}
-                      alt="Selected"
-                    />
-                    <button
-                      type="button"
-                      className={styles.delete__btn}
-                      onClick={handleOnRemove}
-                    >
-                      <AiOutlineDelete color="#FFFFFF" size="50px" />
-                    </button>
-                  </div>
-                ) : (
-                  <div {...getThumbRootProps({ className: styles.dropzone })}>
-                    <input {...getThumbInputProps()} />
+                </div>
+                <div className={styles.form__group}>
+                  <div {...getImagesRootProps({ className: styles.dropzone })}>
+                    <input {...getImagesInputProps()} />
                     <p className={styles.dropzone__text}>
                       Drag 'n' drop some files here, or click to select files
                     </p>
                   </div>
-                )}
-                {thumbnailError && (
-                  <label className={styles.form__error}>{thumbnailError}</label>
-                )}
-                <label className={styles.form__label}>Product Images</label>
-                <div {...getImagesRootProps({ className: styles.dropzone })}>
-                  <input {...getImagesInputProps()} />
-                  <p className={styles.dropzone__text}>
-                    Drag 'n' drop some files here, or click to select files
-                  </p>
+                  {imagesError && (
+                    <label className={styles.form__error}>{imagesError}</label>
+                  )}
+                  {images.length > 0 && renderImageList()}
                 </div>
-                {imagesError && (
-                  <label className={styles.form__error}>{imagesError}</label>
-                )}
-                {images.length > 0 && renderImageList()}
-                <button className={styles.submit__btn} type="submit">
-                  Add Product
-                </button>
+                <div className={styles.button__container}>
+                  <AppButton
+                    type="submit"
+                    text="Add Tag"
+                    loading={productLoading}
+                  />
+                </div>
                 {productError && (
                   <label className={styles.main__error}>{productError}</label>
                 )}

@@ -5,23 +5,8 @@
   justify-content: center;
 }
 
-.form__input {
-  padding: 10px 15px;
-  margin-top: 3px;
-  border: 1px solid #d2d2d2;
-  border-radius: 4px;
-}
-
-.form__label {
-  margin-top: 7px;
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
-.tag__label {
-  font-weight: 700;
-  font-size: 0.8rem;
-  margin-bottom: 3px;
+.form__group {
+  padding: 5px;
 }
 
 .form__div {
@@ -30,7 +15,7 @@
 
 .form__error {
   color: red;
-  margin-top: 2px;
+  display: block;
 }
 
 .form__header {
@@ -64,22 +49,12 @@
 .file__div {
   margin-top: 2px;
   width: 100%;
-  border: 1px solid red;
   padding: 10px;
   border: 1px solid #d2d2d2;
   justify-content: space-between;
   align-items: center;
   display: flex;
   position: relative;
-}
-
-.submit__btn {
-  margin-top: 10px;
-  padding: 10px 15px;
-  border: none;
-  background-color: rgb(231, 8, 135);
-  color: white;
-  font-weight: 700;
 }
 
 .remove__btn {
@@ -122,4 +97,8 @@
 
 .file__div:hover .remove__btn {
   display: block;
+}
+
+.button__container {
+  padding: 5px;
 }
