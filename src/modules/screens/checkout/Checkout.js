@@ -1,27 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Collapse } from 'react-collapse';
 import { IoIosCheckmarkCircle } from 'react-icons/io';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { PAYMENTS } from '../../constants/types';
-import { useMergedState } from '../../utils/useMergedState';
+import { useMergedState, usePrevious } from '../../utils/useMergedState';
 import {
   ShippingInput,
   PaymentInput,
   OrderConfirmation,
   CartItem
 } from '../../components';
-import { checkout } from '../../actions/cart';
+import { checkoutCart } from '../../api/cart';
 
 import './Checkout.css';
 import styles from './Checkout.module.css';
+import { checkoutSuccess } from '../../actions/cart';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
     step: 0,
     shipping: null,
-    payment: null
+    payment: null,
+
+    loading: false,
+    error: null,
+    success: false
+  });
+
+  const { cartLoading: currentCartLoading } = props;
+
+  const prevCartLoading = usePrevious(currentCartLoading);
+  const prevSuccess = usePrevious(state.success);
+
+  useEffect(() => {
+    if (
+      prevCartLoading &&
+      !currentCartLoading &&
+      props.cart.numberOfItems === 0
+    ) {
+      props.history.push('/');
+    }
+  });
+
+  useEffect(() => {
+    if (!prevSuccess && state.success) {
+      props.history.push('/orders');
+    }
   });
 
   const submitShipping = ({ firstname, lastname, ...rest }) => {
@@ -49,7 +75,7 @@ const Checkout = props => {
     setState({ step: 1 });
   };
 
-  const onFormSubmit = () => {
+  const onFormSubmit = async () => {
     const data = {
       cart: props.cart.items.map(item => item.id),
       shipping: {
@@ -57,7 +83,17 @@ const Checkout = props => {
       },
       payment: state.payment.type
     };
-    props.checkout(data);
+    try {
+      setState({ loading: true, error: null });
+      await checkoutCart(data, props.token);
+      setTimeout(() => {
+        props.clearCart();
+        setState({ loading: false, success: true });
+      }, 1000);
+      //  const result = await checkoutCart(data, props.token);
+    } catch (err) {
+      setState({ loading: false, error: err.message });
+    }
   };
 
   const renderHeader = (text, value, callback) => {
@@ -69,7 +105,7 @@ const Checkout = props => {
             <button
               className={styles.edit__button}
               onClick={callback}
-              disabled={props.cartLoading || props.checkoutLoading}
+              disabled={props.cartLoading || state.loading}
             >
               EDIT
             </button>
@@ -87,15 +123,15 @@ const Checkout = props => {
     return items;
   };
 
-  return (
-    <div className={styles.main__div}>
+  const renderCheckout = () => {
+    return (
       <div className={styles.parent__div}>
         <div className={styles.details__div}>
           {renderHeader('SHIPPING INFORMATION', 0, toShipping)}
           <Collapse isOpened={state.step === 0}>
             <ShippingInput
               onSubmit={submitShipping}
-              loading={props.checkoutLoading || props.cartLoading}
+              loading={state.loading || props.cartLoading}
             />
           </Collapse>
           {renderHeader('PAYMENT INFORMATION', 1, toPayment)}
@@ -103,7 +139,7 @@ const Checkout = props => {
             <PaymentInput
               onPrevious={toShipping}
               onSubmit={submitPayment}
-              loading={props.checkoutLoading || props.cartLoading}
+              loading={state.loading || props.cartLoading}
             />
           </Collapse>
           {renderHeader('CONFIRM ORDER', 2)}
@@ -113,11 +149,11 @@ const Checkout = props => {
               payment={state.payment}
               onPrevious={toPayment}
               onSubmit={onFormSubmit}
-              loading={props.checkoutLoading || props.cartLoading}
+              loading={state.loading || props.cartLoading}
             />
           </Collapse>
-          {props.checkoutError && (
-            <span className={styles.main__error}>{props.checkoutError}</span>
+          {state.error && (
+            <span className={styles.main__error}>{state.error}</span>
           )}
         </div>
         <div className={styles.seperator__div} />
@@ -138,25 +174,29 @@ const Checkout = props => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  return <div className={styles.main__div}>{renderCheckout()}</div>;
 };
 
 const mapStateToProps = ({
-  cart: { cart, cartLoading, checkoutLoading, checkoutError }
+  cart: { cart, cartLoading },
+  auth: {
+    auth: { token }
+  }
 }) => {
   return {
     cart,
     cartLoading,
-    checkoutLoading,
-    checkoutError
+    token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkout: data => {
-      dispatch(checkout(data));
+    clearCart: () => {
+      dispatch(checkoutSuccess());
     }
   };
 };
