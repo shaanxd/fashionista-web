@@ -35,6 +35,7 @@ const ShippingInput = props => {
                   placeholder="First name"
                   type="text"
                 />
+                <div className={styles.separator__div} />
                 <AppInput name="lastname" placeholder="Last name" type="text" />
               </div>
               <AppInput name="address" placeholder="Address" type="text" />
@@ -44,13 +45,12 @@ const ShippingInput = props => {
                 placeholder="Country/Region"
                 type="text"
               />
-              <div className={styles.button__container}>
-                <AppButton
-                  text="Proceed"
-                  type="submit"
-                  loading={props.loading}
-                />
-              </div>
+              <AppButton
+                text="Proceed"
+                type="submit"
+                loading={props.loading}
+                containerStyle={{ marginTop: '5px' }}
+              />
             </Form>
           );
         }}

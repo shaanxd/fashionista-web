@@ -1,7 +1,9 @@
 import React from 'react';
 import { IoIosClose } from 'react-icons/io';
 import { Rate } from 'antd';
+import { Formik, Form } from 'formik';
 
+import { AppInput, AppButton } from '..';
 import { getImageUrl } from '../../utils/productUtils';
 
 import styles from './AddReview.module.css';
@@ -35,20 +37,53 @@ const AddReview = props => {
                 alt="thumbnail"
               />
             </div>
-            <div className={styles.detail__div}>
-              <span className={styles.product__name}>{product.name}</span>
-              <div className={styles.form__div}>
-                <span className={styles.input__label}>Overall rating</span>
-                <Rate
-                  defaultValue={0.0}
-                  allowHalf
-                  style={{ color: 'black' }}
-                  onChange={value => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-            </div>
+            <Formik
+              onSubmit={() => {}}
+              initialValues={{ title: '', description: '', rating: 0 }}
+            >
+              {({ isSubmitting }) => {
+                return (
+                  <Form className={styles.detail__div}>
+                    <span className={styles.product__name}>{product.name}</span>
+                    <div className={styles.form__div}>
+                      <span className={styles.input__label}>
+                        Overall rating
+                      </span>
+                      <Rate
+                        defaultValue={0.0}
+                        allowHalf
+                        style={{
+                          color: 'black',
+                          paddingLeft: '5px',
+                          marginTop: '-2px',
+                          fontSize: '30px'
+                        }}
+                        onChange={value => {
+                          console.log(value);
+                        }}
+                      />
+                      <span className={styles.input__label}>Review title</span>
+                      <AppInput
+                        name="title"
+                        type="text"
+                        placeholder="Enter title"
+                      />
+                      <span className={styles.input__label}>
+                        Review description
+                      </span>
+                      <AppInput
+                        name="description"
+                        type="text"
+                        placeholder="Tell us what you think"
+                        component="textarea"
+                        style={{ maxHeight: '100px', minHeight: '100px' }}
+                      />
+                    </div>
+                    <AppButton text="Add Review" type="submit" />
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
         </div>
       </div>

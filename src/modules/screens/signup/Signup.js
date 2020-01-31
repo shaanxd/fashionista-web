@@ -77,6 +77,7 @@ const Signup = props => {
                     placeholder="First name"
                     loading={signupLoading}
                   />
+                  <div className={styles.separator__div} />
                   <AppInput
                     type="text"
                     name="lastname"
@@ -100,13 +101,12 @@ const Signup = props => {
                   placeholder="Confirm password"
                   loading={signupLoading}
                 />
-                <div className={styles.button__container}>
-                  <AppButton
-                    type="submit"
-                    text="Sign in"
-                    loading={signupLoading}
-                  />
-                </div>
+                <AppButton
+                  type="submit"
+                  text="Sign in"
+                  loading={signupLoading}
+                  containerStyle={{ marginTop: '5px' }}
+                />
                 {signupError && signupError.message && (
                   <label className={styles.form__error_main}>
                     {signupError.message}

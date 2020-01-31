@@ -119,31 +119,30 @@ const AddTag = props => {
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Tag</span>
-                <div className={styles.form__group}>
-                  <Select
-                    isClearable
-                    options={TAGS}
-                    value={values.type}
-                    isDisabled={tagLoading}
-                    onChange={option => {
-                      setFieldValue('type', option);
-                    }}
-                    onBlur={() => {
-                      setFieldTouched('type');
-                    }}
-                    placeholder="Select type"
-                  />
-                  <ErrorMessage name="type">
-                    {message => (
-                      <label className={styles.form__error}>{message}</label>
-                    )}
-                  </ErrorMessage>
-                </div>
+                <Select
+                  isClearable
+                  options={TAGS}
+                  value={values.type}
+                  isDisabled={tagLoading}
+                  onChange={option => {
+                    setFieldValue('type', option);
+                  }}
+                  onBlur={() => {
+                    setFieldTouched('type');
+                  }}
+                  placeholder="Select type"
+                />
+                <ErrorMessage name="type">
+                  {message => (
+                    <label className={styles.form__error}>{message}</label>
+                  )}
+                </ErrorMessage>
                 <AppInput
                   type="text"
                   name="name"
                   placeholder="Enter tag name"
                   loading={tagLoading}
+                  containerStyle={{ marginTop: '5px' }}
                 />
                 <AppInput
                   type="text"
@@ -151,42 +150,39 @@ const AddTag = props => {
                   placeholder="Enter tag description"
                   loading={tagLoading}
                 />
-                <div className={styles.form__group}>
-                  {file ? (
-                    <div className={styles.file__div}>
-                      <img
-                        src={filePreview}
-                        className={styles.image}
-                        alt="Selected"
-                      />
-                      <button
-                        type="button"
-                        className={styles.remove__btn}
-                        onClick={handleOnRemove}
-                        disabled={tagLoading}
-                      >
-                        <AiOutlineDelete color="#FFFFFF" size="50px" />
-                      </button>
-                    </div>
-                  ) : (
-                    <div {...getRootProps({ className: styles.dropzone })}>
-                      <input {...getInputProps()} />
-                      <p>
-                        Drag 'n' drop some files here, or click to select files
-                      </p>
-                    </div>
-                  )}
-                  {fileError && (
-                    <label className={styles.form__error}>{fileError}</label>
-                  )}
-                </div>
-                <div className={styles.button__container}>
-                  <AppButton
-                    type="submit"
-                    text="Add Tag"
-                    loading={tagLoading}
-                  />
-                </div>
+                {file ? (
+                  <div className={styles.file__div}>
+                    <img
+                      src={filePreview}
+                      className={styles.image}
+                      alt="Selected"
+                    />
+                    <button
+                      type="button"
+                      className={styles.remove__btn}
+                      onClick={handleOnRemove}
+                      disabled={tagLoading}
+                    >
+                      <AiOutlineDelete color="#FFFFFF" size="50px" />
+                    </button>
+                  </div>
+                ) : (
+                  <div {...getRootProps({ className: styles.dropzone })}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag 'n' drop some files here, or click to select files
+                    </p>
+                  </div>
+                )}
+                {fileError && (
+                  <label className={styles.form__error}>{fileError}</label>
+                )}
+                <AppButton
+                  type="submit"
+                  text="Add Tag"
+                  loading={tagLoading}
+                  containerStyle={{ marginTop: '10px' }}
+                />
                 {tagError && (
                   <label className={styles.main__error}>{tagError}</label>
                 )}

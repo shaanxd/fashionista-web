@@ -17,3 +17,7 @@
 .button__container {
   margin: 15px 5px;
 }
+
+.separator__div {
+  width: 20px;
+}

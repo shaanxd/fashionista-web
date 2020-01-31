@@ -66,13 +66,12 @@ const Signin = props => {
                   placeholder="Password"
                   loading={loginLoading}
                 />
-                <div className={styles.button__container}>
-                  <AppButton
-                    type="submit"
-                    text="Sign in"
-                    loading={loginLoading}
-                  />
-                </div>
+                <AppButton
+                  type="submit"
+                  text="Sign in"
+                  loading={loginLoading}
+                  containerStyle={{ marginTop: '5px' }}
+                />
                 {loginError && loginError.message && (
                   <label className={styles.form__error_main}>
                     {loginError.message}

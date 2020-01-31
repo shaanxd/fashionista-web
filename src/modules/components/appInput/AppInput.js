@@ -4,10 +4,17 @@ import styles from './AppInput.module.css';
 import { Field, ErrorMessage } from 'formik';
 
 const AppInput = props => {
-  const { name, type, placeholder, loading, ...otherProps } = props;
+  const {
+    name,
+    type,
+    placeholder,
+    loading,
+    containerStyle,
+    ...otherProps
+  } = props;
 
   return (
-    <div className={styles.form__group}>
+    <div className={styles.form__group} style={containerStyle}>
       <Field
         name={name}
         type={type}

@@ -36,22 +36,19 @@ const OrderConfirmation = props => {
           )}
         </div>
         <div className={styles.nested__div}>
-          <div className={styles.button__container}>
-            <AppButton
-              text="EDIT PAYMENT"
-              onClick={props.onPrevious}
-              type="button"
-              loading={props.loading}
-            />
-          </div>
-          <div className={styles.button__container}>
-            <AppButton
-              text="Purchase"
-              onClick={props.onSubmit}
-              type="button"
-              loading={props.loading}
-            />
-          </div>
+          <AppButton
+            text="EDIT PAYMENT"
+            onClick={props.onPrevious}
+            type="button"
+            loading={props.loading}
+          />
+          <div className={styles.button__separator} />
+          <AppButton
+            text="Purchase"
+            onClick={props.onSubmit}
+            type="button"
+            loading={props.loading}
+          />
         </div>
       </div>
     </div>

@@ -218,31 +218,30 @@ const AddProduct = props => {
             ) : (
               <Form className={styles.tag__form}>
                 <span className={styles.form__header}>Add Product</span>
-                <div className={styles.form__group}>
-                  <AsyncSelect
-                    isMulti
-                    cacheOptions
-                    isClearable
-                    loadOptions={loadOptions}
-                    onChange={values => {
-                      setFieldValue('tags', values);
-                    }}
-                    onBlur={() => {
-                      setFieldTouched('tags');
-                    }}
-                    isDisabled={productLoading}
-                  />
-                  <ErrorMessage name="tags">
-                    {message => (
-                      <label className={styles.form__error}>{message}</label>
-                    )}
-                  </ErrorMessage>
-                </div>
+                <AsyncSelect
+                  isMulti
+                  cacheOptions
+                  isClearable
+                  loadOptions={loadOptions}
+                  onChange={values => {
+                    setFieldValue('tags', values);
+                  }}
+                  onBlur={() => {
+                    setFieldTouched('tags');
+                  }}
+                  isDisabled={productLoading}
+                />
+                <ErrorMessage name="tags">
+                  {message => (
+                    <label className={styles.form__error}>{message}</label>
+                  )}
+                </ErrorMessage>
                 <AppInput
                   type="text"
                   name="name"
                   placeholder="Product name"
                   loading={productLoading}
+                  containerStyle={{ marginTop: '5px' }}
                 />
                 <AppInput
                   type="text"
@@ -264,55 +263,48 @@ const AddProduct = props => {
                   placeholder="Product stock"
                   loading={productLoading}
                 />
-                <div className={styles.form__group}>
-                  {thumbnail ? (
-                    <div className={styles.thumbnail__div}>
-                      <img
-                        src={thumbnailPreview}
-                        className={styles.image}
-                        alt="Selected"
-                      />
-                      <button
-                        type="button"
-                        className={styles.delete__btn}
-                        onClick={handleOnRemove}
-                      >
-                        <AiOutlineDelete color="#FFFFFF" size="50px" />
-                      </button>
-                    </div>
-                  ) : (
-                    <div {...getThumbRootProps({ className: styles.dropzone })}>
-                      <input {...getThumbInputProps()} />
-                      <p className={styles.dropzone__text}>
-                        Drag 'n' drop some files here, or click to select files
-                      </p>
-                    </div>
-                  )}
-                  {thumbnailError && (
-                    <label className={styles.form__error}>
-                      {thumbnailError}
-                    </label>
-                  )}
-                </div>
-                <div className={styles.form__group}>
-                  <div {...getImagesRootProps({ className: styles.dropzone })}>
-                    <input {...getImagesInputProps()} />
+                {thumbnail ? (
+                  <div className={styles.thumbnail__div}>
+                    <img
+                      src={thumbnailPreview}
+                      className={styles.image}
+                      alt="Selected"
+                    />
+                    <button
+                      type="button"
+                      className={styles.delete__btn}
+                      onClick={handleOnRemove}
+                    >
+                      <AiOutlineDelete color="#FFFFFF" size="50px" />
+                    </button>
+                  </div>
+                ) : (
+                  <div {...getThumbRootProps({ className: styles.dropzone })}>
+                    <input {...getThumbInputProps()} />
                     <p className={styles.dropzone__text}>
                       Drag 'n' drop some files here, or click to select files
                     </p>
                   </div>
-                  {imagesError && (
-                    <label className={styles.form__error}>{imagesError}</label>
-                  )}
-                  {images.length > 0 && renderImageList()}
+                )}
+                {thumbnailError && (
+                  <label className={styles.form__error}>{thumbnailError}</label>
+                )}
+                <div {...getImagesRootProps({ className: styles.dropzone })}>
+                  <input {...getImagesInputProps()} />
+                  <p className={styles.dropzone__text}>
+                    Drag 'n' drop some files here, or click to select files
+                  </p>
                 </div>
-                <div className={styles.button__container}>
-                  <AppButton
-                    type="submit"
-                    text="Add Tag"
-                    loading={productLoading}
-                  />
-                </div>
+                {imagesError && (
+                  <label className={styles.form__error}>{imagesError}</label>
+                )}
+                {images.length > 0 && renderImageList()}
+                <AppButton
+                  type="submit"
+                  text="Add Tag"
+                  loading={productLoading}
+                  containerStyle={{ marginTop: '10px' }}
+                />
                 {productError && (
                   <label className={styles.main__error}>{productError}</label>
                 )}

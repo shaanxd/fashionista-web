@@ -120,21 +120,19 @@ const PaymentInput = props => {
                 )}
               </ErrorMessage>
               <div className={styles.nested__div}>
-                <div className={styles.button__container}>
-                  <AppButton
-                    text="Edit Shipping"
-                    onClick={props.onPrevious}
-                    type="button"
-                    loading={props.loading}
-                  />
-                </div>
-                <div className={styles.button__container}>
-                  <AppButton
-                    text="Proceed"
-                    type="submit"
-                    loading={props.loading}
-                  />
-                </div>
+                <AppButton
+                  text="Edit Shipping"
+                  onClick={props.onPrevious}
+                  type="button"
+                  loading={props.loading}
+                />
+                <div className={styles.separator__div} />
+                <div className={styles.separator__div} />
+                <AppButton
+                  text="Proceed"
+                  type="submit"
+                  loading={props.loading}
+                />
               </div>
             </Form>
           );

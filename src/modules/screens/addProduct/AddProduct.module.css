@@ -5,14 +5,6 @@
   justify-content: center;
 }
 
-.form__group {
-  padding: 5px;
-}
-
-.button__container {
-  padding: 5px;
-}
-
 .form__div {
   width: 500px;
 }
@@ -46,8 +38,8 @@
   justify-content: center;
   font-family: inherit;
   font-weight: 600;
-  margin-top: 3px;
   padding: 10px;
+  margin-top: 10px;
 }
 
 .dropzone__text {

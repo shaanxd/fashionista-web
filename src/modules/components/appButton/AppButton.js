@@ -4,18 +4,19 @@ import { PulseLoader } from 'react-spinners';
 import styles from './AppButton.module.css';
 
 const AppButton = props => {
+  const { containerStyle, loading, onClick, type, text } = props;
   return (
-    <div className={styles.button__container}>
+    <div className={styles.button__container} style={containerStyle}>
       <button
         className={styles.button}
-        disabled={props.loading}
-        onClick={props.onClick ? props.onClick : null}
-        type={props.type}
+        disabled={loading}
+        onClick={onClick ? onClick : null}
+        type={type}
       >
-        {props.loading ? (
+        {loading ? (
           <PulseLoader size={5} color={'#FFFFFF'} loading />
         ) : (
-          props.text.toUpperCase()
+          text.toUpperCase()
         )}
       </button>
     </div>

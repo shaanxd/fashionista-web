@@ -31,10 +31,6 @@
   }
 }
 
-.button__container {
-  margin: 5px;
-}
-
 .form__name_parent {
   display: flex;
   flex-direction: row;
@@ -52,4 +48,8 @@
   margin-top: 10px;
   text-align: center;
   color: red;
+}
+
+.separator__div {
+  width: 20px;
 }
