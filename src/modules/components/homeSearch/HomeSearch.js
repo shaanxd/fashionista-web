@@ -27,7 +27,7 @@ const HomeSearch = props => {
   const onFocusLoss = () => {
     setTimeout(() => {
       setState({ visible: false });
-    }, 100);
+    }, 200);
   };
 
   const handleOnSearchChange = async event => {

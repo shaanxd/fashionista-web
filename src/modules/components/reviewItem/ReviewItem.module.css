@@ -1,0 +1,58 @@
+.details__div {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.border {
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.header__container {
+  display: flex;
+  flex: 1;
+}
+
+.profile__header {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.title__text {
+  display: block;
+  margin-top: 5px;
+  color: black;
+  font-weight: 600;
+}
+
+.rating__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.user__name {
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: gray;
+}
+
+.posted__date {
+  font-size: 0.6rem;
+  color: gray;
+}
+
+.rating__text {
+  font-size: 0.6rem;
+  color: gray;
+}
+
+.description__text {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 2px;
+  text-align: justify;
+}

@@ -1,0 +1,28 @@
+.main__div {
+  border-top: 1px solid #d2d2d2;
+  padding: 10px;
+  display: flex;
+}
+
+.arrow__button {
+  border: 1px solid red;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.arrow__button:disabled {
+  color: #d2d2d2;
+}
+
+.page__number {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}

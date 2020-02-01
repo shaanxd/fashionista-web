@@ -16,7 +16,7 @@ import {
   ReviewList
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-import { getProductDetails } from '../../api/product';
+import { getProductDetails, addReview } from '../../api/product';
 import Sizes from '../../constants/sizes';
 import { addToCart } from '../../actions/cart';
 
@@ -26,10 +26,22 @@ const Product = props => {
   const [state, setState] = useMergedState({
     product: null,
     productLoading: true,
-    productError: null
+    productError: null,
+
+    addVisible: false,
+
+    addLoading: false,
+    addError: null
   });
 
-  const { product, productLoading, productError } = state;
+  const {
+    product,
+    productLoading,
+    productError,
+    addLoading,
+    addError,
+    addVisible
+  } = state;
 
   useEffect(() => {
     loadProductDetails();
@@ -47,9 +59,7 @@ const Product = props => {
         setState({ productLoading: true, productError: null });
       }
       const result = await getProductDetails(id);
-      /* setTimeout(() => { */
       setState({ product: result, productLoading: false });
-      /* }, 1000); */
     } catch (err) {
       setState({ productLoading: false, productError: err.message });
     }
@@ -60,6 +70,34 @@ const Product = props => {
       props.addToCart(values);
     } else {
       props.history.push('/signin');
+    }
+  };
+
+  const toggleAddVisible = () => {
+    if (props.auth) {
+      if (!addLoading) {
+        setState(prevState => ({
+          ...prevState,
+          addVisible: !prevState.addVisible
+        }));
+      }
+    } else {
+      props.history.push('/signin');
+    }
+  };
+
+  const handleOnAddReview = async ({ id, ...reviewData }) => {
+    try {
+      setState({ addLoading: true, addError: null });
+      const result = await addReview(reviewData, id, props.auth.token);
+      setState({
+        addLoading: false,
+        addVisible: false,
+        product: { ...result }
+      });
+      loadProductDetails();
+    } catch (err) {
+      setState({ addLoading: false, addError: err.message });
     }
   };
 
@@ -84,9 +122,12 @@ const Product = props => {
       <div className={styles.product__div}>
         <div className={styles.outer__div}>
           <ReviewList
-            reviews={product.reviews}
             product={product}
-            user={props.auth}
+            onAddClick={handleOnAddReview}
+            addLoading={addLoading}
+            addError={addError}
+            visible={addVisible}
+            onViewClick={toggleAddVisible}
           />
           <div className={styles.content__div}>
             <ProductImage images={images} />

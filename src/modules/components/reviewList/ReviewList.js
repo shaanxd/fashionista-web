@@ -1,29 +1,47 @@
 import React from 'react';
 
-import { AppButton, AddReview } from '..';
-import { useMergedState } from '../../utils/useMergedState';
+import { AppButton, AddReview, ReviewItem, Pagination } from '..';
 
 import styles from './ReviewList.module.css';
 
 const ReviewList = props => {
-  const [state, setState] = useMergedState({
-    visible: true
-  });
+  const {
+    product,
+    onAddClick,
+    addLoading,
+    addError,
+    visible,
+    onViewClick
+  } = props;
 
-  const { product, user } = props;
+  const renderReviews = () => {
+    const items = product.reviews.reviews.map((item, index) => (
+      <ReviewItem key={index} review={item} isLast={index === 2} />
+    ));
 
-  const handleOnWrite = () => {
-    setState(prevState => ({ ...prevState, visible: !prevState.visible }));
+    return items;
   };
 
   return (
     <div className={styles.main__div}>
-      <AppButton text="Write a review" onClick={handleOnWrite} />
-      {state.visible && (
+      <div className={styles.review__div}>
+        <div className={styles.overall__div}></div>
+        <div className={styles.list__div}>
+          {renderReviews()}
+          <Pagination
+            current={product.reviews.current}
+            total={product.reviews.total}
+          />
+        </div>
+      </div>
+      <AppButton text="Write a review" onClick={onViewClick} />
+      {visible && (
         <AddReview
-          drawerClickHandler={handleOnWrite}
+          drawerClickHandler={onViewClick}
           product={product}
-          user={user}
+          loading={addLoading}
+          onAddClick={onAddClick}
+          error={addError}
         />
       )}
     </div>
