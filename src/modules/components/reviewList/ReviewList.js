@@ -34,7 +34,7 @@ const ReviewList = props => {
     return (
       <div className={styles.progress__div}>
         <div className={styles.progress__group}>
-          <span className={styles.progress__text}>1 star</span>
+          <span className={styles.progress__text}>1</span>
           <div className={styles.progress__container}>
             <Progress
               percent={(product.oneStars / product.totalStars) * 100}
@@ -45,7 +45,7 @@ const ReviewList = props => {
           </div>
         </div>
         <div className={styles.progress__group}>
-          <span className={styles.progress__text}>2 star</span>
+          <span className={styles.progress__text}>2</span>
           <div className={styles.progress__container}>
             <Progress
               percent={(product.twoStars / product.totalStars) * 100}
@@ -56,7 +56,7 @@ const ReviewList = props => {
           </div>
         </div>
         <div className={styles.progress__group}>
-          <span className={styles.progress__text}>3 star</span>
+          <span className={styles.progress__text}>3</span>
           <div className={styles.progress__container}>
             <Progress
               percent={(product.threeStars / product.totalStars) * 100}
@@ -67,7 +67,7 @@ const ReviewList = props => {
           </div>
         </div>
         <div className={styles.progress__group}>
-          <span className={styles.progress__text}>4 star</span>
+          <span className={styles.progress__text}>4</span>
           <div className={styles.progress__container}>
             <Progress
               percent={(product.fourStars / product.totalStars) * 100}
@@ -78,7 +78,7 @@ const ReviewList = props => {
           </div>
         </div>
         <div className={styles.progress__group}>
-          <span className={styles.progress__text}>5 star</span>
+          <span className={styles.progress__text}>5</span>
           <div className={styles.progress__container}>
             <Progress
               percent={(product.fiveStars / product.totalStars) * 100}
