@@ -1,5 +1,6 @@
 import React from 'react';
 import { Rate } from 'antd';
+import Moment from 'moment';
 
 import styles from './ReviewItem.module.css';
 
@@ -25,7 +26,9 @@ const ReviewItem = props => {
       <div className={styles.header__container}>
         <div className={styles.profile__header}>
           <span className={styles.user__name}>{fullName}</span>
-          <span className={styles.posted__date}>Tue 12th Oct, 2019</span>
+          <span className={styles.posted__date}>
+            {Moment(reviewDate).fromNow()}
+          </span>
         </div>
         <div className={styles.rating__header}>
           <Rate

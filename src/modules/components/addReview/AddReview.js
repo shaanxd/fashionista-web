@@ -57,7 +57,7 @@ const AddReview = props => {
                 description: Yup.string().required('Description is required'),
                 rating: Yup.number()
                   .typeError('Invalid rating')
-                  .min(0.5, 'Rating cannot be below 0.5')
+                  .min(1, 'Rating cannot be below 1')
                   .max(5, 'Rating cannot be above 5')
               })}
             >
@@ -71,7 +71,7 @@ const AddReview = props => {
                       </span>
                       <Rate
                         value={values.rating}
-                        allowHalf
+                        allowHalf={false}
                         style={{
                           color: 'black',
                           paddingLeft: '5px',

@@ -1,18 +1,43 @@
 .main__div {
-  border: 1px solid red;
-  padding: 10px;
   width: 900px;
+  border: 1px solid #d2d2d2;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .review__div {
   margin-bottom: 10px;
-  display: flex;
 }
 
 .overall__div {
-  border-right: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+  display: flex;
+  padding-bottom: 10px;
+  justify-content: center;
+}
+
+.summary__div {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress__div {
+  border-left: 1px solid #d2d2d2;
   flex: 1;
-  min-height: 250px;
+  padding: 30px;
+}
+
+.progress__container {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.progress__group {
+  display: flex;
+  padding: 5px;
 }
 
 .list__div {
@@ -21,4 +46,41 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.empty__div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating__actual {
+  font-size: 2.5rem;
+}
+
+.rating__big {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 5px;
+  color: black;
+}
+
+.rating__small {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.review__count {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #d2d2d2;
+  color: #d2d2d2;
+}
+
+.rating__total {
+  margin-left: 2px;
 }

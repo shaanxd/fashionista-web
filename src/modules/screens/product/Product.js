@@ -137,15 +137,6 @@ const Product = props => {
     return (
       <div className={styles.product__div}>
         <div className={styles.outer__div}>
-          <ReviewList
-            product={product}
-            onAddClick={handleOnAddReview}
-            addLoading={addLoading}
-            addError={addError}
-            visible={addVisible}
-            onViewClick={toggleAddVisible}
-            onPaginationClick={loadReviews}
-          />
           <div className={styles.content__div}>
             <ProductImage images={images} />
             <div className={styles.product__content}>
@@ -224,6 +215,15 @@ const Product = props => {
               </Formik>
             </div>
           </div>
+          <ReviewList
+            product={product}
+            onAddClick={handleOnAddReview}
+            addLoading={addLoading}
+            addError={addError}
+            visible={addVisible}
+            onViewClick={toggleAddVisible}
+            onPaginationClick={loadReviews}
+          />
         </div>
       </div>
     );
