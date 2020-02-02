@@ -11,12 +11,17 @@ const ReviewList = props => {
     addLoading,
     addError,
     visible,
-    onViewClick
+    onViewClick,
+    onPaginationClick
   } = props;
 
   const renderReviews = () => {
     const items = product.reviews.reviews.map((item, index) => (
-      <ReviewItem key={index} review={item} isLast={index === 2} />
+      <ReviewItem
+        key={index}
+        review={item}
+        isLast={index === product.reviews.reviews.length - 1}
+      />
     ));
 
     return items;
@@ -31,6 +36,7 @@ const ReviewList = props => {
           <Pagination
             current={product.reviews.current}
             total={product.reviews.total}
+            onPaginationClick={onPaginationClick}
           />
         </div>
       </div>

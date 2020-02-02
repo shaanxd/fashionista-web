@@ -16,7 +16,7 @@ import {
   ReviewList
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-import { getProductDetails, addReview } from '../../api/product';
+import { getProductDetails, addReview, getReview } from '../../api/product';
 import Sizes from '../../constants/sizes';
 import { addToCart } from '../../actions/cart';
 
@@ -31,7 +31,10 @@ const Product = props => {
     addVisible: false,
 
     addLoading: false,
-    addError: null
+    addError: null,
+
+    reviewLoading: false,
+    reviewError: null
   });
 
   const {
@@ -47,6 +50,19 @@ const Product = props => {
     loadProductDetails();
     //eslint-disable-next-line
   }, []);
+
+  const loadReviews = async value => {
+    try {
+      setState({ reviewLoading: true, reviewError: null });
+      const result = await getReview(product.id, value);
+      setState({
+        reviewLoading: false,
+        product: { ...product, reviews: { ...result } }
+      });
+    } catch (err) {
+      setState({ reviewLoading: false, reviewError: err.message });
+    }
+  };
 
   const loadProductDetails = async () => {
     try {
@@ -128,6 +144,7 @@ const Product = props => {
             addError={addError}
             visible={addVisible}
             onViewClick={toggleAddVisible}
+            onPaginationClick={loadReviews}
           />
           <div className={styles.content__div}>
             <ProductImage images={images} />

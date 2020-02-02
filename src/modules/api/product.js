@@ -19,3 +19,8 @@ export const addReview = (reviewData, productId, authToken) => {
   const endpoint = `products/add-review/${productId}`;
   return POST(endpoint, reviewData, authToken);
 };
+
+export const getReview = (id, value) => {
+  const endpoint = `products/reviews/${id}?page=${value}&size=3`;
+  return GET(endpoint);
+};

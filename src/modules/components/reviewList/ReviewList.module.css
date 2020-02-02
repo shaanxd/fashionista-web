@@ -12,13 +12,13 @@
 .overall__div {
   border-right: 1px solid #d2d2d2;
   flex: 1;
+  min-height: 250px;
 }
 
 .list__div {
   flex: 1;
   padding: 0px 10px;
-  min-height: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
