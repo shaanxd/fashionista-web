@@ -21,6 +21,6 @@ export const addReview = (reviewData, productId, authToken) => {
 };
 
 export const getReview = (id, value) => {
-  const endpoint = `products/reviews/${id}?page=${value}&size=3`;
+  const endpoint = `products/reviews/${id}?page=${value}&size=3&sort=updatedAt,desc`;
   return GET(endpoint);
 };

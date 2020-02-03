@@ -21,11 +21,7 @@ const ReviewList = props => {
 
   const renderReviews = () => {
     const items = product.reviews.reviews.map((item, index) => (
-      <ReviewItem
-        key={index}
-        review={item}
-        isLast={index === product.reviews.reviews.length - 1}
-      />
+      <ReviewItem key={index} review={item} />
     ));
 
     return items;

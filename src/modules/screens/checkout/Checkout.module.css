@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  overflow-y: scroll;
+  min-height: 100%;
 }
 
 .parent__div {
@@ -88,4 +87,12 @@
   color: red;
   margin: 5px 15px;
   display: block;
+}
+
+@media (max-width: 900px) {
+  .parent__div {
+    flex-direction: column-reverse;
+    width: 100%;
+    padding: 0px;
+  }
 }

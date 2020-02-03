@@ -19,3 +19,8 @@ export const checkoutCart = (checkoutData, authToken) => {
   const endpoint = 'purchases/purchase-cart';
   return POST(endpoint, checkoutData, authToken);
 };
+
+export const getPurchases = (authToken, page) => {
+  const endpoint = `purchases?page=${page}&size=3&sort=createdAt,desc`;
+  return GET(endpoint, authToken);
+};

@@ -23,3 +23,4 @@ export { default as ReviewList } from './reviewList/ReviewList';
 export { default as AddReview } from './addReview/AddReview';
 export { default as ReviewItem } from './reviewItem/ReviewItem';
 export { default as Pagination } from './pagination/Pagination';
+export { default as PurchaseItem } from './purchaseItem/PurchaseItem';

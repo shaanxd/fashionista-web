@@ -7,22 +7,16 @@ import styles from './ReviewItem.module.css';
 const ReviewItem = props => {
   const {
     review: {
-      id,
       title,
       description,
       rating,
       reviewDate,
-      owner: { id: ownerId, fullName }
-    },
-    isLast
+      owner: { fullName }
+    }
   } = props;
 
-  const style = isLast
-    ? styles.details__div
-    : [styles.details__div, styles.border].join(' ');
-
   return (
-    <div className={style}>
+    <div className={styles.details__div}>
       <div className={styles.header__container}>
         <div className={styles.profile__header}>
           <span className={styles.user__name}>{fullName}</span>

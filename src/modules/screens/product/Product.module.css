@@ -1,6 +1,5 @@
 .main__div {
-  height: 100%;
-  overflow: auto;
+  min-height: 100%;
 }
 
 .product__div {

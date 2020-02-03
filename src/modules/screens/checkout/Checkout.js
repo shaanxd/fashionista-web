@@ -13,10 +13,10 @@ import {
   CartItem
 } from '../../components';
 import { checkoutCart } from '../../api/cart';
+import { checkoutSuccess } from '../../actions/cart';
 
 import './Checkout.css';
 import styles from './Checkout.module.css';
-import { checkoutSuccess } from '../../actions/cart';
 
 const Checkout = props => {
   const [state, setState] = useMergedState({
