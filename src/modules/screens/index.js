@@ -6,3 +6,4 @@ export { default as Home } from './home/Home';
 export { default as AddProduct } from './addProduct/AddProduct';
 export { default as AddTag } from './addTag/AddTag';
 export { default as Checkout } from './checkout/Checkout';
+export { default as Orders } from './orders/Orders';

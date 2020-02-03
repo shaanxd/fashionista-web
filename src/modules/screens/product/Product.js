@@ -5,6 +5,7 @@ import { Rate } from 'antd';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineWarning } from 'react-icons/ai';
+import cogoToast from 'cogo-toast';
 
 import {
   Loading,
@@ -33,8 +34,7 @@ const Product = props => {
     addLoading: false,
     addError: null,
 
-    reviewLoading: false,
-    reviewError: null
+    reviewLoading: false
   });
 
   const {
@@ -54,14 +54,15 @@ const Product = props => {
 
   const loadReviews = async value => {
     try {
-      setState({ reviewLoading: true, reviewError: null });
+      setState({ reviewLoading: true });
       const result = await getReview(product.id, value);
       setState({
         reviewLoading: false,
         product: { ...product, reviews: { ...result } }
       });
     } catch (err) {
-      setState({ reviewLoading: false, reviewError: err.message });
+      cogoToast.error(err.message, { position: 'bottom-left' });
+      setState({ reviewLoading: false });
     }
   };
 

@@ -10,14 +10,15 @@ import {
   Product,
   AddTag,
   AddProduct,
-  Checkout
+  Checkout,
+  Orders
 } from './screens';
 import {
   Toolbar,
   SideDrawer,
   Backdrop,
   Loading,
-  AdminRoute,
+  AuthRoute,
   CartDrawer
 } from './components';
 import { checkAuthValid } from './actions/auth';
@@ -28,6 +29,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'antd/dist/antd.css';
 import styles from './Root.module.css';
 import { getCart, deleteCart } from './actions/cart';
+import { ROLES } from './constants/types';
 
 const Root = props => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -111,13 +113,34 @@ const Root = props => {
                 <Product />
               </Route>
               <Route exact path="/add-tag">
-                <AdminRoute component={AddTag} />
+                <AuthRoute
+                  component={AddTag}
+                  role={ROLES.ROLE_ADMIN}
+                  auth={currentAuth}
+                />
               </Route>
               <Route exact path="/add-product">
-                <AdminRoute component={AddProduct} />
+                <AuthRoute
+                  component={AddProduct}
+                  role={ROLES.ROLE_ADMIN}
+                  auth={currentAuth}
+                />
               </Route>
               <Route exact path="/checkout">
-                <Checkout cartClickHandler={cartToggle} />
+                <AuthRoute
+                  component={Checkout}
+                  role={ROLES.ROLE_USER}
+                  cartClickHandler={cartToggle}
+                  auth={currentAuth}
+                />
+              </Route>
+              <Route exact path="/orders">
+                <AuthRoute
+                  component={Orders}
+                  role={ROLES.ROLE_USER}
+                  cartClickHandler={cartToggle}
+                  auth={currentAuth}
+                />
               </Route>
             </Switch>
           </main>

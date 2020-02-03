@@ -3,7 +3,7 @@ export { default as DrawerToggleButton } from './drawerToggleButton/DrawerToggle
 export { default as SideDrawer } from './sideDrawer/SideDrawer';
 export { default as Toolbar } from './toolbar/Toolbar';
 export { default as Loading } from './loading/Loading';
-export { default as AdminRoute } from './adminRoute/AdminRoute';
+export { default as AuthRoute } from './authRoute/AuthRoute';
 export { default as HomeSearch } from './homeSearch/HomeSearch';
 export { default as ProductImage } from './productImage/ProductImage';
 export { default as SizePicker } from './sizePicker/SizePicker';
