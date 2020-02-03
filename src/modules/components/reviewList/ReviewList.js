@@ -13,7 +13,8 @@ const ReviewList = props => {
     addError,
     visible,
     onViewClick,
-    onPaginationClick
+    onPaginationClick,
+    reviewLoading
   } = props;
 
   const hasReviews = product.reviews.reviews.length !== 0;
@@ -121,6 +122,7 @@ const ReviewList = props => {
               current={product.reviews.current}
               total={product.reviews.total}
               onPaginationClick={onPaginationClick}
+              loading={reviewLoading}
             />
           </div>
         )}

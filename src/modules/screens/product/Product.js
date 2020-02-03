@@ -43,7 +43,8 @@ const Product = props => {
     productError,
     addLoading,
     addError,
-    addVisible
+    addVisible,
+    reviewLoading
   } = state;
 
   useEffect(() => {
@@ -223,6 +224,7 @@ const Product = props => {
             visible={addVisible}
             onViewClick={toggleAddVisible}
             onPaginationClick={loadReviews}
+            reviewLoading={reviewLoading}
           />
         </div>
       </div>

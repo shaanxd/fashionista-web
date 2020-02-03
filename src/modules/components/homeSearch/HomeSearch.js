@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { List, Avatar, Rate } from 'antd';
 import { AiOutlineSearch, AiOutlineWarning } from 'react-icons/ai';
 
@@ -18,6 +18,16 @@ const HomeSearch = props => {
     hasText: false
   });
 
+  let timeout = null;
+
+  useEffect(() => {
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  });
+
   const { searchError, searchLoading, searchResults, hasText } = state;
 
   const onFocusGain = () => {
@@ -25,7 +35,7 @@ const HomeSearch = props => {
   };
 
   const onFocusLoss = () => {
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       setState({ visible: false });
     }, 200);
   };
