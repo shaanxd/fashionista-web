@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { AiOutlineShopping } from 'react-icons/ai';
 
 import {
   Pagination,
@@ -12,7 +13,6 @@ import { useMergedState } from '../../utils/useMergedState';
 import { getPurchases } from '../../api/cart';
 
 import styles from './Orders.module.css';
-import { AiOutlineShopping } from 'react-icons/ai';
 
 const Orders = props => {
   const [state, setState] = useMergedState({
@@ -56,7 +56,9 @@ const Orders = props => {
       const result = await getPurchases(token, value);
       setState({
         purchasesLoading: false,
-        purchases: { ...result },
+        purchases: {
+          ...result
+        },
         selectedOrder:
           result.purchases.length > 0 ? { ...result.purchases[0] } : null
       });
@@ -66,14 +68,13 @@ const Orders = props => {
   };
 
   const renderPurchases = () => {
-    const items = purchases.map((purchase, index) => {
+    const items = purchases.map(purchase => {
       return (
         <PurchaseItem
           key={purchase.id}
           purchase={purchase}
           isSelected={selectedOrder ? selectedOrder.id === purchase.id : false}
           onOrderClick={setSelectedOrder}
-          isFirst={index === 0}
         />
       );
     });

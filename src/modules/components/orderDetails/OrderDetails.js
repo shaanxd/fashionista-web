@@ -37,12 +37,12 @@ const OrderDetails = props => {
       </div>
       <div className={styles.meta__group}>
         <span className={styles.meta__title}>PAID USING</span>
-        <span className={styles.meta__value}>CASH ON DELIVERY</span>
+        <span className={styles.meta__value}>Cash On Delivery</span>
       </div>
       <div className={styles.meta__address}>
         <span className={styles.meta__title}>SHIPPED TO</span>
         <span className={styles.meta__value}>
-          {'Shahid Hassan, 434/B, Enderamulla, Wattala.'.toUpperCase()}
+          {'Shahid Hassan, 434/B, Enderamulla, Wattala.'}
         </span>
       </div>
       <div className={styles.meta__group}>

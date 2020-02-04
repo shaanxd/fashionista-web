@@ -8,6 +8,7 @@
 .content__div {
   display: flex;
   width: 1000px;
+  padding: 10px 0px;
 }
 
 .list__div {
@@ -22,7 +23,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 0px 10px;
 }
 
 .empty__div {
@@ -58,6 +59,8 @@
   }
   .list__container {
     flex: 1;
-    padding: 0px;
+  }
+  .content__div {
+    width: 100%;
   }
 }
