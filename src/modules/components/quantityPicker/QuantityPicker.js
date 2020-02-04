@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './QuantityPicker.module.css';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 const QuantityPicker = props => {
   const { value } = props;
@@ -21,7 +22,7 @@ const QuantityPicker = props => {
           disabled={value <= 1}
           className={styles.picker__button}
         >
-          -
+          <AiOutlineMinus size={15} />
         </button>
         <span className={styles.picker__label}>{value}</span>
         <button
@@ -30,7 +31,7 @@ const QuantityPicker = props => {
           disabled={value > 4}
           className={styles.picker__button}
         >
-          +
+          <AiOutlinePlus size={15} />
         </button>
       </div>
     </div>

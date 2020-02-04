@@ -145,7 +145,7 @@ const Product = props => {
               <span className={styles.product__name}>{product.name}</span>
               <span
                 className={styles.product__price}
-              >{`$ ${product.price}.00`}</span>
+              >{`$ ${product.price}`}</span>
               <div className={styles.rating__div}>
                 <Rate
                   style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
@@ -159,6 +159,7 @@ const Product = props => {
                   {product.avgRating ? product.avgRating : '0.0'} stars
                 </span>
               </div>
+              <span className={styles.form__label}>Product Description:</span>
               <span className={styles.product__description}>
                 {product.description}
               </span>
@@ -199,13 +200,12 @@ const Product = props => {
                           </label>
                         )}
                       </ErrorMessage>
-                      <div className={styles.button__container}>
-                        <AppButton
-                          text="Add to Cart"
-                          type="submit"
-                          loading={props.addLoading}
-                        />
-                      </div>
+                      <AppButton
+                        text="Add to Cart"
+                        type="submit"
+                        loading={props.addLoading}
+                        containerStyle={{ marginTop: '20px' }}
+                      />
                       {props.addError && (
                         <span className={styles.main__error}>
                           {props.addError}
