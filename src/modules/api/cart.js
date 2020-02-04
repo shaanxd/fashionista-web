@@ -21,6 +21,6 @@ export const checkoutCart = (checkoutData, authToken) => {
 };
 
 export const getPurchases = (authToken, page) => {
-  const endpoint = `purchases?page=${page}&size=3&sort=createdAt,desc`;
+  const endpoint = `purchases?page=${page}&size=8&sort=createdAt,desc`;
   return GET(endpoint, authToken);
 };

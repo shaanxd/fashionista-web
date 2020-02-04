@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Moment from 'moment';
 
 import {
   Pagination,
   PurchaseItem,
-  CartItem,
   Loading,
-  Glitch
+  Glitch,
+  OrderDetails
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getPurchases } from '../../api/cart';
@@ -58,19 +57,12 @@ const Orders = props => {
       setState({
         purchasesLoading: false,
         purchases: { ...result },
-        selectedOrder: null
+        selectedOrder:
+          result.purchases.length > 0 ? { ...result.purchases[0] } : null
       });
     } catch (err) {
       setState({ purchasesLoading: false, purchasesError: err.message });
     }
-  };
-
-  const renderPurchasedItems = () => {
-    const items = selectedOrder.purchases.map(purchase => {
-      return <CartItem item={purchase} />;
-    });
-
-    return items;
   };
 
   const renderPurchases = () => {
@@ -125,46 +117,7 @@ const Orders = props => {
         <div className={styles.separator__div} />
         <div className={styles.items__div}>
           {selectedOrder ? (
-            <div className={styles.item__list}>
-              <div className={styles.header__content}>
-                <div className={styles.order__header}>
-                  <span
-                    className={styles.header__title}
-                  >{`ORDER ${selectedOrder.id
-                    .replace(/-/g, '')
-                    .toUpperCase()}`}</span>
-                </div>
-                <span className={styles.order__date}>{`Placed on ${Moment(
-                  selectedOrder.orderedAt
-                ).format('dddd, MMMM Do YYYY')}`}</span>
-                <div className={styles.meta__header}>
-                  <div className={styles.meta__group}>
-                    <span className={styles.meta__title}>NUMBER OF ITEMS</span>
-                    <span className={styles.meta__value}>
-                      {selectedOrder.numberOfItems}
-                    </span>
-                  </div>
-                  <div className={styles.meta__group}>
-                    <span className={styles.meta__title}>TOTAL PRICE</span>
-                    <span className={styles.meta__value}>
-                      {`$${selectedOrder.totalPrice}`}
-                    </span>
-                  </div>
-                  <div className={styles.meta__group}>
-                    <span className={styles.meta__title}>PAID USING</span>
-                    <span className={styles.meta__value}>CASH ON DELIVERY</span>
-                  </div>
-                  <div className={styles.meta__address}>
-                    <span className={styles.meta__title}>SHIPPED TO</span>
-                    <span className={styles.meta__value}>
-                      Shahid Hassan, 434/B, Enderamulla, Wattala.
-                    </span>
-                  </div>
-                </div>
-                <span className={styles.list__header}>LIST OF ITEMS</span>
-              </div>
-              {renderPurchasedItems()}
-            </div>
+            <OrderDetails item={selectedOrder} />
           ) : (
             <div className={styles.empty__div}>
               <AiOutlineShopping size={30} />
