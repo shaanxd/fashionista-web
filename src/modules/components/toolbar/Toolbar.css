@@ -167,12 +167,12 @@
   padding: 20px 0px;
   background: white;
   min-width: 250px;
-  border-bottom: 2px solid white;
+  border: 3px solid white;
   font-size: 0.8rem;
   font-weight: 500;
   color: gray;
 }
 
 .toolbar__dropdown-option:hover {
-  border-bottom: 2px solid rgb(231, 8, 135);
+  border-bottom: 3px solid rgb(231, 8, 135);
 }

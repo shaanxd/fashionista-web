@@ -39,7 +39,7 @@
   padding: 20px;
   overflow: auto;
   transform: translateX(100%);
-  animation: anim 300ms ease-in-out forwards;
+  animation: anim 0.2s ease-in-out forwards;
 }
 
 @keyframes anim {

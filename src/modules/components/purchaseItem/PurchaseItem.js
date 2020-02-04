@@ -1,13 +1,13 @@
 import React from 'react';
 import Moment from 'moment';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
+import { IoIosArrowDropdown } from 'react-icons/io';
 import { Collapse } from 'react-collapse';
 
 import { OrderDetails } from '..';
 
 import styles from './PurchaseItem.module.css';
 import './PurchaseItem.css';
-import { FiArrowDownRight } from 'react-icons/fi';
 
 const PurchaseItem = props => {
   const {
@@ -47,9 +47,9 @@ const PurchaseItem = props => {
         </div>
         <div className={styles.dropdown__button}>
           {isSelected ? (
-            <MdKeyboardArrowUp size={20} />
+            <MdKeyboardArrowUp size={30} />
           ) : (
-            <MdKeyboardArrowDown size={20} />
+            <MdKeyboardArrowDown size={30} />
           )}
         </div>
         <div
@@ -59,7 +59,7 @@ const PurchaseItem = props => {
               : [styles.view__button, styles.rotate].join(' ')
           }
         >
-          <FiArrowDownRight size={20} />
+          <IoIosArrowDropdown size={30} />
         </div>
       </div>
       <div className={styles.dropdown__content}>
