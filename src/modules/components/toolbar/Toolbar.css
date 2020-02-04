@@ -141,3 +141,38 @@
     display: none;
   }
 }
+
+.toolbar__dropdown-div {
+  position: relative;
+}
+
+.toolbar__dropdown {
+  position: absolute;
+  right: -3px;
+  top: 77px;
+  transform: scaleY(0%);
+  transition: transform 0.1s ease-in;
+  transform-origin: top;
+  background: white;
+  border: 1px solid #d2d2d2;
+  border-top: none;
+}
+
+.toolbar__dropdown-div:hover .toolbar__dropdown {
+  transform: scaleY(100%);
+}
+
+.toolbar__dropdown-option {
+  border: none;
+  padding: 20px 0px;
+  background: white;
+  min-width: 250px;
+  border-bottom: 2px solid white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: gray;
+}
+
+.toolbar__dropdown-option:hover {
+  border-bottom: 2px solid rgb(231, 8, 135);
+}
