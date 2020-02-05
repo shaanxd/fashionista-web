@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { List, Rate } from 'antd';
 import { AiOutlineSearch, AiOutlineWarning } from 'react-icons/ai';
 
@@ -11,34 +11,13 @@ import styles from './HomeSearch.module.css';
 
 const HomeSearch = props => {
   const [state, setState] = useMergedState({
-    visible: false,
     searchResults: [],
     searchLoading: false,
     searchError: null,
     hasText: false
   });
 
-  let timeout = null;
-
-  useEffect(() => {
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  });
-
   const { searchError, searchLoading, searchResults, hasText } = state;
-
-  const onFocusGain = () => {
-    setState({ visible: true });
-  };
-
-  const onFocusLoss = () => {
-    timeout = setTimeout(() => {
-      setState({ visible: false });
-    }, 200);
-  };
 
   const handleOnSearchChange = async event => {
     const keyword = event.target.value;
@@ -55,10 +34,6 @@ const HomeSearch = props => {
       setState({ searchResults: [], hasText: false, searchError: null });
     }
   };
-
-  const listStyle = state.visible
-    ? styles.search__visible
-    : styles.search__hidden;
 
   const renderSearchLoading = () => {
     return (
@@ -146,14 +121,12 @@ const HomeSearch = props => {
           type="text"
           className={styles.search__input}
           placeholder="Search Product"
-          onFocus={onFocusGain}
-          onBlur={onFocusLoss}
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
           <AiOutlineSearch color="#595959" size="20px" />
         </div>
-        <div className={listStyle}>
+        <div className={styles.search__visible}>
           {searchError
             ? renderSearchError()
             : searchLoading
