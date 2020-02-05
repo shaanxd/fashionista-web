@@ -1,0 +1,40 @@
+.product__div {
+  border: 3px solid rgb(231, 8, 135);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px;
+}
+
+.product__thumbnail {
+  width: 100%;
+}
+
+.product__name {
+  display: block;
+  max-width: 100%;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 700;
+  color: black;
+}
+
+.product__price {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.5rem;
+  text-align: center;
+  color: rgb(231, 8, 135);
+  font-weight: 800;
+  letter-spacing: 1px;
+}

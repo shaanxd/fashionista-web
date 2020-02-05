@@ -24,3 +24,8 @@ export const getReview = (id, value) => {
   const endpoint = `products/reviews/${id}?page=${value}&size=3&sort=updatedAt,desc`;
   return GET(endpoint);
 };
+
+export const getHomeProducts = () => {
+  const endpoint = `products?page=0&size=8`;
+  return GET(endpoint);
+};

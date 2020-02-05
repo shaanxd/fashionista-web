@@ -4,8 +4,8 @@
   width: 100%;
   /* border-bottom: solid 1px #e8e8e8; */
   top: 0;
-  z-index: 10;
-  box-shadow: 0 0 20px #f3f1f1;
+  z-index: 10; /* 
+  box-shadow: 0 0 20px #f3f1f1; */
   background-color: white;
 }
 
@@ -151,6 +151,7 @@
   right: -3px;
   top: 77px;
   transform: scaleY(0%);
+  display: none;
   transition: transform 0.1s ease-in;
   transform-origin: top;
   background: white;
@@ -160,6 +161,7 @@
 
 .toolbar__dropdown-div:hover .toolbar__dropdown {
   transform: scaleY(100%);
+  display: inline-block;
 }
 
 .toolbar__dropdown-option {

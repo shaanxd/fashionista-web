@@ -25,3 +25,6 @@ export { default as ReviewItem } from './reviewItem/ReviewItem';
 export { default as Pagination } from './pagination/Pagination';
 export { default as PurchaseItem } from './purchaseItem/PurchaseItem';
 export { default as OrderDetails } from './orderDetails/OrderDetails';
+export { default as ProductCarousel } from './productCarousel/ProductCarousel';
+export { default as ProductCard } from './productCard/ProductCard';
+export { default as SliderButton } from './sliderButton/SliderButton';

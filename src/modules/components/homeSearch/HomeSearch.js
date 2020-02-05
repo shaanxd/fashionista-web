@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { List, Avatar, Rate } from 'antd';
+import { List, Rate } from 'antd';
 import { AiOutlineSearch, AiOutlineWarning } from 'react-icons/ai';
 
 import { Loading, Glitch } from '../';
@@ -103,18 +103,20 @@ const HomeSearch = props => {
           >
             <List.Item.Meta
               avatar={
-                <Avatar
+                <img
                   src={getImageUrl(item.thumbnail)}
-                  size={80}
-                  shape="square"
-                  style={{ borderRadius: '0px' }}
+                  alt="thumbnail"
+                  className={styles.thumbnail}
                 />
               }
               title={<span className={styles.item__header}>{item.name}</span>}
               description={
-                <div>
+                <div className={styles.rating__container}>
                   <Rate
-                    style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
+                    style={{
+                      color: '#BF8293',
+                      fontSize: 15
+                    }}
                     defaultValue={0}
                     value={item.avgRating}
                     disabled
@@ -122,7 +124,10 @@ const HomeSearch = props => {
                   />
                 </div>
               }
-              style={{ justifyContent: 'center', alignItems: 'center' }}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
             />
             <div className={styles.price__div}>{`$${item.price}`}</div>
           </List.Item>
@@ -133,14 +138,13 @@ const HomeSearch = props => {
 
   return (
     <div className={styles.header__div}>
-      <span className={styles.searchHeader}>
-        Welcome to <span className={styles.fashion__text}>Fashion</span>
-        <span className={styles.end__text}>ista!</span>
+      <span className={styles.search__header}>
+        Welcome to <span className={styles.fashion__text}>Fashion</span>ista!
       </span>
-      <div className={styles.searchBox}>
+      <div className={styles.search__box}>
         <input
           type="text"
-          className={styles.searchInput}
+          className={styles.search__input}
           placeholder="Search Product"
           onFocus={onFocusGain}
           onBlur={onFocusLoss}
