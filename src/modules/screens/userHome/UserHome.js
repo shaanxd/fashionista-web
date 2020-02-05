@@ -22,6 +22,10 @@ const UserHome = props => {
     //eslint-disable-next-line
   }, []);
 
+  const handleOnProductClick = productId => {
+    props.history.push(`/product/${productId}`);
+  };
+
   const loadProductsFromApi = async () => {
     try {
       if (!productsLoading) {
@@ -39,7 +43,12 @@ const UserHome = props => {
   return (
     <div className={styles.main__div}>
       <HomeSearch navigate={props.history.push} />
-      {products && <ProductCarousel products={products.products} />}
+      {products && (
+        <ProductCarousel
+          products={products.products}
+          onProductClick={handleOnProductClick}
+        />
+      )}
     </div>
   );
 };

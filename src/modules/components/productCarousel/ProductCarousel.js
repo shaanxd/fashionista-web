@@ -7,7 +7,7 @@ import './ProductCarousel.css';
 import styles from './ProductCarousel.module.css';
 
 const ProductCarousel = props => {
-  const { products } = props;
+  const { products, onProductClick } = props;
 
   const miniSettings = {
     infinite: true,
@@ -40,7 +40,13 @@ const ProductCarousel = props => {
   };
   const renderMiniCarousel = () => {
     const components = products.map(product => {
-      return <ProductCard item={product} key={product.id} />;
+      return (
+        <ProductCard
+          item={product}
+          key={product.id}
+          onProductClick={onProductClick}
+        />
+      );
     });
     return <Slider {...miniSettings}>{components}</Slider>;
   };
