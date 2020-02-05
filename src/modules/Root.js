@@ -11,7 +11,8 @@ import {
   AddTag,
   AddProduct,
   Checkout,
-  Orders
+  Orders,
+  Products
 } from './screens';
 import {
   Toolbar,
@@ -111,6 +112,9 @@ const Root = props => {
               </Route>
               <Route exact path="/product/:id">
                 <Product />
+              </Route>
+              <Route exact path="/products">
+                <Products />
               </Route>
               <Route exact path="/add-tag">
                 <AuthRoute

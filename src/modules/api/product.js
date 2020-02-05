@@ -30,7 +30,12 @@ export const getHomeProducts = () => {
   return GET(endpoint);
 };
 
-export const getTagsFromType = type => {
-  const endpoint = `tags?type=${type}&size=8&page=0`;
+export const getTagsFromType = (type, size = 8, page = 0) => {
+  const endpoint = `tags?type=${type}&size=${size}&page=${page}`;
+  return GET(endpoint);
+};
+
+export const getAllTags = () => {
+  const endpoint = `tags/all`;
   return GET(endpoint);
 };

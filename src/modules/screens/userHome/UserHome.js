@@ -40,7 +40,7 @@ const UserHome = props => {
   };
 
   const handleTagClick = tagId => {
-    console.log(tagId);
+    props.history.push('/products', { tagId });
   };
 
   const loadProductsFromApi = async () => {
