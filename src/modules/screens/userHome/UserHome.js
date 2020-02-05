@@ -2,28 +2,45 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { HomeSearch, ProductCarousel } from '../../components';
+import { HomeSearch, HomeCarousel } from '../../components';
 
 import styles from './UserHome.module.css';
 import { useMergedState } from '../../utils/useMergedState';
-import { getHomeProducts } from '../../api/product';
+import { getHomeProducts, getTagsFromType } from '../../api/product';
+import { CAROUSEL_TYPES, TAGS } from '../../constants/types';
 
 const UserHome = props => {
   const [state, setState] = useMergedState({
     products: null,
     productsLoading: true,
-    productsError: null
+    productsError: null,
+
+    brands: null,
+    brandsLoading: true,
+    brandsError: null
   });
 
-  const { products, productsLoading, productsError } = state;
+  const {
+    products,
+    productsLoading,
+    productsError,
+    brands,
+    brandsLoading,
+    brandsError
+  } = state;
 
   useEffect(() => {
     loadProductsFromApi();
+    loadBrandsFromApi();
     //eslint-disable-next-line
   }, []);
 
   const handleOnProductClick = productId => {
     props.history.push(`/product/${productId}`);
+  };
+
+  const handleTagClick = tagId => {
+    console.log(tagId);
   };
 
   const loadProductsFromApi = async () => {
@@ -38,15 +55,37 @@ const UserHome = props => {
     }
   };
 
-  console.log(products);
+  const loadBrandsFromApi = async () => {
+    try {
+      if (!brandsLoading) {
+        setState({ brandsLoading: true, brandsError: null });
+      }
+      const result = await getTagsFromType(TAGS[0].value);
+      setState({ brandsLoading: false, brands: { ...result } });
+    } catch (err) {
+      setState({ brandsLoading: false, brandsError: err.message });
+    }
+  };
 
   return (
     <div className={styles.main__div}>
+      {brands && (
+        <HomeCarousel
+          items={brands.tags}
+          onItemClick={handleTagClick}
+          leftHeader="FEATURED"
+          rightHeader="BRANDS"
+          type={CAROUSEL_TYPES.BRAND}
+        />
+      )}
       <HomeSearch navigate={props.history.push} />
       {products && (
-        <ProductCarousel
-          products={products.products}
-          onProductClick={handleOnProductClick}
+        <HomeCarousel
+          items={products.products}
+          onItemClick={handleOnProductClick}
+          leftHeader="FEATURED"
+          rightHeader="PRODUCTS"
+          type={CAROUSEL_TYPES.PRODUCT}
         />
       )}
     </div>

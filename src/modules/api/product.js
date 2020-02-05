@@ -29,3 +29,8 @@ export const getHomeProducts = () => {
   const endpoint = `products?page=0&size=8`;
   return GET(endpoint);
 };
+
+export const getTagsFromType = type => {
+  const endpoint = `tags?type=${type}&size=8&page=0`;
+  return GET(endpoint);
+};

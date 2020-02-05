@@ -1,13 +1,14 @@
 import React from 'react';
 import Slider from 'react-slick';
 
-import { ProductCard, SliderButton } from '..';
+import { ProductCard, SliderButton, CategoryItem } from '..';
+import { CAROUSEL_TYPES } from '../../constants/types';
 
-import './ProductCarousel.css';
-import styles from './ProductCarousel.module.css';
+import './HomeCarousel.css';
+import styles from './HomeCarousel.module.css';
 
-const ProductCarousel = props => {
-  const { products, onProductClick } = props;
+const HomeCarousel = props => {
+  const { items, onItemClick, leftHeader, rightHeader, type } = props;
 
   const miniSettings = {
     infinite: true,
@@ -38,30 +39,45 @@ const ProductCarousel = props => {
     prevArrow: <SliderButton isPrev />,
     nextArrow: <SliderButton />
   };
-  const renderMiniCarousel = () => {
-    const components = products.map(product => {
+
+  const renderProductCarousel = () => {
+    const components = items.map(product => {
       return (
         <ProductCard
           item={product}
           key={product.id}
-          onProductClick={onProductClick}
+          onProductClick={onItemClick}
         />
       );
     });
     return <Slider {...miniSettings}>{components}</Slider>;
   };
+
+  const renderBrandCarousel = () => {
+    const components = items.map(tag => {
+      return (
+        <CategoryItem item={tag} key={tag.id} onCategoryClick={onItemClick} />
+      );
+    });
+    return <Slider {...miniSettings}>{components}</Slider>;
+  };
+
   return (
     <div className={styles.main__div}>
       <div className={styles.header__div}>
         <span className={styles.separator} />
         <span className={styles.title__text}>
-          <span className={styles.pink__text}>FEATURED</span> PRODUCTS
+          <span className={styles.pink__text}>{leftHeader}</span> {rightHeader}
         </span>
         <span className={styles.separator} />
       </div>
-      <div className={styles.carousel__div}>{renderMiniCarousel()}</div>
+      <div className={styles.carousel__div}>
+        {type === CAROUSEL_TYPES.PRODUCT
+          ? renderProductCarousel()
+          : renderBrandCarousel()}
+      </div>
     </div>
   );
 };
 
-export default ProductCarousel;
+export default HomeCarousel;
