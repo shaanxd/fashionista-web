@@ -4,12 +4,13 @@ import styles from './Products.module.css';
 import { withRouter } from 'react-router-dom';
 import { useMergedState } from '../../utils/useMergedState';
 import { getAllTags } from '../../api/product';
+import { TagList } from '../../components';
 
 const Products = props => {
   const {
     history: {
       location: {
-        state: { tag }
+        state: { tagId }
       }
     }
   } = props;
@@ -19,10 +20,12 @@ const Products = props => {
     products: null,
 
     tagsLoading: true,
-    tagsError: null
+    tagsError: null,
+
+    selectedTag: tagId
   });
 
-  const { tagsLoading, tags } = state;
+  const { tagsLoading, tags, selectedTag } = state;
 
   useEffect(() => {
     loadTagsFromApi();
@@ -40,7 +43,21 @@ const Products = props => {
     }
   };
 
-  return <div className={styles.main__div}></div>;
+  const handleTagSelect = selectedTag => {
+    setState({ selectedTag: selectedTag });
+  };
+
+  return (
+    <div className={styles.main__div}>
+      {tags && (
+        <TagList
+          onTagSelect={handleTagSelect}
+          tags={tags}
+          selected={selectedTag}
+        />
+      )}
+    </div>
+  );
 };
 
 export default withRouter(Products);
