@@ -39,8 +39,8 @@ const UserHome = props => {
     props.history.push(`/product/${productId}`);
   };
 
-  const handleTagClick = tagId => {
-    props.history.push('/products', { tagId });
+  const handleTagClick = tag => {
+    props.history.push('/products', { tag });
   };
 
   const loadProductsFromApi = async () => {

@@ -6,12 +6,12 @@ import styles from './CategoryItem.module.css';
 
 const CategoryItem = props => {
   const {
-    item: { image, id, name },
+    item: { image, id, name, type },
     onCategoryClick
   } = props;
 
   const handleCategoryClick = () => {
-    onCategoryClick(id);
+    onCategoryClick({ id, type });
   };
 
   return (

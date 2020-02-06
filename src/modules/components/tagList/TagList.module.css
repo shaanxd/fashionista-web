@@ -1,17 +1,8 @@
-.main__div {
-  width: 100%;
-  max-width: 450px;
-  padding: 30px;
-  padding-top: 10px;
-  border-right: 2px solid rgb(231, 8, 135);
-}
-
 .list__title {
   padding: 15px;
   border-bottom: 2px solid rgb(231, 8, 135);
-  margin-top: 10px;
-  display: block;
   margin-bottom: 10px;
+  display: block;
   text-align: center;
   font-weight: 600;
   font-size: 1.1rem;
@@ -25,7 +16,7 @@
   margin: 5px 0px;
   padding: 0px;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid rgb(231, 8, 135);
   transition: border 0.3s ease-in-out;
   font-weight: 600;
   font-size: 1rem;
@@ -34,7 +25,6 @@
 }
 
 .selected {
-  border: 1px solid rgb(231, 8, 135);
   border-right: 40px solid rgb(231, 8, 135);
 }
 
@@ -58,5 +48,13 @@
 }
 
 .list__div {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.radio:focus {
+  outline: none;
+}
+
+.radio:disabled {
+  border-color: gray;
 }

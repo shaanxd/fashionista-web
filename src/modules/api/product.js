@@ -39,3 +39,8 @@ export const getAllTags = () => {
   const endpoint = `tags/all`;
   return GET(endpoint);
 };
+
+export const getProductByTag = (tags, page) => {
+  const endpoint = `products/by-type?size=8&page=${page}`;
+  return POST(endpoint, tags);
+};

@@ -9,6 +9,12 @@ export const TAGS = [
   { value: 'TAG_GENDER', label: 'Gender' }
 ];
 
+export const TAG_TYPES = {
+  TAG_BRAND: 'TAG_BRAND',
+  TAG_TYPE: 'TAG_TYPE',
+  TAG_GENDER: 'TAG_GENDER'
+};
+
 export const PAYMENTS = {
   CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
   CARD_PAYMENT: 'CARD_PAYMENT'
