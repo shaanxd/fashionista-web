@@ -11,6 +11,7 @@ import { TagList, ProductCard, Loading, Glitch } from '../../components';
 
 import styles from './Products.module.css';
 import { TAG_TYPES } from '../../constants/types';
+import { AiOutlineShopping } from 'react-icons/ai';
 
 const { TAG_BRAND, TAG_GENDER, TAG_TYPE } = TAG_TYPES;
 
@@ -46,8 +47,9 @@ const Products = props => {
   });
 
   const {
-    tagsLoading,
     tags,
+    tagsLoading,
+    tagsError,
     brand,
     type,
     gender,
@@ -78,7 +80,6 @@ const Products = props => {
       }
       const result = await getAllTags();
       setState({ tagsLoading: false, tags: { ...result } });
-      loadProductsFromApi();
     } catch (err) {
       setState({ tagsLoading: false, tagsError: err.message });
     }
@@ -97,28 +98,25 @@ const Products = props => {
         array.length === 0
           ? await getHomeProducts()
           : await getProductByTag({ cart: [...array] });
-      setTimeout(() => {
-        setState({ productsLoading: false, products: [...result.products] });
-      }, 1000);
+      setState({
+        productsLoading: false,
+        products: [...result.products]
+      });
     } catch (err) {
-      console.log(err.message);
       setState({ productsLoading: false, productsError: null });
     }
   };
 
   const handleBrandSelect = id => {
     setState({ brand: brand === id ? null : id });
-    //  loadProductsFromApi();
   };
 
   const handleGenderSelect = id => {
     setState({ gender: gender === id ? null : id });
-    //  loadProductsFromApi();
   };
 
   const handleTypeSelect = id => {
     setState({ type: type === id ? null : id });
-    //  loadProductsFromApi();
   };
 
   const handleProductClick = id => {
@@ -134,56 +132,63 @@ const Products = props => {
     return items;
   };
 
-  const renderProductsLoading = () => {
-    return <Loading text="Loading Products" />;
+  const renderLoading = text => {
+    return <Loading text={text} />;
   };
 
-  const renderProductsError = () => {
-    return <Glitch text={productsError} onRetryClick={loadProductsFromApi} />;
+  const renderError = (error, callback) => {
+    return <Glitch text={error} onRetry={callback} />;
   };
 
   const renderProductsEmpty = () => {
-    return <div>List is empty</div>;
+    return (
+      <div className={styles.empty__list}>
+        <AiOutlineShopping size={40} />
+        <span className={styles.empty__text}>List is empty</span>
+      </div>
+    );
   };
 
-  return (
-    <div className={styles.main__div}>
-      {tags && (
-        <div className={styles.tags__div}>
-          <TagList
-            onTagSelect={handleGenderSelect}
-            items={tags.genders}
-            value={gender}
-            header="Genders"
-            loading={productsLoading}
-          />
-          <TagList
-            onTagSelect={handleBrandSelect}
-            items={tags.brands}
-            value={brand}
-            header="Brands"
-            loading={productsLoading}
-          />
-          <TagList
-            onTagSelect={handleTypeSelect}
-            items={tags.types}
-            value={type}
-            header="Type"
-            loading={productsLoading}
-          />
+  return tagsLoading
+    ? renderLoading('Loading')
+    : tagsError
+    ? renderError(tagsError, loadTagsFromApi)
+    : tags && (
+        <div className={styles.main__div}>
+          <div className={styles.tags__div}>
+            <TagList
+              onTagSelect={handleGenderSelect}
+              items={tags.genders}
+              value={gender}
+              header="Genders"
+              loading={productsLoading}
+            />
+            <TagList
+              onTagSelect={handleBrandSelect}
+              items={tags.brands}
+              value={brand}
+              header="Brands"
+              loading={productsLoading}
+            />
+            <TagList
+              onTagSelect={handleTypeSelect}
+              items={tags.types}
+              value={type}
+              header="Type"
+              loading={productsLoading}
+            />
+          </div>
+          <div className={styles.list__div}>
+            {productsLoading
+              ? renderLoading('Loading Products')
+              : productsError
+              ? renderError(productsError, loadProductsFromApi)
+              : products.length === 0
+              ? renderProductsEmpty()
+              : renderProductList()}
+          </div>
         </div>
-      )}
-      <div className={styles.list__div}>
-        {productsLoading
-          ? renderProductsLoading()
-          : productsError
-          ? renderProductsError()
-          : products.length === 0
-          ? renderProductsEmpty()
-          : renderProductList()}
-      </div>
-    </div>
-  );
+      );
 };
 
 export default withRouter(Products);
