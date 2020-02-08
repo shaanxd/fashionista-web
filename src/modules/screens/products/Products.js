@@ -103,7 +103,7 @@ const Products = props => {
         products: [...result.products]
       });
     } catch (err) {
-      setState({ productsLoading: false, productsError: null });
+      setState({ productsLoading: false, productsError: err.message });
     }
   };
 
@@ -133,11 +133,19 @@ const Products = props => {
   };
 
   const renderLoading = text => {
-    return <Loading text={text} />;
+    return (
+      <div className={styles.empty__list}>
+        <Loading text={text} />
+      </div>
+    );
   };
 
   const renderError = (error, callback) => {
-    return <Glitch text={error} onRetry={callback} />;
+    return (
+      <div className={styles.empty__list}>
+        <Glitch text={error} onRetry={callback} />
+      </div>
+    );
   };
 
   const renderProductsEmpty = () => {

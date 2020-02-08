@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { HomeSearch, HomeCarousel } from '../../components';
-
-import styles from './UserHome.module.css';
+import { HomeSearch, HomeCarousel, Glitch, Loading } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getHomeProducts, getTagsFromType } from '../../api/product';
 import { CAROUSEL_TYPES, TAGS } from '../../constants/types';
+
+import styles from './UserHome.module.css';
 
 const UserHome = props => {
   const [state, setState] = useMergedState({
@@ -67,29 +67,45 @@ const UserHome = props => {
     }
   };
 
-  return (
-    <div className={styles.main__div}>
-      {brands && (
-        <HomeCarousel
-          items={brands.tags}
-          onItemClick={handleTagClick}
-          leftHeader="FEATURED"
-          rightHeader="BRANDS"
-          type={CAROUSEL_TYPES.BRAND}
-        />
-      )}
-      <HomeSearch navigate={props.history.push} />
-      {products && (
-        <HomeCarousel
-          items={products.products}
-          onItemClick={handleOnProductClick}
-          leftHeader="FEATURED"
-          rightHeader="PRODUCTS"
-          type={CAROUSEL_TYPES.PRODUCT}
-        />
-      )}
-    </div>
-  );
+  const renderLoading = () => {
+    return (
+      <Loading text={brandsLoading ? 'Loading Brands' : 'Loading Products'} />
+    );
+  };
+
+  const renderError = () => {
+    return (
+      <Glitch
+        text={brandsError || productsError}
+        onRetry={brandsError ? loadBrandsFromApi : loadProductsFromApi}
+      />
+    );
+  };
+
+  return brandsLoading || productsLoading
+    ? renderLoading()
+    : brandsError || productsError
+    ? renderError()
+    : brands &&
+      products && (
+        <div className={styles.main__div}>
+          <HomeCarousel
+            items={brands.tags}
+            onItemClick={handleTagClick}
+            leftHeader="FEATURED"
+            rightHeader="BRANDS"
+            type={CAROUSEL_TYPES.BRAND}
+          />
+          <HomeSearch navigate={props.history.push} />
+          <HomeCarousel
+            items={products.products}
+            onItemClick={handleOnProductClick}
+            leftHeader="FEATURED"
+            rightHeader="PRODUCTS"
+            type={CAROUSEL_TYPES.PRODUCT}
+          />
+        </div>
+      );
 };
 
 const mapStateToProps = state => {

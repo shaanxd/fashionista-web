@@ -22,6 +22,12 @@ export const GET = (endpoint, authorization = null) => {
       }
       resolve(data);
     } catch (err) {
+      if (
+        err.message &&
+        err.message === 'NetworkError when attempting to fetch resource.'
+      ) {
+        err.message = 'Could not connect to server. Please try again.';
+      }
       reject(err);
     }
   });
@@ -49,6 +55,12 @@ const APIPOST = (url, body, headers) => {
       }
       resolve(data);
     } catch (err) {
+      if (
+        err.message &&
+        err.message === 'NetworkError when attempting to fetch resource.'
+      ) {
+        err.message = 'Could not connect to server. Please try again.';
+      }
       reject(err);
     }
   });

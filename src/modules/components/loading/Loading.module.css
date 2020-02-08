@@ -5,6 +5,10 @@
   align-items: center;
   height: 100%;
   width: 100%;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  padding: 10px;
 }
 
 .loading__text {

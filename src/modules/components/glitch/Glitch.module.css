@@ -5,6 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  padding: 10px;
 }
 
 .button__container {
@@ -15,4 +19,5 @@
 .error__text {
   display: block;
   margin-top: 15px;
+  text-align: center;
 }
