@@ -5,19 +5,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   padding: 10px;
 }
 
 .button__container {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100px;
 }
 
 .error__text {
   display: block;
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
 }

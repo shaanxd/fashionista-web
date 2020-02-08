@@ -104,7 +104,9 @@ const HomeSearch = props => {
                 alignItems: 'center'
               }}
             />
-            <div className={styles.price__div}>{`$${item.price}`}</div>
+            <div className={styles.price__div}>{`$${item.price.toFixed(
+              2
+            )}`}</div>
           </List.Item>
         )}
       />
@@ -124,7 +126,7 @@ const HomeSearch = props => {
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
-          <AiOutlineSearch color="#595959" size="20px" />
+          <AiOutlineSearch color="#009e93" size={30} />
         </div>
         <div className={styles.search__visible}>
           {searchError

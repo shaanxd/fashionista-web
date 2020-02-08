@@ -145,7 +145,7 @@ const Product = props => {
               <span className={styles.product__name}>{product.name}</span>
               <span
                 className={styles.product__price}
-              >{`$ ${product.price}`}</span>
+              >{`$ ${product.price.toFixed(2)}`}</span>
               <div className={styles.rating__div}>
                 <Rate
                   style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
