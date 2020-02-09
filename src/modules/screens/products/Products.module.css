@@ -41,9 +41,11 @@
   border-right: 2px solid rgb(231, 8, 135);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .tags__div {
-    display: none;
+    /* display: none; */
+    border-right: none;
+    min-width: 100%;
   }
   .list__item {
     min-width: 100%;

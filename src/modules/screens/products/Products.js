@@ -182,7 +182,7 @@ const Products = props => {
               onTagSelect={handleTypeSelect}
               items={tags.types}
               value={type}
-              header="Type"
+              header="Categories"
               loading={productsLoading}
             />
           </div>
