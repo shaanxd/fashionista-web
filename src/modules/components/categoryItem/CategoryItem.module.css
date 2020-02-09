@@ -31,11 +31,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
+  font-size: 1.8rem;
   color: white;
   font-weight: 800;
   text-align: center;
   letter-spacing: 2px;
+  padding: 10px;
 }
 
 .tag__div:hover .tag__image {

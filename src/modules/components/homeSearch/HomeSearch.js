@@ -89,7 +89,7 @@ const HomeSearch = props => {
                 <div className={styles.rating__container}>
                   <Rate
                     style={{
-                      color: '#BF8293',
+                      color: '#e70887',
                       fontSize: 15
                     }}
                     defaultValue={0}

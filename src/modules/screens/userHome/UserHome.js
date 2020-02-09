@@ -43,6 +43,10 @@ const UserHome = props => {
     props.history.push('/products', { tag });
   };
 
+  const handleTagClickWithoutTag = () => {
+    props.history.push('/products');
+  };
+
   const loadProductsFromApi = async () => {
     try {
       if (!productsLoading) {
@@ -95,6 +99,7 @@ const UserHome = props => {
             leftHeader="FEATURED"
             rightHeader="BRANDS"
             type={CAROUSEL_TYPES.BRAND}
+            onMoreClick={handleTagClickWithoutTag}
           />
           <HomeSearch navigate={props.history.push} />
           <HomeCarousel
@@ -103,6 +108,7 @@ const UserHome = props => {
             leftHeader="FEATURED"
             rightHeader="PRODUCTS"
             type={CAROUSEL_TYPES.PRODUCT}
+            onMoreClick={handleTagClickWithoutTag}
           />
         </div>
       );

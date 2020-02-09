@@ -1,7 +1,6 @@
 import React from 'react';
 import Moment from 'moment';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { IoIosArrowDropdown } from 'react-icons/io';
 import { Collapse } from 'react-collapse';
 
 import { OrderDetails } from '..';
@@ -11,7 +10,7 @@ import './PurchaseItem.css';
 
 const PurchaseItem = props => {
   const {
-    purchase: { id, orderedAt, numberOfItems, totalPrice },
+    purchase: { id, orderedAt },
     onOrderClick,
     purchase,
     isSelected
@@ -38,12 +37,6 @@ const PurchaseItem = props => {
           <span className={styles.order__date}>{`Placed on ${Moment(
             orderedAt
           ).format('dddd, MMMM Do YYYY')}`}</span>
-          <div className={styles.meta__header}>
-            <span className={styles.meta__title}>NUMBER OF ITEMS</span>
-            <span className={styles.meta__value}>{numberOfItems}</span>
-            <span className={styles.meta__title}>TOTAL PRICE</span>
-            <span className={styles.meta__value}>{`$${totalPrice}`}</span>
-          </div>
         </div>
         <div className={styles.dropdown__button}>
           {isSelected ? (
@@ -59,7 +52,7 @@ const PurchaseItem = props => {
               : [styles.view__button, styles.rotate].join(' ')
           }
         >
-          <IoIosArrowDropdown size={30} />
+          <MdKeyboardArrowDown size={30} />
         </div>
       </div>
       <div className={styles.dropdown__content}>

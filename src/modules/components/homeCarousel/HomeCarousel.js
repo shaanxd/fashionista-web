@@ -1,14 +1,21 @@
 import React from 'react';
 import Slider from 'react-slick';
 
-import { ProductCard, SliderButton, CategoryItem } from '..';
+import { ProductCard, SliderButton, CategoryItem, AppButton } from '..';
 import { CAROUSEL_TYPES } from '../../constants/types';
 
 import './HomeCarousel.css';
 import styles from './HomeCarousel.module.css';
 
 const HomeCarousel = props => {
-  const { items, onItemClick, leftHeader, rightHeader, type } = props;
+  const {
+    items,
+    onItemClick,
+    leftHeader,
+    rightHeader,
+    type,
+    onMoreClick
+  } = props;
 
   const miniSettings = {
     infinite: true,
@@ -75,6 +82,12 @@ const HomeCarousel = props => {
         {type === CAROUSEL_TYPES.PRODUCT
           ? renderProductCarousel()
           : renderBrandCarousel()}
+        <AppButton
+          text="View more"
+          onClick={onMoreClick}
+          type="button"
+          containerStyle={{ marginTop: '40px' }}
+        />
       </div>
     </div>
   );
