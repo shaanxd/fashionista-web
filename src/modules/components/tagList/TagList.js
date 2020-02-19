@@ -11,8 +11,7 @@ const TagList = props => {
 
   const renderTagList = () => {
     const components = items.map(({ name, id }) => {
-      const style =
-        value === id ? [styles.radio, styles.selected].join(' ') : styles.radio;
+      const style = value === id ? [styles.radio, styles.selected].join(' ') : styles.radio;
 
       return (
         <button

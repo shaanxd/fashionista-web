@@ -20,14 +20,7 @@ const UserHome = props => {
     brandsError: null
   });
 
-  const {
-    products,
-    productsLoading,
-    productsError,
-    brands,
-    brandsLoading,
-    brandsError
-  } = state;
+  const { products, productsLoading, productsError, brands, brandsLoading, brandsError } = state;
 
   useEffect(() => {
     loadProductsFromApi();
@@ -72,17 +65,12 @@ const UserHome = props => {
   };
 
   const renderLoading = () => {
-    return (
-      <Loading text={brandsLoading ? 'Loading Brands' : 'Loading Products'} />
-    );
+    return <Loading text={brandsLoading ? 'Loading Brands' : 'Loading Products'} />;
   };
 
   const renderError = () => {
     return (
-      <Glitch
-        text={brandsError || productsError}
-        onRetry={brandsError ? loadBrandsFromApi : loadProductsFromApi}
-      />
+      <Glitch text={brandsError || productsError} onRetry={brandsError ? loadBrandsFromApi : loadProductsFromApi} />
     );
   };
 
@@ -96,8 +84,8 @@ const UserHome = props => {
           <HomeCarousel
             items={brands.tags}
             onItemClick={handleTagClick}
-            leftHeader="FEATURED"
-            rightHeader="BRANDS"
+            leftHeader="Featured"
+            rightHeader="Brands"
             type={CAROUSEL_TYPES.BRAND}
             onMoreClick={handleTagClickWithoutTag}
           />
@@ -105,8 +93,8 @@ const UserHome = props => {
           <HomeCarousel
             items={products.products}
             onItemClick={handleOnProductClick}
-            leftHeader="FEATURED"
-            rightHeader="PRODUCTS"
+            leftHeader="Featured"
+            rightHeader="Products"
             type={CAROUSEL_TYPES.PRODUCT}
             onMoreClick={handleTagClickWithoutTag}
           />
@@ -122,6 +110,4 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(UserHome)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserHome));
