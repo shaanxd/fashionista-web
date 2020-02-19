@@ -2,26 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {
-  Home,
-  Signin,
-  Signout,
-  Signup,
-  Product,
-  AddTag,
-  AddProduct,
-  Checkout,
-  Orders,
-  Products
-} from './screens';
-import {
-  Toolbar,
-  SideDrawer,
-  Backdrop,
-  Loading,
-  AuthRoute,
-  CartDrawer
-} from './components';
+import { Home, Signin, Signout, Signup, Product, AddTag, AddProduct, Checkout, Orders, Products } from './screens';
+import { Toolbar, SideDrawer, Backdrop, Loading, AuthRoute, CartDrawer } from './components';
 import { checkAuthValid } from './actions/auth';
 import { usePrevious } from './utils/useMergedState';
 
@@ -84,7 +66,7 @@ const Root = props => {
             cartClickHandler={cartToggle}
             numberOfProducts={props.cart.numberOfItems}
           />
-          <SideDrawer isOpen={drawerOpen} />
+          <SideDrawer isOpen={drawerOpen} drawerClickHandler={drawerToggle} />
           {(drawerOpen || cartOpen) && <Backdrop onClick={backdropToggle} />}
           <CartDrawer
             isOpen={cartOpen}
@@ -117,18 +99,10 @@ const Root = props => {
                 <Products />
               </Route>
               <Route exact path="/add-tag">
-                <AuthRoute
-                  component={AddTag}
-                  role={ROLES.ROLE_ADMIN}
-                  auth={currentAuth}
-                />
+                <AuthRoute component={AddTag} role={ROLES.ROLE_ADMIN} auth={currentAuth} />
               </Route>
               <Route exact path="/add-product">
-                <AuthRoute
-                  component={AddProduct}
-                  role={ROLES.ROLE_ADMIN}
-                  auth={currentAuth}
-                />
+                <AuthRoute component={AddProduct} role={ROLES.ROLE_ADMIN} auth={currentAuth} />
               </Route>
               <Route exact path="/checkout">
                 <AuthRoute
@@ -139,12 +113,7 @@ const Root = props => {
                 />
               </Route>
               <Route exact path="/orders">
-                <AuthRoute
-                  component={Orders}
-                  role={ROLES.ROLE_USER}
-                  cartClickHandler={cartToggle}
-                  auth={currentAuth}
-                />
+                <AuthRoute component={Orders} role={ROLES.ROLE_USER} cartClickHandler={cartToggle} auth={currentAuth} />
               </Route>
             </Switch>
           </main>
@@ -153,11 +122,7 @@ const Root = props => {
     );
   };
 
-  return props.loading
-    ? renderLoading()
-    : props.logoutLoading
-    ? renderLogout()
-    : renderContent();
+  return props.loading ? renderLoading() : props.logoutLoading ? renderLogout() : renderContent();
 };
 
 const mapStateToProps = ({ auth, cart: { cart, cartLoading, cartError } }) => {

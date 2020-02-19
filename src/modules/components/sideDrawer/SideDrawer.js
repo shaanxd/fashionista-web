@@ -2,46 +2,90 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import './SideDrawer.css';
+import styles from './SideDrawer.module.css';
+import { logoutUser } from '../../actions/auth';
+import { IoIosClose } from 'react-icons/io';
 
 const SideDrawer = props => {
-  let drawerStyles = props.isOpen ? 'side-drawer open' : 'side-drawer';
-  const { authDetails } = props.auth;
+  let drawerStyles = props.isOpen ? [styles.side__drawer, styles.open].join(' ') : styles.side__drawer;
+  const { auth } = props.auth;
 
   const handleLoginClick = () => {
-    props.history.push('/login');
+    props.history.push('/signin');
+    props.drawerClickHandler();
   };
 
   const handleSignupClick = () => {
     props.history.push('/signup');
+    props.drawerClickHandler();
   };
 
   const handleLogoutClick = () => {
-    props.history.push('/logout');
+    props.logout();
+    props.drawerClickHandler();
+  };
+
+  const handleHomeClick = () => {
+    props.history.push('/');
+    props.drawerClickHandler();
+  };
+
+  const handleProductsClick = () => {
+    props.history.push('/products');
+    props.drawerClickHandler();
+  };
+
+  const handleOrdersClick = () => {
+    props.history.push('/orders');
+    props.drawerClickHandler();
   };
 
   const renderUnauthRoutes = () => (
-    <ul>
-      <li>
-        <span onClick={handleLoginClick}>Login</span>
-      </li>
-      <li>
-        <span onClick={handleSignupClick}>Signup</span>
-      </li>
-    </ul>
+    <div className={styles.list__div}>
+      <div className={styles.list__item} onClick={handleLoginClick}>
+        <span>Login</span>
+      </div>
+      <div className={styles.list__item} onClick={handleSignupClick}>
+        <span>Signup</span>
+      </div>
+    </div>
   );
   const renderAuthRoutes = () => (
-    <ul>
-      <li>
-        <span onClick={handleLogoutClick}>Logout</span>
-      </li>
-    </ul>
+    <div className={styles.list__div}>
+      <div className={styles.list__item} onClick={handleHomeClick}>
+        <span>Home</span>
+      </div>
+      <div className={styles.list__item} onClick={handleProductsClick}>
+        <span>Products</span>
+      </div>
+      <div className={styles.list__item} onClick={handleOrdersClick}>
+        <span>Orders</span>
+      </div>
+      <div className={styles.list__item} onClick={handleLogoutClick}>
+        <span>Logout</span>
+      </div>
+    </div>
   );
 
-  const navigationRoutes = authDetails
-    ? renderAuthRoutes()
-    : renderUnauthRoutes();
-  return <nav className={drawerStyles}>{navigationRoutes}</nav>;
+  const navigationRoutes = auth ? renderAuthRoutes() : renderUnauthRoutes();
+  return (
+    <div className={drawerStyles}>
+      <div className={styles.parent__div}>
+        <div className={styles.child__div}>
+          <div className={styles.close__container}>
+            <button className={styles.close__button} onClick={props.drawerClickHandler}>
+              <IoIosClose size={20} />
+              <span>CLOSE</span>
+            </button>
+          </div>
+          <div className={styles.flex__div} />
+          {navigationRoutes}
+          <div className={styles.flex__div} />
+        </div>
+        <div className={styles.absolute__div} />
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
@@ -51,9 +95,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    logout: () => {
+      dispatch(logoutUser());
+    }
+  };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SideDrawer)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideDrawer));
