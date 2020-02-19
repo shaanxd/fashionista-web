@@ -9,7 +9,6 @@
   z-index: 200;
   transform: translateX(-100%);
   transition: transform 0.2s ease-in-out;
-  padding: 20px;
 }
 
 .side__drawer.open {
@@ -33,6 +32,7 @@
   flex-direction: column;
   position: relative;
   overflow-x: hidden;
+  padding: 20px;
 }
 
 .child__div {
@@ -80,6 +80,20 @@
 
 .flex__div {
   flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+.flex__div span {
+  font-size: 2.5rem;
+  text-align: center;
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: rgb(231, 8, 135);
+  text-shadow: 3px 3px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
 }
 
 .close__button {

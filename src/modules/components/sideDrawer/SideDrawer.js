@@ -78,7 +78,9 @@ const SideDrawer = props => {
               <span>CLOSE</span>
             </button>
           </div>
-          <div className={styles.flex__div} />
+          <div className={styles.flex__div}>
+            <span>Fashionista</span>
+          </div>
           {navigationRoutes}
           <div className={styles.flex__div} />
         </div>
