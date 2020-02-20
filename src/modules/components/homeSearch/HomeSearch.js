@@ -118,7 +118,7 @@ const HomeSearch = props => {
           onChange={handleOnSearchChange}
         />
         <div className={styles.icon}>
-          <AiOutlineSearch color="#009e93" size={30} />
+          <AiOutlineSearch color="#F63854" size={30} />
         </div>
         <div className={styles.search__visible}>
           {searchError

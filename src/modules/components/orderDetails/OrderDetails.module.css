@@ -11,7 +11,6 @@
   display: block;
   font-size: 1.2rem;
   text-align: center;
-  padding-top: 5px;
   color: #f63854;
   font-weight: 600;
   letter-spacing: 1px;
@@ -47,6 +46,12 @@
   align-items: center;
 }
 
+.meta__total {
+  display: flex;
+  padding: 5px 0px;
+  align-items: center;
+}
+
 .meta__address {
   display: flex;
   flex-direction: column;
@@ -62,6 +67,6 @@
 }
 
 .item__list {
-  padding: 20px;
+  padding: 25px;
   border: 2px solid #f63854;
 }

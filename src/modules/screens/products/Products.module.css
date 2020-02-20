@@ -1,6 +1,7 @@
 .main__div {
   min-height: 100%;
   display: flex;
+  padding: 10px;
 }
 
 .list__div {
