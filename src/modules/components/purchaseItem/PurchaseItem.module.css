@@ -3,18 +3,18 @@
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  margin: 10px 0px;
 }
 
 .purchase__content {
   display: flex;
   padding: 20px;
   align-items: center;
-  border: 1px solid #d2d2d2;
+  border: 2px solid #eeeeee;
+  margin: 5px 0px;
 }
 
 .selected {
-  border: 1px solid gray;
+  border: 2px solid #f63854;
 }
 
 .header__content {
@@ -44,6 +44,7 @@
 
 .dropdown__button {
   display: none;
+  color: #f63854;
 }
 
 .dropdown__content {
@@ -53,12 +54,14 @@
 
 .view__button {
   display: flex;
+  color: #f63854;
   transition: transform 0.25s ease-in-out;
 }
 
 @media (max-width: 1000px) {
   .dropdown__content {
     display: block;
+    margin: 5px 0px;
   }
   .dropdown__button {
     display: flex;

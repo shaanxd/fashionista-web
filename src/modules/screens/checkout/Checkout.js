@@ -6,12 +6,7 @@ import { connect } from 'react-redux';
 
 import { PAYMENTS } from '../../constants/types';
 import { useMergedState, usePrevious } from '../../utils/useMergedState';
-import {
-  ShippingInput,
-  PaymentInput,
-  OrderConfirmation,
-  CartItem
-} from '../../components';
+import { ShippingInput, PaymentInput, OrderConfirmation, CartItem } from '../../components';
 import { checkoutCart } from '../../api/cart';
 import { checkoutSuccess } from '../../actions/cart';
 
@@ -35,11 +30,7 @@ const Checkout = props => {
   const prevSuccess = usePrevious(state.success);
 
   useEffect(() => {
-    if (
-      prevCartLoading &&
-      !currentCartLoading &&
-      props.cart.numberOfItems === 0
-    ) {
+    if (prevCartLoading && !currentCartLoading && props.cart.numberOfItems === 0) {
       props.history.push('/');
     }
   });
@@ -60,10 +51,7 @@ const Checkout = props => {
   const submitPayment = payment => {
     setState({
       step: 2,
-      payment:
-        payment.type === PAYMENTS.CARD_PAYMENT
-          ? { ...payment }
-          : { type: payment.type }
+      payment: payment.type === PAYMENTS.CARD_PAYMENT ? { ...payment } : { type: payment.type }
     });
   };
 
@@ -102,14 +90,10 @@ const Checkout = props => {
         <span className={styles.header__text}>{text}</span>
         {state.step > value && (
           <div className={styles.header__controls}>
-            <button
-              className={styles.edit__button}
-              onClick={callback}
-              disabled={props.cartLoading || state.loading}
-            >
+            <button className={styles.edit__button} onClick={callback} disabled={props.cartLoading || state.loading}>
               EDIT
             </button>
-            <IoIosCheckmarkCircle color="black" size={20} />
+            <IoIosCheckmarkCircle color="#f63854" size={30} />
           </div>
         )}
       </div>
@@ -117,9 +101,7 @@ const Checkout = props => {
   };
 
   const renderCartList = () => {
-    const items = props.cart.items.map((item, index) => (
-      <CartItem item={item} key={index} />
-    ));
+    const items = props.cart.items.map((item, index) => <CartItem item={item} key={index} />);
     return items;
   };
 
@@ -129,10 +111,7 @@ const Checkout = props => {
         <div className={styles.details__div}>
           {renderHeader('SHIPPING INFORMATION', 0, toShipping)}
           <Collapse isOpened={state.step === 0}>
-            <ShippingInput
-              onSubmit={submitShipping}
-              loading={state.loading || props.cartLoading}
-            />
+            <ShippingInput onSubmit={submitShipping} loading={state.loading || props.cartLoading} />
           </Collapse>
           {renderHeader('PAYMENT INFORMATION', 1, toPayment)}
           <Collapse isOpened={state.step === 1}>
@@ -152,18 +131,13 @@ const Checkout = props => {
               loading={state.loading || props.cartLoading}
             />
           </Collapse>
-          {state.error && (
-            <span className={styles.main__error}>{state.error}</span>
-          )}
+          {state.error && <span className={styles.main__error}>{state.error}</span>}
         </div>
         <div className={styles.seperator__div} />
         <div className={styles.cart__div}>
           <div className={styles.header__container}>
             <span className={styles.header__text}>YOUR ORDER</span>
-            <button
-              className={styles.edit__button}
-              onClick={props.cartClickHandler}
-            >
+            <button className={styles.edit__button} onClick={props.cartClickHandler}>
               EDIT SHOPPING BAG
             </button>
           </div>
@@ -201,6 +175,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Checkout)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Checkout));

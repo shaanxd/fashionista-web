@@ -7,7 +7,7 @@
 
 .parent__div {
   margin-top: 20px;
-  width: 900px;
+  width: 1200px;
   display: flex;
   padding: 30px;
   margin: 0px -10px;
@@ -89,7 +89,7 @@
   display: block;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .parent__div {
     flex-direction: column-reverse;
     width: 100%;

@@ -1,6 +1,6 @@
 .main__div {
-  width: 900px;
-  border: 1px solid #d2d2d2;
+  width: 1200px;
+  border-top: 1px solid #d2d2d2;
   padding: 10px;
 }
 
@@ -59,14 +59,14 @@
 
 .rating__actual {
   font-size: 2.5rem;
+  color: #f63854;
 }
 
 .rating__big {
   display: flex;
   justify-content: center;
   align-items: center;
-  letter-spacing: 5px;
-  color: black;
+  letter-spacing: 1px;
 }
 
 .rating__small {
@@ -79,11 +79,12 @@
   margin-left: 10px;
   padding-left: 10px;
   border-left: 1px solid #d2d2d2;
-  color: #d2d2d2;
+  color: #f63854;
 }
 
 .rating__total {
   margin-left: 2px;
+  color: #f63854;
 }
 
 .progress__text {
@@ -94,7 +95,7 @@
   padding: 0px 5px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .main__div {
     width: 100%;
   }

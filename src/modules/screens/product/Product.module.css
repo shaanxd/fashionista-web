@@ -12,7 +12,7 @@
 }
 
 .content__div {
-  width: 900px;
+  width: 1200px;
   display: flex;
   margin-bottom: 10px;
 }
@@ -34,8 +34,8 @@
 }
 
 .product__price {
-  font-size: 1.3rem;
-  color: darkred;
+  font-size: 2rem;
+  color: #f63854;
   letter-spacing: 3px;
 }
 
@@ -78,7 +78,7 @@
   color: red;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .content__div {
     flex-direction: column;
     align-items: center;

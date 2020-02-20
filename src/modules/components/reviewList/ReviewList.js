@@ -26,7 +26,7 @@ const ReviewList = props => {
               percent={(product.oneStars / product.totalStars) * 100}
               showInfo={false}
               size="small"
-              strokeColor="black"
+              strokeColor="#f63854"
             />
           </div>
         </div>
@@ -37,7 +37,7 @@ const ReviewList = props => {
               percent={(product.twoStars / product.totalStars) * 100}
               showInfo={false}
               size="small"
-              strokeColor="black"
+              strokeColor="#f63854"
             />
           </div>
         </div>
@@ -48,7 +48,7 @@ const ReviewList = props => {
               percent={(product.threeStars / product.totalStars) * 100}
               showInfo={false}
               size="small"
-              strokeColor="black"
+              strokeColor="#f63854"
             />
           </div>
         </div>
@@ -59,7 +59,7 @@ const ReviewList = props => {
               percent={(product.fourStars / product.totalStars) * 100}
               showInfo={false}
               size="small"
-              strokeColor="black"
+              strokeColor="#f63854"
             />
           </div>
         </div>
@@ -70,7 +70,7 @@ const ReviewList = props => {
               percent={(product.fiveStars / product.totalStars) * 100}
               showInfo={false}
               size="small"
-              strokeColor="black"
+              strokeColor="#f63854"
             />
           </div>
         </div>
@@ -84,7 +84,7 @@ const ReviewList = props => {
         <div className={styles.overall__div}>
           <div className={styles.summary__div}>
             <div className={styles.rating__big}>
-              <span className={styles.rating__actual}>{product.avgRating}</span>
+              <span className={styles.rating__actual}>{product.avgRating.toFixed(1)}</span>
               <span className={styles.rating__total}> / 5.0</span>
             </div>
             <div className={styles.rating__small}>

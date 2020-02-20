@@ -53,10 +53,11 @@
   align-items: center;
   box-sizing: border-box;
   font-family: inherit;
-  font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   color: white;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 .toolbar__navigation-items li {

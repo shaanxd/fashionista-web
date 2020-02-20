@@ -5,7 +5,6 @@
   text-align: center;
   display: block;
   padding: 5px 0px;
-  font-weight: 700;
 }
 
 .header__title {
@@ -13,7 +12,7 @@
   font-size: 1.2rem;
   text-align: center;
   padding-top: 5px;
-  color: black;
+  color: #f63854;
   font-weight: 600;
   letter-spacing: 1px;
 }
@@ -31,13 +30,13 @@
   flex: 1;
   letter-spacing: 2px;
   font-weight: 700;
+  color: #f63854;
 }
 
 .meta__value {
   align-self: flex-end;
   color: rgb(78, 78, 78);
   letter-spacing: 2px;
-  font-weight: 700;
   text-align: right;
 }
 
@@ -64,5 +63,5 @@
 
 .item__list {
   padding: 20px;
-  background-color: #f7f7f7;
+  border: 2px solid #f63854;
 }
