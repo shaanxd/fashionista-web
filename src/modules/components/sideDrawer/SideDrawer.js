@@ -1,10 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { IoIosClose } from 'react-icons/io';
+
+import { ROLES } from '../../constants/types';
+import { logoutUser } from '../../actions/auth';
 
 import styles from './SideDrawer.module.css';
-import { logoutUser } from '../../actions/auth';
-import { IoIosClose } from 'react-icons/io';
 
 const SideDrawer = props => {
   let drawerStyles = props.isOpen ? [styles.side__drawer, styles.open].join(' ') : styles.side__drawer;
@@ -40,6 +42,16 @@ const SideDrawer = props => {
     props.drawerClickHandler();
   };
 
+  const handleAddProductClick = () => {
+    props.history.push('/add-product');
+    props.drawerClickHandler();
+  };
+
+  const handleAddTagClick = () => {
+    props.history.push('/add-tag');
+    props.drawerClickHandler();
+  };
+
   const renderUnauthRoutes = () => (
     <div className={styles.list__div}>
       <div className={styles.list__item} onClick={handleLoginClick}>
@@ -50,7 +62,8 @@ const SideDrawer = props => {
       </div>
     </div>
   );
-  const renderAuthRoutes = () => (
+
+  const renderUserRoutes = () => (
     <div className={styles.list__div}>
       <div className={styles.list__item} onClick={handleHomeClick}>
         <span>Home</span>
@@ -67,7 +80,29 @@ const SideDrawer = props => {
     </div>
   );
 
-  const navigationRoutes = auth ? renderAuthRoutes() : renderUnauthRoutes();
+  const renderAdminRoutes = () => (
+    <div className={styles.list__div}>
+      <div className={styles.list__item} onClick={handleHomeClick}>
+        <span>Home</span>
+      </div>
+      <div className={styles.list__item} onClick={handleAddProductClick}>
+        <span>Add Product</span>
+      </div>
+      <div className={styles.list__item} onClick={handleAddTagClick}>
+        <span>Add Tag</span>
+      </div>
+      <div className={styles.list__item} onClick={handleLogoutClick}>
+        <span>Logout</span>
+      </div>
+    </div>
+  );
+
+  const navigationRoutes = !auth
+    ? renderUnauthRoutes()
+    : auth.role === ROLES.ROLE_ADMIN
+    ? renderAdminRoutes()
+    : renderUserRoutes();
+
   return (
     <div className={drawerStyles}>
       <div className={styles.parent__div}>
@@ -79,7 +114,8 @@ const SideDrawer = props => {
             </button>
           </div>
           <div className={styles.flex__div}>
-            <span>Fashionista</span>
+            <span>Fashion</span>
+            <span className={styles.black__text}>ista</span>
           </div>
           {navigationRoutes}
           <div className={styles.flex__div} />

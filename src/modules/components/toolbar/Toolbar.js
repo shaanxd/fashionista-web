@@ -7,11 +7,7 @@ import { DrawerToggleButton } from '../';
 import './Toolbar.css';
 import { logoutUser } from '../../actions/auth';
 import { ROLES } from '../../constants/types';
-import {
-  AiOutlineShopping,
-  AiOutlineUser,
-  AiOutlineMenu
-} from 'react-icons/ai';
+import { AiOutlineShopping, AiOutlineUser, AiOutlineMenu } from 'react-icons/ai';
 
 const Toolbar = props => {
   const { auth } = props;
@@ -36,30 +32,24 @@ const Toolbar = props => {
     props.history.push('/orders');
   };
 
+  const handleAddProductClick = () => {
+    props.history.push('/add-product');
+  };
+
+  const handleAddTagClick = () => {
+    props.history.push('/add-tag');
+  };
+
   const renderUnauthRoutes = () => {
     return (
       <ul>
         <li>
-          <span
-            className={
-              props.location.pathname === '/signin'
-                ? 'toolbar__navigation-link active'
-                : 'toolbar__navigation-link'
-            }
-            onClick={handleLoginClick}
-          >
+          <span className="toolbar__navigation-link" onClick={handleLoginClick}>
             Signin
           </span>
         </li>
         <li>
-          <span
-            className={
-              props.location.pathname === '/signup'
-                ? 'toolbar__navigation-link active'
-                : 'toolbar__navigation-link'
-            }
-            onClick={handleSignupClick}
-          >
+          <span className="toolbar__navigation-link" onClick={handleSignupClick}>
             Signup
           </span>
         </li>
@@ -80,16 +70,10 @@ const Toolbar = props => {
         <div className="toolbar__cart-button toolbar__dropdown-div">
           <DrawerToggleButton component={AiOutlineUser} />
           <div className="toolbar__dropdown">
-            <button
-              className="toolbar__dropdown-option"
-              onClick={handleOrdersClick}
-            >
+            <button className="toolbar__dropdown-option" onClick={handleOrdersClick}>
               MY ORDERS
             </button>
-            <button
-              className="toolbar__dropdown-option"
-              onClick={handleLogoutClick}
-            >
+            <button className="toolbar__dropdown-option" onClick={handleLogoutClick}>
               SIGNOUT
             </button>
           </div>
@@ -101,6 +85,12 @@ const Toolbar = props => {
   const renderAdminRoutes = () => (
     <ul>
       <li>
+        <span className="toolbar__navigation-link" onClick={handleAddProductClick}>
+          Add Product
+        </span>
+        <span className="toolbar__navigation-link" onClick={handleAddTagClick}>
+          Add Tag
+        </span>
         <span className="toolbar__navigation-link" onClick={handleLogoutClick}>
           Signout
         </span>
@@ -118,10 +108,7 @@ const Toolbar = props => {
     <header className="toolbar">
       <nav className="toolbar__navigation">
         <div className="toolbar__toggle-button">
-          <DrawerToggleButton
-            component={AiOutlineMenu}
-            onClick={props.drawerClickHandler}
-          />
+          <DrawerToggleButton component={AiOutlineMenu} onClick={props.drawerClickHandler} />
         </div>
         <div className="toolbar__logo">
           <span onClick={handleHomeClick}>
@@ -150,6 +137,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Toolbar)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Toolbar));

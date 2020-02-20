@@ -15,7 +15,7 @@ import { getCart, deleteCart } from './actions/cart';
 import { ROLES } from './constants/types';
 
 const Root = props => {
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { auth: currentAuth } = props;
 

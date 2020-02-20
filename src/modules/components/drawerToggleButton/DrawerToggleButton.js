@@ -7,7 +7,7 @@ const DrawerToggleButton = props => {
 
   return (
     <button onClick={onClick} className="toggle-button">
-      <Component color="gray" size={30} />
+      <Component size={30} />
       {value !== undefined ? (
         <span className="toggle-overlay">
           {`${value} `}
