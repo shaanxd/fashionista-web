@@ -7,15 +7,7 @@ import * as Yup from 'yup';
 import { AiOutlineWarning } from 'react-icons/ai';
 import cogoToast from 'cogo-toast';
 
-import {
-  Loading,
-  ProductImage,
-  SizePicker,
-  QuantityPicker,
-  AppButton,
-  Glitch,
-  ReviewList
-} from '../../components';
+import { Loading, ProductImage, SizePicker, QuantityPicker, AppButton, Glitch, ReviewList } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails, addReview, getReview } from '../../api/product';
 import Sizes from '../../constants/sizes';
@@ -37,15 +29,7 @@ const Product = props => {
     reviewLoading: false
   });
 
-  const {
-    product,
-    productLoading,
-    productError,
-    addLoading,
-    addError,
-    addVisible,
-    reviewLoading
-  } = state;
+  const { product, productLoading, productError, addLoading, addError, addVisible, reviewLoading } = state;
 
   useEffect(() => {
     loadProductDetails();
@@ -124,13 +108,7 @@ const Product = props => {
   };
 
   const renderError = () => {
-    return (
-      <Glitch
-        text={productError}
-        onRetry={loadProductDetails}
-        icon={AiOutlineWarning}
-      />
-    );
+    return <Glitch text={productError} onRetry={loadProductDetails} icon={AiOutlineWarning} />;
   };
 
   const renderProduct = () => {
@@ -143,26 +121,20 @@ const Product = props => {
             <ProductImage images={images} />
             <div className={styles.product__content}>
               <span className={styles.product__name}>{product.name}</span>
-              <span
-                className={styles.product__price}
-              >{`$ ${product.price.toFixed(2)}`}</span>
+              <span className={styles.product__price}>{`$ ${product.price.toFixed(2)}`}</span>
               <div className={styles.rating__div}>
                 <Rate
-                  style={{ color: 'rgb(231, 8, 135)', fontSize: 15 }}
+                  style={{ color: '#F63854', fontSize: 15 }}
                   defaultValue={0}
                   value={product.avgRating}
                   disabled
                   allowHalf
                 />
                 <div className={styles.separator__div} />
-                <span className={styles.product__rating}>
-                  {product.avgRating ? product.avgRating : '0.0'} stars
-                </span>
+                <span className={styles.product__rating}>{product.avgRating ? product.avgRating : '0.0'} stars</span>
               </div>
               <span className={styles.form__label}>Product Description:</span>
-              <span className={styles.product__description}>
-                {product.description}
-              </span>
+              <span className={styles.product__description}>{product.description}</span>
               <Formik
                 initialValues={{ size: '', quantity: 1, productId: product.id }}
                 validationSchema={Yup.object().shape({
@@ -177,28 +149,15 @@ const Product = props => {
                 {({ setFieldValue, values }) => {
                   return (
                     <Form>
-                      <span className={styles.form__label}>
-                        Available sizes:
-                      </span>
+                      <span className={styles.form__label}>Available sizes:</span>
                       <SizePicker options={Sizes} onChange={setFieldValue} />
                       <ErrorMessage name="size">
-                        {message => (
-                          <label className={styles.form__error}>
-                            {message}
-                          </label>
-                        )}
+                        {message => <label className={styles.form__error}>{message}</label>}
                       </ErrorMessage>
                       <span className={styles.form__label}>Quantity:</span>
-                      <QuantityPicker
-                        value={values.quantity}
-                        onChange={setFieldValue}
-                      />
+                      <QuantityPicker value={values.quantity} onChange={setFieldValue} />
                       <ErrorMessage name="quantity">
-                        {message => (
-                          <label className={styles.form__error}>
-                            {message}
-                          </label>
-                        )}
+                        {message => <label className={styles.form__error}>{message}</label>}
                       </ErrorMessage>
                       <AppButton
                         text="Add to Cart"
@@ -206,11 +165,7 @@ const Product = props => {
                         loading={props.addLoading}
                         containerStyle={{ marginTop: '20px' }}
                       />
-                      {props.addError && (
-                        <span className={styles.main__error}>
-                          {props.addError}
-                        </span>
-                      )}
+                      {props.addError && <span className={styles.main__error}>{props.addError}</span>}
                     </Form>
                   );
                 }}
@@ -233,19 +188,12 @@ const Product = props => {
   };
   return (
     <div className={styles.main__div}>
-      {productError
-        ? renderError()
-        : productLoading
-        ? renderLoading()
-        : renderProduct()}
+      {productError ? renderError() : productLoading ? renderLoading() : renderProduct()}
     </div>
   );
 };
 
-const mapStateToProps = ({
-  auth: { auth },
-  cart: { addLoading, addError }
-}) => {
+const mapStateToProps = ({ auth: { auth }, cart: { addLoading, addError } }) => {
   return { auth, addLoading, addError };
 };
 
@@ -257,6 +205,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Product)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Product));

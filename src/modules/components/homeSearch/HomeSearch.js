@@ -77,19 +77,13 @@ const HomeSearch = props => {
             }}
           >
             <List.Item.Meta
-              avatar={
-                <img
-                  src={getImageUrl(item.thumbnail)}
-                  alt="thumbnail"
-                  className={styles.thumbnail}
-                />
-              }
+              avatar={<img src={getImageUrl(item.thumbnail)} alt="thumbnail" className={styles.thumbnail} />}
               title={<span className={styles.item__header}>{item.name}</span>}
               description={
                 <div className={styles.rating__container}>
                   <Rate
                     style={{
-                      color: '#e70887',
+                      color: '#F63854',
                       fontSize: 15
                     }}
                     defaultValue={0}
@@ -104,9 +98,7 @@ const HomeSearch = props => {
                 alignItems: 'center'
               }}
             />
-            <div className={styles.price__div}>{`$${item.price.toFixed(
-              2
-            )}`}</div>
+            <div className={styles.price__div}>{`$${item.price.toFixed(2)}`}</div>
           </List.Item>
         )}
       />

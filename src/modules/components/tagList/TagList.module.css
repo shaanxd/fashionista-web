@@ -1,6 +1,6 @@
 .list__title {
   padding: 5px;
-  border-bottom: 2px solid rgb(231, 8, 135);
+  border-bottom: 2px solid #f63854;
   margin-bottom: 10px;
   display: block;
   font-size: 0.9rem;
@@ -16,7 +16,7 @@
   padding: 0px;
   background: transparent;
   border: 1px solid transparent; /* 
-  border-bottom: 1px solid rgb(231, 8, 135); */
+  border-bottom: 1px solid #F63854; */
   transition: border 0.3s ease-in-out;
   font-size: 0.8rem;
   letter-spacing: 1.5px;
@@ -24,7 +24,7 @@
 }
 
 .selected {
-  border-right: 40px solid rgb(231, 8, 135);
+  border-right: 40px solid #f63854;
 }
 
 .radio__div {

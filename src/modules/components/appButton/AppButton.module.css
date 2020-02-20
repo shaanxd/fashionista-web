@@ -1,8 +1,8 @@
 .button {
   padding: 10px;
-  background-color: black;
+  background-color: #f63854;
   color: white;
-  border: 3px solid black;
+  border: 3px solid #f63854;
   font-size: 0.7rem;
   letter-spacing: 1px;
   width: 100%;
@@ -15,5 +15,5 @@
 
 .button:hover {
   background-color: white;
-  color: black;
+  color: #f63854;
 }

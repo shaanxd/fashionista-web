@@ -19,7 +19,7 @@
 .absolute__div {
   height: 0;
   width: 100%;
-  border-right: 1000px solid rgb(231, 8, 135);
+  border-right: 1000px solid #f63854;
   border-bottom: 300px solid transparent;
   position: absolute;
   top: 0;
@@ -51,11 +51,11 @@
 }
 
 .list__item {
-  color: rgb(231, 8, 135);
+  color: #f63854;
   cursor: pointer;
   display: block;
   padding: 10px;
-  border: 2px solid rgb(231, 8, 135);
+  border: 2px solid #f63854;
   margin: 2px 0px;
   letter-spacing: 1px;
   font-size: 0.8rem;
@@ -68,7 +68,7 @@
 }
 
 .list__item:hover {
-  background-color: rgb(231, 8, 135);
+  background-color: #f63854;
   color: white;
   border-color: white;
 }
@@ -92,7 +92,7 @@
   display: block;
   font-weight: 900;
   letter-spacing: 2px;
-  color: rgb(231, 8, 135);
+  color: #f63854;
   text-shadow: 3px 3px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
 }
 

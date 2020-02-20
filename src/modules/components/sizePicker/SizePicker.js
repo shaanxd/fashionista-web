@@ -15,9 +15,8 @@ const SizePicker = props => {
           key={index}
           value={option}
           render={({ isSelected }) => {
-            const style = isSelected
-              ? styles.radio__selected
-              : styles.radio__empty;
+            const style = isSelected ? [styles.radio, styles.selected].join(' ') : styles.radio;
+            isSelected && console.log(style);
             return (
               <button type="button" className={style}>
                 {option}

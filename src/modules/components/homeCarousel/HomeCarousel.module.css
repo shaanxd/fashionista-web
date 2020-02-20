@@ -21,7 +21,7 @@
 
 .separator {
   flex: 1;
-  border-bottom: 3px solid rgb(231, 8, 135);
+  border-bottom: 3px solid #f63854;
 }
 
 .title__text {
@@ -32,5 +32,5 @@
 }
 
 .pink__text {
-  color: rgb(231, 8, 135);
+  color: #f63854;
 }

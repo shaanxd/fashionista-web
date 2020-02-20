@@ -20,16 +20,10 @@ const ReviewItem = props => {
       <div className={styles.header__container}>
         <div className={styles.profile__header}>
           <span className={styles.user__name}>{fullName}</span>
-          <span className={styles.posted__date}>
-            {Moment(reviewDate).fromNow()}
-          </span>
+          <span className={styles.posted__date}>{Moment(reviewDate).fromNow()}</span>
         </div>
         <div className={styles.rating__header}>
-          <Rate
-            value={rating}
-            style={{ color: 'black', fontSize: '10px' }}
-            disabled={true}
-          />
+          <Rate value={rating} style={{ color: '#F63854', fontSize: '10px' }} disabled={true} />
           <span className={styles.rating__text}>{`${rating} of 5`}</span>
         </div>
       </div>

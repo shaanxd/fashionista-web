@@ -6,23 +6,12 @@ import { AppButton, AddReview, ReviewItem, Pagination } from '..';
 import styles from './ReviewList.module.css';
 
 const ReviewList = props => {
-  const {
-    product,
-    onAddClick,
-    addLoading,
-    addError,
-    visible,
-    onViewClick,
-    onPaginationClick,
-    reviewLoading
-  } = props;
+  const { product, onAddClick, addLoading, addError, visible, onViewClick, onPaginationClick, reviewLoading } = props;
 
   const hasReviews = product.reviews.reviews.length !== 0;
 
   const renderReviews = () => {
-    const items = product.reviews.reviews.map((item, index) => (
-      <ReviewItem key={index} review={item} />
-    ));
+    const items = product.reviews.reviews.map((item, index) => <ReviewItem key={index} review={item} />);
 
     return items;
   };
@@ -101,7 +90,7 @@ const ReviewList = props => {
             <div className={styles.rating__small}>
               <Rate
                 defaultValue={product.avgRating}
-                style={{ color: 'black', fontSize: '15px', marginTop: '-4px' }}
+                style={{ color: '#F63854', fontSize: '15px', marginTop: '-4px' }}
                 disabled
               />
               <span className={styles.review__count}>

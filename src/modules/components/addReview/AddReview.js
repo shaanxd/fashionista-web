@@ -18,18 +18,11 @@ const AddReview = props => {
 
   return (
     <div className={styles.outer__div}>
-      <div
-        className={styles.backdrop__div}
-        onClick={props.drawerClickHandler}
-      />
+      <div className={styles.backdrop__div} onClick={props.drawerClickHandler} />
       <div className={styles.inner__div}>
         <div className={styles.flex__div} />
         <div className={styles.content__header}>
-          <button
-            className={styles.close__button}
-            onClick={props.drawerClickHandler}
-            disabled={loading}
-          >
+          <button className={styles.close__button} onClick={props.drawerClickHandler} disabled={loading}>
             <IoIosClose color="gray" size={25} />
             <span className={styles.close__text}>CLOSE</span>
           </button>
@@ -38,11 +31,7 @@ const AddReview = props => {
         <div className={styles.form__container}>
           <div className={styles.product__container}>
             <div className={styles.thumbnail__div}>
-              <img
-                src={getImageUrl(product.thumbnail)}
-                className={styles.product__thumbnail}
-                alt="thumbnail"
-              />
+              <img src={getImageUrl(product.thumbnail)} className={styles.product__thumbnail} alt="thumbnail" />
             </div>
             <Formik
               onSubmit={handleOnSubmit}
@@ -66,14 +55,12 @@ const AddReview = props => {
                   <Form className={styles.detail__div}>
                     <span className={styles.product__name}>{product.name}</span>
                     <div className={styles.form__div}>
-                      <span className={styles.input__label}>
-                        Overall rating
-                      </span>
+                      <span className={styles.input__label}>Overall rating</span>
                       <Rate
                         value={values.rating}
                         allowHalf={false}
                         style={{
-                          color: 'black',
+                          color: '#F63854',
                           paddingLeft: '5px',
                           marginTop: '-2px',
                           fontSize: '30px'
@@ -84,22 +71,11 @@ const AddReview = props => {
                         disabled={loading}
                       />
                       <ErrorMessage name="rating">
-                        {message => (
-                          <label className={styles.form__error}>
-                            {message}
-                          </label>
-                        )}
+                        {message => <label className={styles.form__error}>{message}</label>}
                       </ErrorMessage>
                       <span className={styles.input__label}>Review title</span>
-                      <AppInput
-                        name="title"
-                        type="text"
-                        placeholder="Enter title"
-                        loading={loading}
-                      />
-                      <span className={styles.input__label}>
-                        Review description
-                      </span>
+                      <AppInput name="title" type="text" placeholder="Enter title" loading={loading} />
+                      <span className={styles.input__label}>Review description</span>
                       <AppInput
                         name="description"
                         type="text"
@@ -108,15 +84,9 @@ const AddReview = props => {
                         style={{ maxHeight: '100px', minHeight: '100px' }}
                         loading={loading}
                       />
-                      {error && (
-                        <span className={styles.main__error}>{error}</span>
-                      )}
+                      {error && <span className={styles.main__error}>{error}</span>}
                     </div>
-                    <AppButton
-                      text="Add Review"
-                      type="submit"
-                      loading={loading}
-                    />
+                    <AppButton text="Add Review" type="submit" loading={loading} />
                   </Form>
                 );
               }}

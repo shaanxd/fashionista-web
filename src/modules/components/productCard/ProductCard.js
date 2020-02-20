@@ -20,24 +20,12 @@ const ProductCard = props => {
     <div className={styles.main__div}>
       <div className={styles.product__div}>
         <div className={styles.hover__div}>
-          <AppButton
-            text="VIEW PRODUCT"
-            containerStyle={{ width: '75%' }}
-            onClick={handleProductClick}
-          />
+          <AppButton text="VIEW PRODUCT" containerStyle={{ width: '75%' }} onClick={handleProductClick} />
         </div>
-        <img
-          src={getImageUrl(thumbnail)}
-          className={styles.product__thumbnail}
-          alt="thumbnail"
-        />
+        <img src={getImageUrl(thumbnail)} className={styles.product__thumbnail} alt="thumbnail" />
         <span className={styles.product__name}>{name}</span>
         <div className={styles.rating__container}>
-          <Rate
-            disabled={true}
-            value={avgRating}
-            style={{ color: '#87E1DD' }}
-          />
+          <Rate disabled={true} value={avgRating} style={{ color: '#F63854' }} />
         </div>
         <span className={styles.product__price}>${price.toFixed(2)}</span>
       </div>

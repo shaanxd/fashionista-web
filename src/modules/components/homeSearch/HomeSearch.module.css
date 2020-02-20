@@ -69,7 +69,7 @@
 }
 
 .fashion__text {
-  color: rgb(231, 8, 135);
+  color: #f63854;
 }
 
 .item__header {
@@ -84,7 +84,7 @@
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: 2px;
-  color: rgb(231, 8, 135);
+  color: #f63854;
 }
 
 .thumbnail {
