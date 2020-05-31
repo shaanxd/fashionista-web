@@ -1,16 +1,16 @@
 import { GET, POST } from './core';
 
-export const getSearchKeywords = keyword => {
+export const getSearchKeywords = (keyword) => {
   const endpoint = `products/search/${keyword}?page=0&size=3`;
   return GET(endpoint);
 };
 
-export const getProductDetails = id => {
+export const getProductDetails = (id) => {
   const endpoint = `products/product/${id}`;
   return GET(endpoint);
 };
 
-export const searchProductTags = string => {
+export const searchProductTags = (string) => {
   const endpoint = `tags/search-tag/${string}`;
   return GET(endpoint);
 };
@@ -43,4 +43,19 @@ export const getAllTags = () => {
 export const getProductByTag = (tags, page) => {
   const endpoint = `products/by-type?size=8&page=${page}`;
   return POST(endpoint, tags);
+};
+
+export const getIsWishlisted = (productId, authToken) => {
+  const endpoint = `favourites/is-favourite/${productId}`;
+  return GET(endpoint, authToken);
+};
+
+export const toggleWishlist = (productId, authToken) => {
+  const endpoint = `favourites/toggle/${productId}`;
+  return POST(endpoint, {}, authToken);
+};
+
+export const getWishlist = (authToken) => {
+  const endpoint = `favourites`;
+  return GET(endpoint, authToken);
 };

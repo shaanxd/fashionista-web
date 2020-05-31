@@ -2,7 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Home, Signin, Signout, Signup, Product, AddTag, AddProduct, Checkout, Orders, Products } from './screens';
+import {
+  Home,
+  Signin,
+  Signout,
+  Signup,
+  Product,
+  AddTag,
+  AddProduct,
+  Checkout,
+  Orders,
+  Products,
+  Wishlist,
+} from './screens';
 import { Toolbar, SideDrawer, Backdrop, Loading, AuthRoute, CartDrawer } from './components';
 import { checkAuthValid } from './actions/auth';
 import { usePrevious } from './utils/useMergedState';
@@ -14,7 +26,7 @@ import styles from './Root.module.css';
 import { getCart, deleteCart } from './actions/cart';
 import { ROLES } from './constants/types';
 
-const Root = props => {
+const Root = (props) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { auth: currentAuth } = props;
@@ -33,7 +45,7 @@ const Root = props => {
   }, [currentAuth, prevAuth, props]);
 
   const drawerToggle = () => {
-    setDrawerOpen(prevDrawerOpen => !prevDrawerOpen);
+    setDrawerOpen((prevDrawerOpen) => !prevDrawerOpen);
   };
 
   const backdropToggle = () => {
@@ -42,7 +54,7 @@ const Root = props => {
   };
 
   const cartToggle = () => {
-    setCartOpen(prevCartOpen => !prevCartOpen);
+    setCartOpen((prevCartOpen) => !prevCartOpen);
   };
 
   const renderLoading = () => {
@@ -53,7 +65,7 @@ const Root = props => {
     return <Loading text="Logging out" />;
   };
 
-  const handleDeleteItem = index => {
+  const handleDeleteItem = (index) => {
     props.deleteCartItem(index);
   };
 
@@ -115,6 +127,9 @@ const Root = props => {
               <Route exact path="/orders">
                 <AuthRoute component={Orders} role={ROLES.ROLE_USER} cartClickHandler={cartToggle} auth={currentAuth} />
               </Route>
+              <Route exact path="/wishlist">
+                <AuthRoute component={Wishlist} role={ROLES.ROLE_USER} auth={currentAuth} />
+              </Route>
             </Switch>
           </main>
         </Router>
@@ -132,11 +147,11 @@ const mapStateToProps = ({ auth, cart: { cart, cartLoading, cartError } }) => {
     logoutLoading: auth.logoutLoading,
     cart,
     cartLoading,
-    cartError
+    cartError,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     checkAuthValid: () => {
       dispatch(checkAuthValid());
@@ -144,9 +159,9 @@ const mapDispatchToProps = dispatch => {
     getCart: () => {
       dispatch(getCart());
     },
-    deleteCartItem: index => {
+    deleteCartItem: (index) => {
       dispatch(deleteCart(index));
-    }
+    },
   };
 };
 

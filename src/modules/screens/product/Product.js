@@ -9,13 +9,13 @@ import cogoToast from 'cogo-toast';
 
 import { Loading, ProductImage, SizePicker, QuantityPicker, AppButton, Glitch, ReviewList } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-import { getProductDetails, addReview, getReview } from '../../api/product';
+import { getProductDetails, addReview, getReview, getIsWishlisted, toggleWishlist } from '../../api/product';
 import Sizes from '../../constants/sizes';
 import { addToCart } from '../../actions/cart';
 
 import styles from './Product.module.css';
 
-const Product = props => {
+const Product = (props) => {
   const [state, setState] = useMergedState({
     product: null,
     productLoading: true,
@@ -26,23 +26,38 @@ const Product = props => {
     addLoading: false,
     addError: null,
 
-    reviewLoading: false
+    reviewLoading: false,
+
+    wishlistLoading: true,
+    wishlisted: false,
   });
 
-  const { product, productLoading, productError, addLoading, addError, addVisible, reviewLoading } = state;
+  const {
+    product,
+    productLoading,
+    productError,
+    addLoading,
+    addError,
+    addVisible,
+    reviewLoading,
+    wishlistLoading,
+    wishlisted,
+  } = state;
+
+  const { auth } = props;
 
   useEffect(() => {
     loadProductDetails();
     //eslint-disable-next-line
   }, []);
 
-  const loadReviews = async value => {
+  const loadReviews = async (value) => {
     try {
       setState({ reviewLoading: true });
       const result = await getReview(product.id, value);
       setState({
         reviewLoading: false,
-        product: { ...product, reviews: { ...result } }
+        product: { ...product, reviews: { ...result } },
       });
     } catch (err) {
       cogoToast.error(err.message, { position: 'bottom-left' });
@@ -50,24 +65,65 @@ const Product = props => {
     }
   };
 
+  const loadWishlistedUnauth = async (value) => {
+    setState({ wishlistLoading: false });
+  };
+
+  const loadWishlistedAuth = async () => {
+    try {
+      const {
+        match: {
+          params: { id },
+        },
+      } = props;
+      setState({ wishlistLoading: true });
+      const { favourited } = await getIsWishlisted(id, auth.token);
+      setState({ wishlisted: favourited, wishlistLoading: false });
+    } catch (err) {
+      cogoToast.error(err.message, { position: 'bottom-left' });
+      setState({ wishlistLoading: false });
+    }
+  };
+
   const loadProductDetails = async () => {
     try {
       const {
         match: {
-          params: { id }
-        }
+          params: { id },
+        },
       } = props;
       if (!productLoading) {
         setState({ productLoading: true, productError: null });
       }
       const result = await getProductDetails(id);
       setState({ product: result, productLoading: false });
+      if (auth) {
+        loadWishlistedAuth();
+      } else {
+        loadWishlistedUnauth();
+      }
     } catch (err) {
       setState({ productLoading: false, productError: err.message });
     }
   };
 
-  const handleOnAddToCart = values => {
+  const handleToggleWishlist = async () => {
+    try {
+      const {
+        match: {
+          params: { id },
+        },
+      } = props;
+      setState({ wishlistLoading: true });
+      const { favourited } = await toggleWishlist(id, auth.token);
+      setState({ wishlisted: favourited, wishlistLoading: false });
+    } catch (err) {
+      cogoToast.error(err.message, { position: 'bottom-left' });
+      setState({ wishlistLoading: false });
+    }
+  };
+
+  const handleOnAddToCart = (values) => {
     if (props.auth) {
       props.addToCart(values);
     } else {
@@ -78,9 +134,9 @@ const Product = props => {
   const toggleAddVisible = () => {
     if (props.auth) {
       if (!addLoading) {
-        setState(prevState => ({
+        setState((prevState) => ({
           ...prevState,
-          addVisible: !prevState.addVisible
+          addVisible: !prevState.addVisible,
         }));
       }
     } else {
@@ -95,7 +151,7 @@ const Product = props => {
       setState({
         addLoading: false,
         addVisible: false,
-        product: { ...result }
+        product: { ...result },
       });
       loadProductDetails();
     } catch (err) {
@@ -142,7 +198,7 @@ const Product = props => {
                   quantity: Yup.number()
                     .typeError('Quantity should be a number')
                     .min(1, 'Quantity should be atleast 1')
-                    .max(5, 'Quantity cannot exceed 5')
+                    .max(5, 'Quantity cannot exceed 5'),
                 })}
                 onSubmit={handleOnAddToCart}
               >
@@ -152,17 +208,24 @@ const Product = props => {
                       <span className={styles.form__label}>Available sizes:</span>
                       <SizePicker options={Sizes} onChange={setFieldValue} />
                       <ErrorMessage name="size">
-                        {message => <label className={styles.form__error}>{message}</label>}
+                        {(message) => <label className={styles.form__error}>{message}</label>}
                       </ErrorMessage>
                       <span className={styles.form__label}>Quantity:</span>
                       <QuantityPicker value={values.quantity} onChange={setFieldValue} />
                       <ErrorMessage name="quantity">
-                        {message => <label className={styles.form__error}>{message}</label>}
+                        {(message) => <label className={styles.form__error}>{message}</label>}
                       </ErrorMessage>
                       <AppButton
                         text="Add to Cart"
                         type="submit"
                         loading={props.addLoading}
+                        containerStyle={{ marginTop: '20px' }}
+                      />
+                      <AppButton
+                        text={wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                        type="button"
+                        onClick={handleToggleWishlist}
+                        loading={wishlistLoading}
                         containerStyle={{ marginTop: '20px' }}
                       />
                       {props.addError && <span className={styles.main__error}>{props.addError}</span>}
@@ -197,11 +260,11 @@ const mapStateToProps = ({ auth: { auth }, cart: { addLoading, addError } }) => 
   return { auth, addLoading, addError };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: cartData => {
+    addToCart: (cartData) => {
       dispatch(addToCart(cartData));
-    }
+    },
   };
 };
 

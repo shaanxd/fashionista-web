@@ -1,5 +1,8 @@
 .main__div {
   min-height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .product__div {

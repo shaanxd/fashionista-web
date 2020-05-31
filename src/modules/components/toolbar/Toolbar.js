@@ -9,7 +9,7 @@ import { logoutUser } from '../../actions/auth';
 import { ROLES } from '../../constants/types';
 import { AiOutlineShopping, AiOutlineUser, AiOutlineMenu } from 'react-icons/ai';
 
-const Toolbar = props => {
+const Toolbar = (props) => {
   const { auth } = props;
 
   const handleLoginClick = () => {
@@ -40,6 +40,10 @@ const Toolbar = props => {
     props.history.push('/add-tag');
   };
 
+  const handleWishlistClick = () => {
+    props.history.push('/wishlist');
+  };
+
   const renderUnauthRoutes = () => {
     return (
       <ul>
@@ -59,6 +63,11 @@ const Toolbar = props => {
 
   const renderUserRoutes = () => (
     <ul>
+      <li>
+        <span className="toolbar__navigation-link" onClick={handleWishlistClick}>
+          Wishlist
+        </span>
+      </li>
       <li>
         <div className="toolbar__cart-button">
           <DrawerToggleButton
@@ -125,15 +134,15 @@ const Toolbar = props => {
 
 const mapStateToProps = ({ auth: { auth } }) => {
   return {
-    auth
+    auth,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => {
       dispatch(logoutUser());
-    }
+    },
   };
 };
 
