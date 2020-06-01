@@ -30,3 +30,4 @@ export { default as ProductCard } from './productCard/ProductCard';
 export { default as SliderButton } from './sliderButton/SliderButton';
 export { default as CategoryItem } from './categoryItem/CategoryItem';
 export { default as TagList } from './tagList/TagList';
+export { default as InquiriesList } from './inquiriesList/InquiriesList';

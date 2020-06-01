@@ -7,7 +7,16 @@ import * as Yup from 'yup';
 import { AiOutlineWarning } from 'react-icons/ai';
 import cogoToast from 'cogo-toast';
 
-import { Loading, ProductImage, SizePicker, QuantityPicker, AppButton, Glitch, ReviewList } from '../../components';
+import {
+  Loading,
+  ProductImage,
+  SizePicker,
+  QuantityPicker,
+  AppButton,
+  Glitch,
+  ReviewList,
+  InquiriesList,
+} from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getProductDetails, addReview, getReview, getIsWishlisted, toggleWishlist } from '../../api/product';
 import Sizes from '../../constants/sizes';
@@ -30,6 +39,13 @@ const Product = (props) => {
 
     wishlistLoading: true,
     wishlisted: false,
+
+    inquiryVisible: false,
+
+    inquiryAddLoading: false,
+    inquiryAddError: null,
+
+    inquiryLoading: false,
   });
 
   const {
@@ -42,6 +58,10 @@ const Product = (props) => {
     reviewLoading,
     wishlistLoading,
     wishlisted,
+    inquiryVisible,
+    inquiryAddLoading,
+    inquiryAddError,
+    inquiryLoading,
   } = state;
 
   const { auth } = props;
@@ -62,6 +82,20 @@ const Product = (props) => {
     } catch (err) {
       cogoToast.error(err.message, { position: 'bottom-left' });
       setState({ reviewLoading: false });
+    }
+  };
+
+  const loadInquiries = async (value) => {
+    try {
+      setState({ inquiryLoading: true });
+      const result = {};
+      setState({
+        inquiryLoading: false,
+        product: { ...product, inquiries: { ...result } },
+      });
+    } catch (err) {
+      cogoToast.error(err.message, { position: 'bottom-left' });
+      setState({ inquiryLoading: false });
     }
   };
 
@@ -144,18 +178,44 @@ const Product = (props) => {
     }
   };
 
+  const toggleInquiryVisible = () => {
+    if (props.auth) {
+      if (!inquiryAddLoading) {
+        setState((prevState) => ({
+          ...prevState,
+          inquiryVisible: !prevState.inquiryVisible,
+        }));
+      }
+    } else {
+      props.history.push('/signin');
+    }
+  };
+
   const handleOnAddReview = async ({ id, ...reviewData }) => {
     try {
       setState({ addLoading: true, addError: null });
-      const result = await addReview(reviewData, id, props.auth.token);
+      await addReview(reviewData, id, props.auth.token);
       setState({
         addLoading: false,
         addVisible: false,
-        product: { ...result },
       });
       loadProductDetails();
     } catch (err) {
       setState({ addLoading: false, addError: err.message });
+    }
+  };
+
+  const handleOnAddInquiry = async ({ id, ...inquiryData }) => {
+    try {
+      setState({ inquiryAddLoading: true, inquiryAddError: null });
+      const result = {};
+      setState({
+        inquiryAddLoading: false,
+        inquiryVisible: false,
+      });
+      loadProductDetails();
+    } catch (err) {
+      setState({ inquiryAddLoading: false, inquiryAddError: err.message });
     }
   };
 
@@ -244,6 +304,15 @@ const Product = (props) => {
             onViewClick={toggleAddVisible}
             onPaginationClick={loadReviews}
             reviewLoading={reviewLoading}
+          />
+          <InquiriesList
+            inquiries={product.inquiries}
+            onViewClick={toggleInquiryVisible}
+            onPaginationClick={loadInquiries}
+            loading={inquiryLoading}
+            error={inquiryAddError}
+            onAddClick={handleOnAddInquiry}
+            visible={inquiryVisible}
           />
         </div>
       </div>
