@@ -5,10 +5,17 @@
   justify-content: center;
 }
 
-.content__div {
+.outer__div {
   display: flex;
   width: 1200px;
-  padding: 10px 0px;
+  flex-direction: column;
+  padding: 20px 10px;
+}
+
+.content__div {
+  display: flex;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 
 .list__div {
@@ -60,7 +67,7 @@
   .list__container {
     flex: 1;
   }
-  .content__div {
+  .outer__div {
     width: 100%;
   }
 }

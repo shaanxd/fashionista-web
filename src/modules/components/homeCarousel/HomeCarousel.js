@@ -7,15 +7,8 @@ import { CAROUSEL_TYPES } from '../../constants/types';
 import './HomeCarousel.css';
 import styles from './HomeCarousel.module.css';
 
-const HomeCarousel = props => {
-  const {
-    items,
-    onItemClick,
-    leftHeader,
-    rightHeader,
-    type,
-    onMoreClick
-  } = props;
+const HomeCarousel = (props) => {
+  const { items, onItemClick, leftHeader, rightHeader, type, onMoreClick } = props;
 
   const miniSettings = {
     infinite: true,
@@ -30,8 +23,8 @@ const HomeCarousel = props => {
           slidesToShow: 2,
           slidesToScroll: 2,
           infinite: true,
-          swipeToSlide: true
-        }
+          swipeToSlide: true,
+        },
       },
       {
         breakpoint: 500,
@@ -39,32 +32,24 @@ const HomeCarousel = props => {
           slidesToScroll: 1,
           slidesToShow: 1,
           infinite: true,
-          swipeToSlide: true
-        }
-      }
+          swipeToSlide: true,
+        },
+      },
     ],
     prevArrow: <SliderButton isPrev />,
-    nextArrow: <SliderButton />
+    nextArrow: <SliderButton />,
   };
 
   const renderProductCarousel = () => {
-    const components = items.map(product => {
-      return (
-        <ProductCard
-          item={product}
-          key={product.id}
-          onProductClick={onItemClick}
-        />
-      );
+    const components = items.map((product) => {
+      return <ProductCard item={product} key={product.id} onProductClick={onItemClick} />;
     });
     return <Slider {...miniSettings}>{components}</Slider>;
   };
 
   const renderBrandCarousel = () => {
-    const components = items.map(tag => {
-      return (
-        <CategoryItem item={tag} key={tag.id} onCategoryClick={onItemClick} />
-      );
+    const components = items.map((tag) => {
+      return <CategoryItem item={tag} key={tag.id} onCategoryClick={onItemClick} />;
     });
     return <Slider {...miniSettings}>{components}</Slider>;
   };
@@ -79,15 +64,8 @@ const HomeCarousel = props => {
         <span className={styles.separator} />
       </div>
       <div className={styles.carousel__div}>
-        {type === CAROUSEL_TYPES.PRODUCT
-          ? renderProductCarousel()
-          : renderBrandCarousel()}
-        <AppButton
-          text="View more"
-          onClick={onMoreClick}
-          type="button"
-          containerStyle={{ marginTop: '40px' }}
-        />
+        {type === CAROUSEL_TYPES.PRODUCT ? renderProductCarousel() : renderBrandCarousel()}
+        <AppButton text="View more" onClick={onMoreClick} type="button" containerStyle={{ marginTop: '40px' }} />
       </div>
     </div>
   );

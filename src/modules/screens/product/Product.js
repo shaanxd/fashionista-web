@@ -18,7 +18,15 @@ import {
   InquiriesList,
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
-import { getProductDetails, addReview, getReview, getIsWishlisted, toggleWishlist } from '../../api/product';
+import {
+  getProductDetails,
+  addReview,
+  getReview,
+  getIsWishlisted,
+  toggleWishlist,
+  getInquiries,
+  addInquiry,
+} from '../../api/product';
 import Sizes from '../../constants/sizes';
 import { addToCart } from '../../actions/cart';
 
@@ -88,7 +96,7 @@ const Product = (props) => {
   const loadInquiries = async (value) => {
     try {
       setState({ inquiryLoading: true });
-      const result = {};
+      const result = await getInquiries(product.id, value);
       setState({
         inquiryLoading: false,
         product: { ...product, inquiries: { ...result } },
@@ -208,7 +216,7 @@ const Product = (props) => {
   const handleOnAddInquiry = async ({ id, ...inquiryData }) => {
     try {
       setState({ inquiryAddLoading: true, inquiryAddError: null });
-      const result = {};
+      await addInquiry(id, inquiryData, props.auth.token);
       setState({
         inquiryAddLoading: false,
         inquiryVisible: false,
@@ -306,7 +314,7 @@ const Product = (props) => {
             reviewLoading={reviewLoading}
           />
           <InquiriesList
-            inquiries={product.inquiries}
+            product={product}
             onViewClick={toggleInquiryVisible}
             onPaginationClick={loadInquiries}
             loading={inquiryLoading}

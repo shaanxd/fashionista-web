@@ -59,3 +59,13 @@ export const getWishlist = (authToken) => {
   const endpoint = `favourites`;
   return GET(endpoint, authToken);
 };
+
+export const addInquiry = (id, inquiryData, authToken) => {
+  const endpoint = `products/add-inquiry/${id}`;
+  return POST(endpoint, inquiryData, authToken);
+};
+
+export const getInquiries = (id, value) => {
+  const endpoint = `products/inquiries/${id}?page=${value}&size=3&sort=updatedAt,desc`;
+  return GET(endpoint);
+};

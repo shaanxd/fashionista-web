@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Loading, Glitch, ProductCard } from '../../components';
+import { Loading, Glitch, ProductCard, PageHeader } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 
 import styles from './Wishlist.module.css';
@@ -59,7 +59,12 @@ const Wishlist = (props) => {
   };
 
   const renderWishlist = () => {
-    return <div className={styles.wishlist__div}>{renderWishlistItems()}</div>;
+    return (
+      <div className={styles.wishlist__div}>
+        <PageHeader text="Your Wishlist" />
+        <div className={styles.list__div}>{renderWishlistItems()}</div>
+      </div>
+    );
   };
 
   return (

@@ -6,18 +6,20 @@
 }
 
 .wishlist__div {
+  max-width: 1200px;
   width: 100%;
-  max-width: 800px;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: auto;
-  flex-direction: row;
-  padding: 10px;
-  padding-bottom: 50px;
+  padding: 20px;
 }
 
 .product__div {
   min-width: 250px;
   flex: 1;
   padding: 10px;
+}
+
+.list__div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding-bottom: 50px;
 }

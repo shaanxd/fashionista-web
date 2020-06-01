@@ -4,8 +4,9 @@ import { Rate, Progress } from 'antd';
 import { AppButton, AddReview, ReviewItem, Pagination } from '..';
 
 import styles from './ReviewList.module.css';
+import PageHeader from '../pageheader/PageHeader';
 
-const ReviewList = props => {
+const ReviewList = (props) => {
   const { product, onAddClick, addLoading, addError, visible, onViewClick, onPaginationClick, reviewLoading } = props;
 
   const hasReviews = product.reviews.reviews.length !== 0;
@@ -80,6 +81,7 @@ const ReviewList = props => {
 
   return (
     <div className={styles.main__div}>
+      <PageHeader text="Product Reviews" />
       <div className={styles.review__div}>
         <div className={styles.overall__div}>
           <div className={styles.summary__div}>

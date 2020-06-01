@@ -14,6 +14,13 @@
   padding: 10px;
 }
 
+.outer__div {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .content__div {
   width: 1200px;
   display: flex;

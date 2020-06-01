@@ -2,39 +2,33 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AiOutlineShopping } from 'react-icons/ai';
 
-import {
-  Pagination,
-  PurchaseItem,
-  Loading,
-  Glitch,
-  OrderDetails
-} from '../../components';
+import { Pagination, PurchaseItem, Loading, Glitch, OrderDetails, PageHeader } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import { getPurchases } from '../../api/cart';
 
 import styles from './Orders.module.css';
 
-const Orders = props => {
+const Orders = (props) => {
   const [state, setState] = useMergedState({
     purchases: {
       total: 0,
       current: 0,
-      purchases: []
+      purchases: [],
     },
     purchasesLoading: true,
     purchasesError: null,
 
-    selectedOrder: null
+    selectedOrder: null,
   });
 
   const {
     purchasesLoading,
     purchases: { current, purchases, total },
     selectedOrder,
-    purchasesError
+    purchasesError,
   } = state;
   const {
-    auth: { token }
+    auth: { token },
   } = props;
 
   useEffect(() => {
@@ -42,13 +36,13 @@ const Orders = props => {
     //eslint-disable-next-line
   }, []);
 
-  const setSelectedOrder = order => {
+  const setSelectedOrder = (order) => {
     setState({
-      selectedOrder: { ...order }
+      selectedOrder: { ...order },
     });
   };
 
-  const loadPurchases = async value => {
+  const loadPurchases = async (value) => {
     try {
       if (!purchasesLoading) {
         setState({ purchasesLoading: true, purchasesError: null });
@@ -57,10 +51,9 @@ const Orders = props => {
       setState({
         purchasesLoading: false,
         purchases: {
-          ...result
+          ...result,
         },
-        selectedOrder:
-          result.purchases.length > 0 ? { ...result.purchases[0] } : null
+        selectedOrder: result.purchases.length > 0 ? { ...result.purchases[0] } : null,
       });
     } catch (err) {
       setState({ purchasesLoading: false, purchasesError: err.message });
@@ -68,7 +61,7 @@ const Orders = props => {
   };
 
   const renderPurchases = () => {
-    const items = purchases.map(purchase => {
+    const items = purchases.map((purchase) => {
       return (
         <PurchaseItem
           key={purchase.id}
@@ -105,26 +98,24 @@ const Orders = props => {
     renderError()
   ) : hasPurchases ? (
     <div className={styles.main__div}>
-      <div className={styles.content__div}>
-        <div className={styles.list__div}>
-          <div className={styles.list__container}>{renderPurchases()}</div>
-          <Pagination
-            current={current}
-            total={total}
-            onPaginationClick={loadPurchases}
-            loading={purchasesLoading}
-          />
-        </div>
-        <div className={styles.separator__div} />
-        <div className={styles.items__div}>
-          {selectedOrder ? (
-            <OrderDetails item={selectedOrder} />
-          ) : (
-            <div className={styles.empty__div}>
-              <AiOutlineShopping size={30} />
-              <span className={styles.empty__text}>Select an Order</span>
-            </div>
-          )}
+      <div className={styles.outer__div}>
+        <PageHeader text="Your Orders" />
+        <div className={styles.content__div}>
+          <div className={styles.list__div}>
+            <div className={styles.list__container}>{renderPurchases()}</div>
+            <Pagination current={current} total={total} onPaginationClick={loadPurchases} loading={purchasesLoading} />
+          </div>
+          <div className={styles.separator__div} />
+          <div className={styles.items__div}>
+            {selectedOrder ? (
+              <OrderDetails item={selectedOrder} />
+            ) : (
+              <div className={styles.empty__div}>
+                <AiOutlineShopping size={30} />
+                <span className={styles.empty__text}>Select an Order</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -140,6 +131,6 @@ const mapStateToProps = ({ auth: { auth } }) => {
   return { auth };
 };
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

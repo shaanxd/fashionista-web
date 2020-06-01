@@ -31,3 +31,5 @@ export { default as SliderButton } from './sliderButton/SliderButton';
 export { default as CategoryItem } from './categoryItem/CategoryItem';
 export { default as TagList } from './tagList/TagList';
 export { default as InquiriesList } from './inquiriesList/InquiriesList';
+export { default as AddInquiry } from './addInquiry/AddInquiry';
+export { default as PageHeader } from './pageheader/PageHeader';
