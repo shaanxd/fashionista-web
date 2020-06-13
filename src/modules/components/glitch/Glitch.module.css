@@ -9,6 +9,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   padding: 10px;
+  flex: 1;
 }
 
 .button__container {

@@ -1,23 +1,32 @@
 .main__div {
-  width: 100%;
-  border-top: 1px solid #d2d2d2;
-  padding: 10px;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.list__div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+.outer__div {
+  width: 100%;
+  max-width: 1200px;
+  padding: 30px;
 }
 
 .list__item {
   width: 100%;
   border-bottom: 1px solid #d2d2d2;
+  min-height: 100px;
   padding: 15px;
+  display: flex;
 }
 
-.inquiry__list__item {
+.list__outer {
+  flex: 1;
+}
+
+.button__container {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile__header {
@@ -70,4 +79,17 @@
 
 .description {
   font-size: 0.7rem;
+}
+
+.empty__list {
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.empty__list > span {
+  margin-top: 10px;
+  letter-spacing: 1.5px;
 }

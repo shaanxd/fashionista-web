@@ -9,3 +9,4 @@ export { default as Checkout } from './checkout/Checkout';
 export { default as Orders } from './orders/Orders';
 export { default as Products } from './products/Products';
 export { default as Wishlist } from './wishlist/Wishlist';
+export { default as Inquiries } from './inquiries/Inquiries';

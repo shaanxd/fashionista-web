@@ -15,7 +15,7 @@ import { createProduct } from '../../api/admin';
 
 import styles from './AddProduct.module.css';
 
-const AddProduct = props => {
+const AddProduct = (props) => {
   const [state, setState] = useMergedState({
     thumbnail: null,
     thumbnailError: null,
@@ -26,7 +26,7 @@ const AddProduct = props => {
 
     productLoading: false,
     productError: null,
-    productSuccess: false
+    productSuccess: false,
   });
 
   const {
@@ -39,7 +39,7 @@ const AddProduct = props => {
 
     productLoading,
     productError,
-    productSuccess
+    productSuccess,
   } = state;
 
   useEffect(
@@ -68,13 +68,13 @@ const AddProduct = props => {
     } else {
       try {
         setState({ productLoading: true, productError: null });
-        const productTags = tags.map(tag => tag.value);
-        const productImages = images.map(image => image.file);
+        const productTags = tags.map((tag) => tag.value);
+        const productImages = images.map((image) => image.file);
         const productData = {
           ...values,
           thumbnail,
           images: productImages,
-          tags: productTags
+          tags: productTags,
         };
         await createProduct(productData, props.token);
         setState({ productLoading: false, productSuccess: true });
@@ -87,61 +87,55 @@ const AddProduct = props => {
     }
   };
 
-  const onThumbnailDrop = acceptedFiles => {
+  const onThumbnailDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
       setState({
         thumbnail: acceptedFiles[0],
         thumbnailError: null,
-        thumbnailPreview: URL.createObjectURL(acceptedFiles[0])
+        thumbnailPreview: URL.createObjectURL(acceptedFiles[0]),
       });
     }
   };
 
-  const onImagesDrop = acceptedFiles => {
-    const withPrev = acceptedFiles.map(file => {
+  const onImagesDrop = (acceptedFiles) => {
+    const withPrev = acceptedFiles.map((file) => {
       return {
         file,
-        preview: URL.createObjectURL(file)
+        preview: URL.createObjectURL(file),
       };
     });
     setState({
       images: [...images, ...withPrev],
-      imagesError: null
+      imagesError: null,
     });
   };
 
-  const {
-    getRootProps: getThumbRootProps,
-    getInputProps: getThumbInputProps
-  } = useDropzone({
+  const { getRootProps: getThumbRootProps, getInputProps: getThumbInputProps } = useDropzone({
     multiple: false,
     accept: 'image/jpeg',
     onDrop: onThumbnailDrop,
-    disabled: productLoading
+    disabled: productLoading,
   });
 
-  const {
-    getRootProps: getImagesRootProps,
-    getInputProps: getImagesInputProps
-  } = useDropzone({
+  const { getRootProps: getImagesRootProps, getInputProps: getImagesInputProps } = useDropzone({
     multiple: true,
     accept: 'image/jpeg',
     onDrop: onImagesDrop,
-    disabled: productLoading
+    disabled: productLoading,
   });
 
-  const removeImage = index => {
+  const removeImage = (index) => {
     const updated = images.filter((_, i) => i !== index);
     setState({ images: [...updated] });
   };
 
-  const loadOptions = async inputValue => {
+  const loadOptions = async (inputValue) => {
     try {
       const result = await searchProductTags(inputValue);
       return result.map(({ id, name }) => {
         return {
           value: id,
-          label: name
+          label: name,
         };
       });
     } catch (err) {
@@ -153,9 +147,7 @@ const AddProduct = props => {
     return (
       <div className={styles.success__div}>
         <IoIosCheckmarkCircleOutline color="#50C878" size="50px" />
-        <span className={styles.success__msg}>
-          Product Added Successfully! Redirecting.
-        </span>
+        <span className={styles.success__msg}>Product Added Successfully! Redirecting.</span>
       </div>
     );
   };
@@ -164,16 +156,8 @@ const AddProduct = props => {
     const itemsToRender = images.map((image, index) => {
       return (
         <div className={styles.image__div} key={image.preview}>
-          <img
-            src={image.preview}
-            alt="product"
-            className={styles.list__image}
-          />
-          <button
-            type="button"
-            className={styles.delete__btn}
-            onClick={() => removeImage(index)}
-          >
+          <img src={image.preview} alt="product" className={styles.list__image} />
+          <button type="button" className={styles.delete__btn} onClick={() => removeImage(index)}>
             <AiOutlineDelete color="#FFFFFF" size="30px" />
           </button>
         </div>
@@ -191,7 +175,7 @@ const AddProduct = props => {
             stock: 0,
             name: '',
             description: '',
-            tags: []
+            tags: [],
           }}
           onSubmit={handleOnSubmit}
           validationSchema={Yup.object().shape({
@@ -199,17 +183,13 @@ const AddProduct = props => {
               .typeError('Price must be a number')
               .required('Price is required')
               .positive('Price must be more than zero'),
-            stock: Yup.number()
-              .typeError('Stock must be a number')
-              .positive('Stock must be more than zero'),
+            stock: Yup.number().typeError('Stock must be a number').positive('Stock must be more than zero'),
             name: Yup.string().required('Product name is required'),
-            description: Yup.string().required(
-              'Product description is required'
-            ),
+            description: Yup.string().required('Product description is required'),
             tags: Yup.array()
               .nullable()
               .required('Product should belong to atleast two tags.')
-              .min(2, 'Product should belong to atleast two tags.')
+              .min(2, 'Product should belong to atleast two tags.'),
           })}
         >
           {({ setFieldValue, setFieldTouched }) => {
@@ -223,7 +203,7 @@ const AddProduct = props => {
                   cacheOptions
                   isClearable
                   loadOptions={loadOptions}
-                  onChange={values => {
+                  onChange={(values) => {
                     setFieldValue('tags', values);
                   }}
                   onBlur={() => {
@@ -232,9 +212,7 @@ const AddProduct = props => {
                   isDisabled={productLoading}
                 />
                 <ErrorMessage name="tags">
-                  {message => (
-                    <label className={styles.form__error}>{message}</label>
-                  )}
+                  {(message) => <label className={styles.form__error}>{message}</label>}
                 </ErrorMessage>
                 <AppInput
                   type="text"
@@ -251,63 +229,35 @@ const AddProduct = props => {
                   component="textarea"
                   style={{ maxHeight: '100px', minHeight: '100px' }}
                 />
-                <AppInput
-                  type="text"
-                  name="price"
-                  placeholder="Product price"
-                  loading={productLoading}
-                />
-                <AppInput
-                  type="text"
-                  name="stock"
-                  placeholder="Product stock"
-                  loading={productLoading}
-                />
+                <AppInput type="text" name="price" placeholder="Product price" loading={productLoading} />
+                <AppInput type="text" name="stock" placeholder="Product stock" loading={productLoading} />
                 {thumbnail ? (
                   <div className={styles.thumbnail__div}>
-                    <img
-                      src={thumbnailPreview}
-                      className={styles.image}
-                      alt="Selected"
-                    />
-                    <button
-                      type="button"
-                      className={styles.delete__btn}
-                      onClick={handleOnRemove}
-                    >
+                    <img src={thumbnailPreview} className={styles.image} alt="Selected" />
+                    <button type="button" className={styles.delete__btn} onClick={handleOnRemove}>
                       <AiOutlineDelete color="#FFFFFF" size="50px" />
                     </button>
                   </div>
                 ) : (
                   <div {...getThumbRootProps({ className: styles.dropzone })}>
                     <input {...getThumbInputProps()} />
-                    <p className={styles.dropzone__text}>
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
+                    <p className={styles.dropzone__text}>Drag 'n' drop some files here, or click to select files</p>
                   </div>
                 )}
-                {thumbnailError && (
-                  <label className={styles.form__error}>{thumbnailError}</label>
-                )}
+                {thumbnailError && <label className={styles.form__error}>{thumbnailError}</label>}
                 <div {...getImagesRootProps({ className: styles.dropzone })}>
                   <input {...getImagesInputProps()} />
-                  <p className={styles.dropzone__text}>
-                    Drag 'n' drop some files here, or click to select files
-                  </p>
+                  <p className={styles.dropzone__text}>Drag 'n' drop some files here, or click to select files</p>
                 </div>
-                {imagesError && (
-                  <label className={styles.form__error}>{imagesError}</label>
-                )}
+                {imagesError && <label className={styles.form__error}>{imagesError}</label>}
                 {images.length > 0 && renderImageList()}
                 <AppButton
                   type="submit"
-                  text="Add Tag"
+                  text="Add Product"
                   loading={productLoading}
                   containerStyle={{ marginTop: '10px' }}
                 />
-                {productError && (
-                  <label className={styles.main__error}>{productError}</label>
-                )}
+                {productError && <label className={styles.main__error}>{productError}</label>}
               </Form>
             );
           }}
@@ -319,14 +269,12 @@ const AddProduct = props => {
 
 const mapStateToProps = ({ auth: { auth } }) => {
   return {
-    token: auth.token
+    token: auth.token,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(AddProduct)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddProduct));

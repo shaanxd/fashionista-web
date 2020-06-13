@@ -33,3 +33,4 @@ export { default as TagList } from './tagList/TagList';
 export { default as InquiriesList } from './inquiriesList/InquiriesList';
 export { default as AddInquiry } from './addInquiry/AddInquiry';
 export { default as PageHeader } from './pageheader/PageHeader';
+export { default as AddReply } from './addReply/AddReply';

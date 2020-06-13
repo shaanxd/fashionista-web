@@ -16,6 +16,7 @@ import {
   Glitch,
   ReviewList,
   InquiriesList,
+  PageHeader,
 } from '../../components';
 import { useMergedState } from '../../utils/useMergedState';
 import {
@@ -244,7 +245,7 @@ const Product = (props) => {
           <div className={styles.content__div}>
             <ProductImage images={images} />
             <div className={styles.product__content}>
-              <span className={styles.product__name}>{product.name}</span>
+              <PageHeader text={product.name} />
               <span className={styles.product__price}>{`$ ${product.price.toFixed(2)}`}</span>
               <div className={styles.rating__div}>
                 <Rate

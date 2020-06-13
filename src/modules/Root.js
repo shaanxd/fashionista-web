@@ -14,6 +14,7 @@ import {
   Orders,
   Products,
   Wishlist,
+  Inquiries,
 } from './screens';
 import { Toolbar, SideDrawer, Backdrop, Loading, AuthRoute, CartDrawer } from './components';
 import { checkAuthValid } from './actions/auth';
@@ -129,6 +130,9 @@ const Root = (props) => {
               </Route>
               <Route exact path="/wishlist">
                 <AuthRoute component={Wishlist} role={ROLES.ROLE_USER} auth={currentAuth} />
+              </Route>
+              <Route exact path="/inquiries">
+                <AuthRoute component={Inquiries} role={ROLES.ROLE_ADMIN} auth={currentAuth} />
               </Route>
             </Switch>
           </main>

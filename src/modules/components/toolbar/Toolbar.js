@@ -44,6 +44,10 @@ const Toolbar = (props) => {
     props.history.push('/wishlist');
   };
 
+  const handleInquiriesClick = () => {
+    props.history.push('/inquiries');
+  };
+
   const renderUnauthRoutes = () => {
     return (
       <ul>
@@ -94,6 +98,9 @@ const Toolbar = (props) => {
   const renderAdminRoutes = () => (
     <ul>
       <li>
+        <span className="toolbar__navigation-link" onClick={handleInquiriesClick}>
+          Inquiries
+        </span>
         <span className="toolbar__navigation-link" onClick={handleAddProductClick}>
           Add Product
         </span>
