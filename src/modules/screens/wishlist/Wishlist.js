@@ -1,18 +1,21 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Loading, Glitch, ProductCard, PageHeader } from '../../components';
-import { useMergedState } from '../../utils/useMergedState';
+import { GrFavorite } from 'react-icons/gr';
 
-import styles from './Wishlist.module.css';
-import { getWishlist } from '../../api/product';
 import { useEffect } from 'react';
 
-const Wishlist = (props) => {
+import { useMergedState } from '../../utils/useMergedState';
+import { getWishlist } from '../../api/product';
+import { Loading, Glitch, ProductCard, PageHeader } from '../../components';
+
+import styles from './Wishlist.module.css';
+
+const Wishlist = props => {
   const [state, setState] = useMergedState({
     loading: true,
     error: null,
-    products: [],
+    products: []
   });
 
   const { loading, error, products } = state;
@@ -44,12 +47,12 @@ const Wishlist = (props) => {
     return <Loading text="Loading Wishlist" />;
   };
 
-  const handleProductClick = (id) => {
+  const handleProductClick = id => {
     props.history.push(`/product/${id}`);
   };
 
   const renderWishlistItems = () => {
-    return products.map((product) => {
+    return products.map(product => {
       return (
         <div className={styles.product__div}>
           <ProductCard item={product} onProductClick={handleProductClick} />
@@ -58,30 +61,47 @@ const Wishlist = (props) => {
     });
   };
 
+  const renderWishlistEmpty = () => {
+    return (
+      <div className={styles.empty__div}>
+        <GrFavorite size={30} />
+        <span>Your Wishlist is Empty!</span>
+      </div>
+    );
+  };
+
   const renderWishlist = () => {
     return (
       <div className={styles.wishlist__div}>
         <PageHeader text="Your Wishlist" />
-        <div className={styles.list__div}>{renderWishlistItems()}</div>
+        <div className={styles.list__div}>
+          {products.length === 0
+            ? renderWishlistEmpty()
+            : renderWishlistItems()}
+        </div>
       </div>
     );
   };
 
   return (
-    <div className={styles.main__div}>{loading ? renderLoading() : error ? renderGlitch() : renderWishlist()}</div>
+    <div className={styles.main__div}>
+      {loading ? renderLoading() : error ? renderGlitch() : renderWishlist()}
+    </div>
   );
 };
 
 const mapStateToProps = ({
   auth: {
-    auth: { token },
-  },
+    auth: { token }
+  }
 }) => {
   return { token };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wishlist));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Wishlist)
+);

@@ -11,7 +11,7 @@ const CategoryItem = props => {
   } = props;
 
   const handleCategoryClick = () => {
-    onCategoryClick({ id, type });
+    onCategoryClick({ id, type, name });
   };
 
   return (

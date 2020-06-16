@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UserHome from '../userHome/UserHome';
-import AdminHome from '../adminHome/AdminHome';
+import Products from '../products/Products';
 import { ROLES } from '../../constants/types';
 
 const AuthHome = props => {
   return props.auth && props.auth.role === ROLES.ROLE_ADMIN ? (
-    <AdminHome />
+    <Products />
   ) : (
     <UserHome />
   );

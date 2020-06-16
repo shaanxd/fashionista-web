@@ -5,24 +5,30 @@ import styles from './Inquiries.module.css';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { useMergedState } from '../../utils/useMergedState';
-import { Loading, Glitch, PageHeader, Pagination, AppButton, AddReply } from '../../components';
+import {
+  Loading,
+  Glitch,
+  PageHeader,
+  Pagination,
+  AppButton,
+  AddReply
+} from '../../components';
 import { getAllInquiries, addReply } from '../../api/admin';
 import { useEffect } from 'react';
-import { getImageUrl } from '../../utils/productUtils';
 import { AiOutlineShopping } from 'react-icons/ai';
 
-const Inquiries = (props) => {
+const Inquiries = props => {
   const [state, setState] = useMergedState({
     loading: true,
     error: null,
     inquiries: {
       current: 0,
       total: 0,
-      inquiries: [],
+      inquiries: []
     },
     selected: null,
     replyLoading: false,
-    replyError: null,
+    replyError: null
   });
 
   const {
@@ -31,7 +37,7 @@ const Inquiries = (props) => {
     inquiries: { current, total, inquiries },
     selected,
     replyLoading,
-    replyError,
+    replyError
   } = state;
   const { token } = props;
 
@@ -42,7 +48,7 @@ const Inquiries = (props) => {
     []
   );
 
-  const getInquiriesFromApi = async (value) => {
+  const getInquiriesFromApi = async value => {
     try {
       setState({ loading: true, error: null });
       const result = await getAllInquiries(token, value);
@@ -52,8 +58,8 @@ const Inquiries = (props) => {
     }
   };
 
-  const getUpdatedInquiries = (inquiry) => {
-    const index = inquiries.findIndex((element) => element.id === inquiry.id);
+  const getUpdatedInquiries = inquiry => {
+    const index = inquiries.findIndex(element => element.id === inquiry.id);
     let updated = [...inquiries];
 
     if (index > -1) {
@@ -71,7 +77,7 @@ const Inquiries = (props) => {
       setState({
         replyLoading: false,
         inquiries: { ...state.inquiries, inquiries: [...updated] },
-        selected: { ...result },
+        selected: { ...result }
       });
     } catch (err) {
       setState({ replyLoading: false, replyError: err.message });
@@ -93,19 +99,19 @@ const Inquiries = (props) => {
     );
   };
 
-  const onViewInquiry = (inquiry) => {
+  const onViewInquiry = inquiry => {
     setState({ selected: inquiry ? { ...inquiry } : null });
   };
 
   const renderInquiriesList = () => {
-    return inquiries.map((inquiry) => {
+    return inquiries.map(inquiry => {
       const {
         id,
         owner: { fullName },
         inquiryDate,
         title,
         description,
-        product: { name },
+        product: { name }
       } = inquiry;
       return (
         <div className={styles.list__item} key={id}>
@@ -118,7 +124,9 @@ const Inquiries = (props) => {
                 <span className={styles.user__name}>
                   {fullName} on {name}
                 </span>
-                <span className={styles.posted__date}>{Moment(inquiryDate).fromNow()}</span>
+                <span className={styles.posted__date}>
+                  {Moment(inquiryDate).fromNow()}
+                </span>
               </div>
             </div>
             <div className={styles.details__container}>
@@ -154,7 +162,12 @@ const Inquiries = (props) => {
         <PageHeader text="All Inquiries" />
         {inquiries.length > 0 ? renderInquiriesList() : renderEmptyList()}
         {inquiries.length > 0 && (
-          <Pagination current={current} total={total} onPaginationClick={getInquiriesFromApi} loading={loading} />
+          <Pagination
+            current={current}
+            total={total}
+            onPaginationClick={getInquiriesFromApi}
+            loading={loading}
+          />
         )}
         {selected && (
           <AddReply
@@ -170,20 +183,24 @@ const Inquiries = (props) => {
   };
 
   return (
-    <div className={styles.main__div}>{loading ? renderLoading() : error ? renderGlitch() : renderInquiries()}</div>
+    <div className={styles.main__div}>
+      {loading ? renderLoading() : error ? renderGlitch() : renderInquiries()}
+    </div>
   );
 };
 
 const mapStateToProps = ({
   auth: {
-    auth: { token },
-  },
+    auth: { token }
+  }
 }) => {
   return { token };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Inquiries));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Inquiries)
+);

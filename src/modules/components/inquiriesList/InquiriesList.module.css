@@ -16,6 +16,47 @@
   padding: 15px;
 }
 
+.reply__item {
+  width: 100%;
+  border-left: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 10px 15px;
+}
+
+.reply__item__last {
+  width: 100%;
+  border-left: 1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 10px;
+}
+
+.empty__div {
+  min-height: 100px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty__div > span {
+  display: block;
+  text-align: center;
+}
+
+.reply__title {
+  padding: 10px;
+  display: block;
+  border-bottom: 1px solid #d2d2d2;
+  font-size: 0.8rem;
+  letter-spacing: 0.8px;
+}
+
+.replies__list {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
 .inquiry__list__item {
   display: flex;
 }
